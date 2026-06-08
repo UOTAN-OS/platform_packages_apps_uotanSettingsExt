@@ -21,6 +21,8 @@
     <string name="settings_ext_category_privacy">隐私</string>
     <string name="settings_ext_category_popup">Pop-Up View</string>
     <string name="settings_ext_category_smart_suggestions">智能建议</string>
+    <string name="settings_ext_app_jump_title">应用跳转权限</string>
+    <string name="settings_ext_app_jump_summary">管理应用如何打开其他应用，以及它们如何被其他应用打开</string>
     <string name="settings_ext_popup_title">Pop-Up View</string>
     <string name="settings_ext_popup_summary">集中管理快捷菜单应用、手势、通知入口与 Pop-Up View 行为</string>
     <string name="settings_ext_smart_suggestions_title">智能建议</string>
@@ -168,4 +170,131 @@
     <string name="app_picker_title">选择应用</string>
     <string name="app_picker_replace_hint">点击其他应用以替换，在上一页中关闭此建议</string>
 
+    <string name="lyric_settings_title">状态栏歌词</string>
+    <string name="lyric_settings_section_behavior">行为</string>
+    <string name="lyric_settings_section_apps">应用</string>
+    <string name="lyric_position_title">显示位置</string>
+    <string name="lyric_position_entry_overlay">替换左侧状态栏内容</string>
+    <string name="lyric_position_entry_clock_right">显示在时钟右侧</string>
+    <string name="lyric_position_summary_overlay">显示在状态栏左侧区域</string>
+    <string name="lyric_position_summary_clock_right">显示在时钟右侧</string>
+    <string name="lyric_show_translation_title">显示翻译</string>
+    <string name="lyric_show_translation_summary">有翻译歌词时一并显示</string>
+    <string name="lyric_hide_icon_clock_right_title">隐藏音乐应用图标</string>
+    <string name="lyric_hide_icon_clock_right_summary">在时钟右侧显示歌词时隐藏音乐应用图标</string>
+    <string name="lyric_notification_listener_title">通知使用权限</string>
+    <string name="lyric_notification_listener_summary_on">已允许</string>
+    <string name="lyric_notification_listener_summary_off">点击前往授权</string>
+    <string name="lyric_whitelist_title">白名单应用</string>
+    <string name="lyric_whitelist_summary_empty">所有应用</string>
+    <string name="lyric_whitelisted_apps">白名单应用</string>
+
+    <string name="app_jump_settings_title">应用跳转权限</string>
+    <string name="app_jump_detail_title">应用跳转权限</string>
+    <string name="app_jump_all_apps_title">所有应用</string>
+    <string name="app_jump_all_apps_summary">查看全部 %1$d 个应用，最近打开的应用会排在最前面。</string>
+    <string name="app_jump_all_apps_summary_fallback">查看全部应用，最近打开的应用会排在最前面。</string>
+    <string name="app_jump_section_outgoing">打开其他应用</string>
+    <string name="app_jump_section_incoming">被其他应用打开</string>
+    <string name="app_jump_show_system_apps_title">显示系统应用</string>
+    <string name="app_jump_hide_system_apps_title">隐藏系统应用</string>
+    <string name="app_jump_show_system_apps_summary">在应用跳转列表和规则页面中包含系统应用</string>
+    <string name="app_jump_category_source_always_allow_title">默认允许</string>
+    <string name="app_jump_category_source_always_allow_summary">除非存在单独的配对覆盖规则，否则此应用可直接打开其他应用</string>
+    <string name="app_jump_category_source_always_block_title">默认禁止</string>
+    <string name="app_jump_category_source_always_block_summary">除非存在单独的配对覆盖规则，否则此应用打开其他应用时会被拦截</string>
+    <string name="app_jump_category_source_ask_title">每次询问</string>
+    <string name="app_jump_category_source_ask_summary">除非存在单独的配对覆盖规则，否则此应用打开其他应用前会先询问</string>
+    <string name="app_jump_category_target_always_allow_title">默认允许</string>
+    <string name="app_jump_category_target_always_allow_summary">除非存在单独的配对覆盖规则，否则其他应用可直接打开此应用</string>
+    <string name="app_jump_category_target_ask_title">每次询问</string>
+    <string name="app_jump_category_target_ask_summary">除非存在单独的配对覆盖规则，否则其他应用打开此应用前会先询问</string>
+    <string name="app_jump_category_target_always_block_title">默认禁止</string>
+    <string name="app_jump_category_target_always_block_summary">除非存在单独的配对覆盖规则，否则其他应用无法打开此应用</string>
+    <string name="app_jump_category_count_summary">%1$d / %2$d 个应用</string>
+    <string name="app_jump_category_apps_title">应用</string>
+    <string name="app_jump_category_empty">此分类下暂无应用</string>
+    <string name="app_jump_detail_header_title">当前应用</string>
+    <string name="app_jump_detail_always_allow_summary">允许此应用直接打开其他应用</string>
+    <string name="app_jump_detail_ask_summary">此应用打开其他应用前先询问</string>
+    <string name="app_jump_detail_always_block_summary">此应用尝试打开其他应用时一律阻止</string>
+    <string name="app_jump_detail_target_allow_summary">除非存在单独的配对覆盖规则，否则允许其他应用直接打开此应用</string>
+    <string name="app_jump_detail_target_ask_summary">除非存在单独的配对覆盖规则，否则其他应用打开此应用前先询问</string>
+    <string name="app_jump_detail_target_block_summary">除非存在单独的配对覆盖规则，否则阻止其他应用打开此应用</string>
+    <string name="app_jump_detail_source_rules_title">指定来源应用规则</string>
+    <string name="app_jump_detail_source_rules_summary">为指定来源应用打开此应用时设置单独的覆盖规则</string>
+    <string name="app_jump_detail_target_rules_title">指定目标应用规则</string>
+    <string name="app_jump_detail_target_rules_summary">为此应用打开指定目标应用时设置单独的覆盖规则</string>
+    <string name="app_jump_source_rules_title">来源应用规则</string>
+    <string name="app_jump_source_rules_empty">暂无可配置的来源应用</string>
+    <string name="app_jump_target_rules_title">目标应用规则</string>
+    <string name="app_jump_target_rules_empty">暂无可配置的目标应用</string>
+    <string name="app_jump_target_rule_detail_title">应用配对规则</string>
+    <string name="app_jump_target_rule_header_title">被打开的应用</string>
+    <string name="app_jump_pair_mode_inherit_title">保持默认</string>
+    <string name="app_jump_pair_mode_inherit_summary">遵循来源应用默认规则与目标应用默认规则的组合结果</string>
+    <string name="app_jump_pair_mode_inherit_effective_summary">使用默认规则，当前结果：%1$s</string>
+    <string name="app_jump_pair_mode_allow_title">始终允许</string>
+    <string name="app_jump_pair_mode_ask_title">每次询问</string>
+    <string name="app_jump_pair_mode_block_title">始终禁止</string>
+    <string name="app_jump_target_rule_allow_summary">允许所选来源应用直接打开此应用</string>
+    <string name="app_jump_target_rule_ask_summary">所选来源应用打开此应用前先询问</string>
+    <string name="app_jump_target_rule_block_summary">阻止所选来源应用打开此应用</string>
+    <string name="app_jump_target_rule_inherit_summary">不为这组来源与目标单独保存覆盖规则</string>
+    <string name="app_jump_target_rule_footer">此规则仅在“%1$s”打开此应用时生效。</string>
+    <string name="app_jump_mode_allow_summary">始终允许</string>
+    <string name="app_jump_mode_ask_summary">每次询问</string>
+    <string name="app_jump_mode_block_summary">始终禁止</string>
+    <string name="app_jump_search_title">搜索应用</string>
+    <string name="app_jump_search_empty">没有匹配的应用</string>
+    <string name="app_jump_system_app_warning">警告：更改系统应用的跳转规则可能导致严重 bug 或系统不稳定。</string>
+    <string name="app_jump_settings_footer">您可以随时在这里更改应用跳转权限。规则按用户或工作资料分别生效。</string>
+    <string name="app_jump_load_failed">无法加载应用跳转设置</string>
+    <string name="app_jump_update_failed">无法更新应用跳转设置项</string>
+
+    <string name="key_attestation_settings_title">伪装设置</string>
+    <string name="keybox_data_title">导入 Keybox XML</string>
+    <string name="keybox_data_summary">导入 keybox。点击删除可恢复默认。</string>
+    <string name="pif_data_title">导入 pif.json</string>
+    <string name="pif_data_summary">导入用于欺骗 GMS 和 Play 商店属性的 pif.json。点击删除可恢复为动态默认值。</string>
+    <string name="key_attestation_delete_button">删除导入数据</string>
+    <string name="key_attestation_xml_cleared">已清除导入的 Keybox XML</string>
+    <string name="key_attestation_json_cleared">已清除导入的 pif.json</string>
+    <string name="key_attestation_invalid_file">选择的文件无效</string>
+    <string name="key_attestation_invalid_xml">XML 无效：缺少必需数据</string>
+    <string name="key_attestation_xml_loaded">Keybox XML 已导入</string>
+    <string name="key_attestation_json_loaded">pif.json 已导入</string>
+    <string name="key_attestation_xml_read_failed">读取 Keybox XML 失败</string>
+    <string name="key_attestation_json_read_failed">读取 pif.json 失败</string>
+    <string name="key_attestation_status_imported">Status: Imported custom data</string>
+    <string name="key_attestation_status_unparsed">Status: Some fields could not be parsed</string>
+    <string name="key_attestation_unknown">Unknown</string>
+    <string name="key_attestation_keybox_footer_empty">Status: Using built-in defaults</string>
+    <string name="key_attestation_pif_footer_empty">Status: Using dynamic defaults</string>
+    <string name="key_attestation_keybox_algorithm_ecdsa">ECDSA</string>
+    <string name="key_attestation_keybox_algorithm_rsa">RSA</string>
+    <string name="key_attestation_keybox_algorithm_missing">missing</string>
+    <string name="key_attestation_keybox_algorithms_value">Algorithms: %1$s, %2$s</string>
+    <string name="key_attestation_keybox_cert_counts_value">Certificates: ECDSA %1$d, RSA %2$d</string>
+    <string name="key_attestation_keybox_subject_value">Leaf subject: %1$s</string>
+    <string name="key_attestation_keybox_issuer_value">Leaf issuer: %1$s</string>
+    <string name="key_attestation_keybox_validity_value">Validity: %1$s to %2$s</string>
+    <string name="key_attestation_pif_brand_value">Brand: %1$s</string>
+    <string name="key_attestation_pif_model_value">Model: %1$s</string>
+    <string name="key_attestation_pif_device_value">Device: %1$s</string>
+    <string name="key_attestation_pif_security_patch_value">Security patch: %1$s</string>
+    <string name="key_attestation_pif_fingerprint_value">Fingerprint: %1$s</string>
+
+    <string-array name="lyric_position_entries">
+        <item>@string/lyric_position_entry_overlay</item>
+        <item>@string/lyric_position_entry_clock_right</item>
+    </string-array>
+    <string-array name="lyric_position_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <plurals name="lyric_whitelist_summary_count">
+        <item quantity="other">已选择 %d 个应用</item>
+    </plurals>
 </resources>

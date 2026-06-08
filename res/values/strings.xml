@@ -21,10 +21,24 @@
     <string name="settings_ext_category_privacy">Privacy</string>
     <string name="settings_ext_category_popup">Pop-Up View</string>
     <string name="settings_ext_category_smart_suggestions">Smart Suggestions</string>
+    <string name="settings_ext_category_launcher">Launcher</string>
+    <string name="settings_ext_category_lyric">Status Bar</string>
+    <string name="settings_ext_key_attestation_title">Spoofing Settings</string>
+    <string name="settings_ext_key_attestation_summary">Import Keybox XML and custom pif.json</string>
+    <string name="settings_ext_app_jump_title">App Jump Permissions</string>
+    <string name="settings_ext_app_jump_summary">Manage how apps open other apps and how they can be opened in return</string>
     <string name="settings_ext_popup_title">Pop-Up View</string>
     <string name="settings_ext_popup_summary">Manage quick menu apps, gestures, notification entry, and Pop-Up View behavior</string>
     <string name="settings_ext_smart_suggestions_title">Smart Suggestions</string>
     <string name="settings_ext_smart_suggestions_summary">Manage smart suggestions, rules, and shortcut actions</string>
+    <string name="settings_ext_navigation_bar_hint_title">Gesture Navigation Hint</string>
+    <string name="settings_ext_navigation_bar_hint_summary">Show the small gesture bar handle at the bottom of the screen</string>
+    <string name="settings_ext_launcher_allapps_themed_icons_title">All Apps Themed Icons</string>
+    <string name="settings_ext_launcher_allapps_themed_icons_summary">Use themed icons in the app drawer when icon theming is enabled</string>
+    <string name="settings_ext_launcher_lens_icon_title">Google Lens Icon</string>
+    <string name="settings_ext_launcher_lens_icon_summary">Show the Google Lens icon in the overview actions bar</string>
+    <string name="settings_ext_lyric_fetch_title">Status Bar Lyric</string>
+    <string name="settings_ext_lyric_fetch_summary">Manage lyric display, notification access, and app whitelist</string>
 
     <string name="popup_settings_title">Pop-Up View</string>
     <string name="popup_section_apps">Quick Menu</string>
@@ -171,4 +185,132 @@
     <string name="app_picker_title">Choose app</string>
     <string name="app_picker_replace_hint">Tap another app to replace it. Turn off this suggestion on the previous page.</string>
 
+    <string name="lyric_settings_title">Status Bar Lyric</string>
+    <string name="lyric_settings_section_behavior">Behavior</string>
+    <string name="lyric_settings_section_apps">Apps</string>
+    <string name="lyric_position_title">Display Position</string>
+    <string name="lyric_position_entry_overlay">Replace start-side content</string>
+    <string name="lyric_position_entry_clock_right">Right of clock</string>
+    <string name="lyric_position_summary_overlay">Show on the start side of the status bar</string>
+    <string name="lyric_position_summary_clock_right">Show to the right of the clock</string>
+    <string name="lyric_show_translation_title">Show Translation</string>
+    <string name="lyric_show_translation_summary">Show translated lyric lines when available</string>
+    <string name="lyric_hide_icon_clock_right_title">Hide Music App Icon</string>
+    <string name="lyric_hide_icon_clock_right_summary">Hide the music app icon when showing lyrics to the right of the clock</string>
+    <string name="lyric_notification_listener_title">Notification Access</string>
+    <string name="lyric_notification_listener_summary_on">Allowed</string>
+    <string name="lyric_notification_listener_summary_off">Tap to grant access</string>
+    <string name="lyric_whitelist_title">Allowed Apps</string>
+    <string name="lyric_whitelist_summary_empty">All apps</string>
+    <string name="lyric_whitelisted_apps">Allowed Apps</string>
+
+    <string name="app_jump_settings_title">App Jump Permissions</string>
+    <string name="app_jump_detail_title">App jump permission</string>
+    <string name="app_jump_all_apps_title">All apps</string>
+    <string name="app_jump_all_apps_summary">Browse %1$d apps. Recently used apps appear first.</string>
+    <string name="app_jump_all_apps_summary_fallback">Browse every app. Recently used apps appear first.</string>
+    <string name="app_jump_section_outgoing">Open other apps</string>
+    <string name="app_jump_section_incoming">Be opened by other apps</string>
+    <string name="app_jump_show_system_apps_title">Show system apps</string>
+    <string name="app_jump_hide_system_apps_title">Hide system apps</string>
+    <string name="app_jump_show_system_apps_summary">Include system apps in App Jump lists and rule pages</string>
+    <string name="app_jump_category_source_always_allow_title">Default allow</string>
+    <string name="app_jump_category_source_always_allow_summary">This app opens other apps directly unless a pair override says otherwise</string>
+    <string name="app_jump_category_source_always_block_title">Default block</string>
+    <string name="app_jump_category_source_always_block_summary">This app is blocked from opening other apps unless a pair override says otherwise</string>
+    <string name="app_jump_category_source_ask_title">Ask every time</string>
+    <string name="app_jump_category_source_ask_summary">Ask before this app opens other apps unless a pair override says otherwise</string>
+    <string name="app_jump_category_target_always_allow_title">Default allow</string>
+    <string name="app_jump_category_target_always_allow_summary">Other apps can open this app directly unless a pair override says otherwise</string>
+    <string name="app_jump_category_target_ask_title">Ask every time</string>
+    <string name="app_jump_category_target_ask_summary">Ask before other apps open this app unless a pair override says otherwise</string>
+    <string name="app_jump_category_target_always_block_title">Default block</string>
+    <string name="app_jump_category_target_always_block_summary">Block other apps from opening this app unless a pair override says otherwise</string>
+    <string name="app_jump_category_count_summary">%1$d of %2$d apps</string>
+    <string name="app_jump_category_apps_title">Apps</string>
+    <string name="app_jump_category_empty">No apps in this category</string>
+    <string name="app_jump_detail_header_title">Selected app</string>
+    <string name="app_jump_detail_always_allow_summary">Allow this app to open other apps directly</string>
+    <string name="app_jump_detail_ask_summary">Ask before this app opens another app</string>
+    <string name="app_jump_detail_always_block_summary">Block this app whenever it tries to open another app</string>
+    <string name="app_jump_detail_target_allow_summary">Let other apps open this app directly unless a pair override says otherwise</string>
+    <string name="app_jump_detail_target_ask_summary">Ask before other apps open this app unless a pair override says otherwise</string>
+    <string name="app_jump_detail_target_block_summary">Block other apps from opening this app unless a pair override says otherwise</string>
+    <string name="app_jump_detail_source_rules_title">Specific source app rules</string>
+    <string name="app_jump_detail_source_rules_summary">Override the default behavior for specific source apps opening this app</string>
+    <string name="app_jump_detail_target_rules_title">Specific target app rules</string>
+    <string name="app_jump_detail_target_rules_summary">Override the default behavior for this app opening specific target apps</string>
+    <string name="app_jump_source_rules_title">Source app rules</string>
+    <string name="app_jump_source_rules_empty">No source apps available</string>
+    <string name="app_jump_target_rules_title">Target app rules</string>
+    <string name="app_jump_target_rules_empty">No target apps available</string>
+    <string name="app_jump_target_rule_detail_title">App pair rule</string>
+    <string name="app_jump_target_rule_header_title">Opened app</string>
+    <string name="app_jump_pair_mode_inherit_title">Keep defaults</string>
+    <string name="app_jump_pair_mode_inherit_summary">Follow this source app’s default rule together with the target app’s default rule</string>
+    <string name="app_jump_pair_mode_inherit_effective_summary">Use defaults, currently: %1$s</string>
+    <string name="app_jump_pair_mode_allow_title">Always allow</string>
+    <string name="app_jump_pair_mode_ask_title">Ask every time</string>
+    <string name="app_jump_pair_mode_block_title">Always block</string>
+    <string name="app_jump_target_rule_allow_summary">Allow the selected source app to open this app directly</string>
+    <string name="app_jump_target_rule_ask_summary">Ask before the selected source app opens this app</string>
+    <string name="app_jump_target_rule_block_summary">Block the selected source app from opening this app</string>
+    <string name="app_jump_target_rule_inherit_summary">Do not store a dedicated pair override for this source and target</string>
+    <string name="app_jump_target_rule_footer">This rule applies only when %1$s opens this app.</string>
+    <string name="app_jump_mode_allow_summary">Always allow</string>
+    <string name="app_jump_mode_ask_summary">Ask every time</string>
+    <string name="app_jump_mode_block_summary">Always block</string>
+    <string name="app_jump_search_title">Search apps</string>
+    <string name="app_jump_search_empty">No apps match this search</string>
+    <string name="app_jump_system_app_warning">Warning: changing App Jump rules for system apps may cause serious bugs or system instability.</string>
+    <string name="app_jump_settings_footer">You can change app jump permissions here at any time. Rules apply per user or profile.</string>
+    <string name="app_jump_load_failed">Could not load app jump settings</string>
+    <string name="app_jump_update_failed">Could not update app jump settings</string>
+
+    <string name="key_attestation_settings_title">Spoofing Settings</string>
+    <string name="keybox_data_title">Import Keybox XML</string>
+    <string name="keybox_data_summary">Import keybox. Tap Delete to reset to defaults.</string>
+    <string name="pif_data_title">Import pif.json</string>
+    <string name="pif_data_summary">Import pif.json used to spoof properties for GMS and the Play Store. Tap Delete to revert to dynamic defaults.</string>
+    <string name="key_attestation_delete_button">Delete imported data</string>
+    <string name="key_attestation_xml_cleared">Imported Keybox XML cleared</string>
+    <string name="key_attestation_json_cleared">Imported pif.json cleared</string>
+    <string name="key_attestation_invalid_file">Invalid file selected</string>
+    <string name="key_attestation_invalid_xml">Invalid XML: missing required data</string>
+    <string name="key_attestation_xml_loaded">Keybox XML loaded</string>
+    <string name="key_attestation_json_loaded">pif.json loaded</string>
+    <string name="key_attestation_xml_read_failed">Failed to read Keybox XML</string>
+    <string name="key_attestation_json_read_failed">Failed to read pif.json</string>
+    <string name="key_attestation_status_imported">Status: Imported custom data</string>
+    <string name="key_attestation_status_unparsed">Status: Some fields could not be parsed</string>
+    <string name="key_attestation_unknown">Unknown</string>
+    <string name="key_attestation_keybox_footer_empty">Status: Using built-in defaults</string>
+    <string name="key_attestation_pif_footer_empty">Status: Using dynamic defaults</string>
+    <string name="key_attestation_keybox_algorithm_ecdsa">ECDSA</string>
+    <string name="key_attestation_keybox_algorithm_rsa">RSA</string>
+    <string name="key_attestation_keybox_algorithm_missing">missing</string>
+    <string name="key_attestation_keybox_algorithms_value">Algorithms: %1$s, %2$s</string>
+    <string name="key_attestation_keybox_cert_counts_value">Certificates: ECDSA %1$d, RSA %2$d</string>
+    <string name="key_attestation_keybox_subject_value">Leaf subject: %1$s</string>
+    <string name="key_attestation_keybox_issuer_value">Leaf issuer: %1$s</string>
+    <string name="key_attestation_keybox_validity_value">Validity: %1$s to %2$s</string>
+    <string name="key_attestation_pif_brand_value">Brand: %1$s</string>
+    <string name="key_attestation_pif_model_value">Model: %1$s</string>
+    <string name="key_attestation_pif_device_value">Device: %1$s</string>
+    <string name="key_attestation_pif_security_patch_value">Security patch: %1$s</string>
+    <string name="key_attestation_pif_fingerprint_value">Fingerprint: %1$s</string>
+
+    <string-array name="lyric_position_entries">
+        <item>@string/lyric_position_entry_overlay</item>
+        <item>@string/lyric_position_entry_clock_right</item>
+    </string-array>
+    <string-array name="lyric_position_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <plurals name="lyric_whitelist_summary_count">
+        <item quantity="one">%d allowed app</item>
+        <item quantity="other">%d allowed apps</item>
+    </plurals>
 </resources>

@@ -18,7 +18,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="settings_ext_header"
+        android:selectable="false"
+        app:lottie_rawRes="@drawable/settings_ext_header_image" />
 
+    <PreferenceCategory
+        android:key="settings_ext_category_privacy"
+        android:title="@string/settings_ext_category_privacy">
+
+        <Preference
+            android:key="key_attestation_settings"
+            android:summary="@string/settings_ext_key_attestation_summary"
+            android:title="@string/settings_ext_key_attestation_title" />
+
+        <Preference
+            android:key="app_jump_settings"
+            android:summary="@string/settings_ext_app_jump_summary"
             android:title="@string/settings_ext_app_jump_title" />
     </PreferenceCategory>
 
