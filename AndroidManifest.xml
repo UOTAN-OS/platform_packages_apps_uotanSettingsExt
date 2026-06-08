@@ -73,6 +73,10 @@
             android:exported="false"
             android:label="@string/sms_code_rule_settings_title" />
 
+        <activity
+            android:name=".lyric.LyricSettingsActivity"
+            android:exported="false"
+            android:label="@string/lyric_settings_title" />
     </application>
 
 </manifest>
