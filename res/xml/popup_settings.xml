@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The uwuAOSP Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    android:title="@string/popup_settings_title">
+
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="popup_header"
+        android:selectable="false"
+        app:lottie_rawRes="@drawable/popup_view_header_image" />
+
+    <PreferenceCategory android:title="@string/popup_section_apps">
+        <Preference
+            android:key="manage_apps"
+            android:summary="@string/popup_manage_apps_summary"
+            android:title="@string/popup_manage_apps_title" />
+
+        <Preference
+            android:key="manage_apps_editor"
+            android:summary="@string/popup_manage_apps_editor_summary"
+            android:title="@string/popup_manage_apps_editor_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/popup_section_gesture">
+        <SwitchPreferenceCompat
+            android:key="popup_gesture"
+            android:defaultValue="false"
+            android:summary="@string/popup_gesture_summary"
+            android:title="@string/popup_gesture_title" />
+
+        <com.android.settingslib.widget.FooterPreference
+            android:key="gesture_area_warning"
+            android:title="@string/popup_gesture_area_warning" />
+
+        <com.android.settingslib.widget.SliderPreference
+            android:key="gesture_area_width"
+            android:title="@string/popup_gesture_area_width_title"
+            android:min="20"
+            android:max="100"
+            settings:showSeekBarValue="true" />
+
+        <com.android.settingslib.widget.SliderPreference
+            android:key="gesture_area_height"
+            android:title="@string/popup_gesture_area_height_title"
+            android:min="20"
+            android:max="100"
+            settings:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/popup_section_notification">
+        <SwitchPreferenceCompat
+            android:key="popup_view_notifs"
+            android:defaultValue="false"
+            android:summary="@string/popup_notification_entry_summary"
+            android:title="@string/popup_notification_entry_title" />
+
+        <SwitchPreferenceCompat
+            android:key="popup_notif_jump_portrait"
+            android:defaultValue="false"
+            android:dependency="popup_view_notifs"
+            android:summary="@string/popup_notification_portrait_summary"
+            android:title="@string/popup_notification_portrait_title" />
+
+        <SwitchPreferenceCompat
+            android:key="popup_notif_jump_landscape"
+            android:defaultValue="false"
+            android:dependency="popup_view_notifs"
+            android:summary="@string/popup_notification_landscape_summary"
+            android:title="@string/popup_notification_landscape_title" />
+
+        <Preference
+            android:key="manage_notification_blacklist"
+            android:dependency="popup_view_notifs"
+            android:summary="@string/popup_notification_blacklist_summary"
+            android:title="@string/popup_notification_blacklist_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/popup_section_behavior">
+        <SwitchPreferenceCompat
+            android:key="allow_multiple_popup_views"
+            android:defaultValue="true"
+            android:summary="@string/popup_allow_multiple_summary"
+            android:title="@string/popup_allow_multiple_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/popup_section_experience">
+        <Preference
+            android:key="experience_popup_view"
+            android:summary="@string/popup_launch_summary"
+            android:title="@string/popup_launch_title" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

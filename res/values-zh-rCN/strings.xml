@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2026 The uwuAOSP Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
 <resources>
-    <string name="app_name">uwu 扩展功能</string>
-    <string name="settings_ext_summary">聚合更多 uwuAOSP 功能与集成工具</string>
+    <string name="app_name">uwuAOSP 扩展功能</string>
+    <string name="settings_ext_summary">更多 uwuAOSP 功能与集成工具</string>
+    <string name="settings_ext_category_privacy">隐私</string>
+    <string name="settings_ext_category_popup">Pop-Up View</string>
+    <string name="settings_ext_popup_title">Pop-Up View</string>
+    <string name="settings_ext_popup_summary">集中管理快捷菜单应用、手势、通知入口与 Pop-Up View 行为</string>
+
+    <string name="popup_settings_title">Pop-Up View</string>
+    <string name="popup_section_apps">快捷菜单</string>
+    <string name="popup_section_gesture">手势</string>
+    <string name="popup_section_notification">通知</string>
+    <string name="popup_section_behavior">行为</string>
+    <string name="popup_section_experience">立即体验</string>
+    <string name="popup_manage_apps_title">管理快捷菜单应用</string>
+    <string name="popup_manage_apps_summary">选择要显示在快捷菜单中的应用</string>
+    <string name="popup_manage_apps_editor_title">编辑快捷菜单布局</string>
+    <string name="popup_manage_apps_editor_summary">直接在镜像预览中安排快捷菜单槽位，并支持快捷方式</string>
+    <string name="popup_selected_apps">已选应用</string>
+    <string name="app_picker_selected_app">已选应用</string>
+    <string name="popup_all_apps">全部应用</string>
+    <string name="popup_no_apps_selected">未选择任何应用</string>
+    <string name="popup_selection_limit_toast">最多可选择 %d 个应用</string>
+    <string name="popup_drag_handle">拖动手柄</string>
+    <string name="popup_launch_title">打开 Pop-Up View</string>
+    <string name="popup_launch_summary">选择一个应用并以 Pop-Up View 启动</string>
+    <string name="popup_cannot_launch_app">无法启动该应用</string>
+    <string name="popup_gesture_title">快捷菜单手势</string>
+    <string name="popup_gesture_summary">从底部左角或右角向内滑动以打开快捷菜单</string>
+    <string name="popup_gesture_area_width_title">手势宽度</string>
+    <string name="popup_gesture_area_height_title">手势高度</string>
+    <string name="popup_gesture_area_warning">更大的触发区域可能会影响其他触摸手势</string>
+    <string name="popup_notification_entry_title">通知入口</string>
+    <string name="popup_notification_entry_summary">在通知中显示 Pop-Up View 入口</string>
+    <string name="popup_notification_portrait_title">竖屏时从通知启动</string>
+    <string name="popup_notification_portrait_summary">竖屏时，通过通知入口直接以 Pop-Up View 打开应用</string>
+    <string name="popup_notification_landscape_title">横屏时从通知启动</string>
+    <string name="popup_notification_landscape_summary">横屏时，通过通知入口直接以 Pop-Up View 打开应用</string>
+    <string name="popup_notification_blacklist_title">通知启动黑名单</string>
+    <string name="popup_notification_blacklist_summary">选择通过通知中的 Pop-Up View 入口打开时应保持全屏的应用</string>
+    <string name="popup_notification_blacklisted_apps">黑名单应用</string>
+    <string name="popup_allow_multiple_title">允许多个 Pop-Up View</string>
+    <string name="popup_allow_multiple_summary">关闭后，打开新的 Pop-Up View 会将现有 Pop-Up View 切到后台</string>
+    <string name="popup_editor_title">快捷菜单布局</string>
+    <string name="popup_editor_left_side">左侧</string>
+    <string name="popup_editor_right_side">右侧</string>
+    <string name="popup_editor_toggle_side">切换快捷菜单侧边</string>
+    <string name="popup_editor_search_title">搜索应用或快捷方式</string>
+    <string name="popup_editor_source_apps">应用</string>
+    <string name="popup_editor_source_shortcuts">快捷方式</string>
+    <string name="popup_editor_hint">点按或拖动应用/快捷方式到快捷菜单中。长按槽位可清空。</string>
+    <string name="popup_editor_empty_apps">未找到可启动的应用</string>
+    <string name="popup_editor_empty_shortcuts">没有可用的快捷方式</string>
+    <string name="popup_editor_shortcuts_unavailable">当前构建无法访问快捷方式</string>
+    <string name="popup_editor_more_apps">更多应用</string>
+    <string name="popup_editor_slot_empty">空快捷菜单槽位</string>
+    <string name="popup_editor_slot_filled">%1$s 快捷菜单槽位</string>
+    <string name="popup_editor_section_collapsed">已折叠</string>
+    <string name="popup_editor_section_expanded">已展开</string>
+
 </resources>
