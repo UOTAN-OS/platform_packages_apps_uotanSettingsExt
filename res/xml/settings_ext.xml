@@ -58,10 +58,34 @@
             android:title="@string/settings_ext_smart_suggestions_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="settings_ext_category_launcher"
+        android:title="@string/settings_ext_category_launcher">
+
+        <SwitchPreferenceCompat
+            android:key="navigation_bar_hint"
+            android:summary="@string/settings_ext_navigation_bar_hint_summary"
+            android:title="@string/settings_ext_navigation_bar_hint_title" />
+
+        <SwitchPreferenceCompat
+            android:key="launcher_allapps_themed_icons"
+            android:summary="@string/settings_ext_launcher_allapps_themed_icons_summary"
+            android:title="@string/settings_ext_launcher_allapps_themed_icons_title" />
+
+        <SwitchPreferenceCompat
+            android:key="launcher_lens_icon"
+            android:summary="@string/settings_ext_launcher_lens_icon_summary"
             android:title="@string/settings_ext_launcher_lens_icon_title" />
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="settings_ext_category_lyric"
+        android:title="@string/settings_ext_category_lyric">
+
+        <com.android.settingslib.PrimarySwitchPreference
+            android:key="lyric_fetch_settings"
+            android:summary="@string/settings_ext_lyric_fetch_summary"
             android:title="@string/settings_ext_lyric_fetch_title" />
     </PreferenceCategory>
 

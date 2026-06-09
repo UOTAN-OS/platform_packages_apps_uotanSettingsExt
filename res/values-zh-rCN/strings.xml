@@ -21,12 +21,24 @@
     <string name="settings_ext_category_privacy">隐私</string>
     <string name="settings_ext_category_popup">Pop-Up View</string>
     <string name="settings_ext_category_smart_suggestions">智能建议</string>
+    <string name="settings_ext_category_launcher">启动器</string>
+    <string name="settings_ext_category_lyric">状态栏</string>
+    <string name="settings_ext_key_attestation_title">伪装设置</string>
+    <string name="settings_ext_key_attestation_summary">导入 Keybox XML 和自定义 pif.json</string>
     <string name="settings_ext_app_jump_title">应用跳转权限</string>
     <string name="settings_ext_app_jump_summary">管理应用如何打开其他应用，以及它们如何被其他应用打开</string>
     <string name="settings_ext_popup_title">Pop-Up View</string>
     <string name="settings_ext_popup_summary">集中管理快捷菜单应用、手势、通知入口与 Pop-Up View 行为</string>
     <string name="settings_ext_smart_suggestions_title">智能建议</string>
     <string name="settings_ext_smart_suggestions_summary">集中管理智能建议、规则与快捷操作</string>
+    <string name="settings_ext_navigation_bar_hint_title">手势导航提示条</string>
+    <string name="settings_ext_navigation_bar_hint_summary">显示屏幕底部的小白条手势提示</string>
+    <string name="settings_ext_launcher_allapps_themed_icons_title">抽屉主题图标</string>
+    <string name="settings_ext_launcher_allapps_themed_icons_summary">启用图标主题时，在应用抽屉中也使用主题图标</string>
+    <string name="settings_ext_launcher_lens_icon_title">Google Lens 图标</string>
+    <string name="settings_ext_launcher_lens_icon_summary">在多任务页面底部显示Google Lens 图标</string>
+    <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
+    <string name="settings_ext_lyric_fetch_summary">管理歌词显示、通知使用权限与应用白名单</string>
 
     <string name="popup_settings_title">Pop-Up View</string>
     <string name="popup_section_apps">快捷菜单</string>
