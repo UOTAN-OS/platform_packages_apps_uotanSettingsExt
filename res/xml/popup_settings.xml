@@ -27,11 +27,6 @@
 
     <PreferenceCategory android:title="@string/popup_section_apps">
         <Preference
-            android:key="manage_apps"
-            android:summary="@string/popup_manage_apps_summary"
-            android:title="@string/popup_manage_apps_title" />
-
-        <Preference
             android:key="manage_apps_editor"
             android:summary="@string/popup_manage_apps_editor_summary"
             android:title="@string/popup_manage_apps_editor_title" />

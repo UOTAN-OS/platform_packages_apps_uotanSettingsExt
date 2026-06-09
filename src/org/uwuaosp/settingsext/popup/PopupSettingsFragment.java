@@ -31,7 +31,6 @@ import org.uwuaosp.settingsext.R;
 
 public class PopupSettingsFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_POPUP_HEADER = "popup_header";
-    private static final String KEY_MANAGE_APPS = "manage_apps";
     private static final String KEY_MANAGE_APPS_EDITOR = "manage_apps_editor";
     private static final String KEY_MANAGE_NOTIFICATION_BLACKLIST = "manage_notification_blacklist";
     private static final String KEY_EXPERIENCE_POPUP_VIEW = "experience_popup_view";
@@ -69,15 +68,6 @@ public class PopupSettingsFragment extends SettingsBasePreferenceFragment {
     }
 
     private void bindActionPreferences() {
-        Preference manageApps = findPreference(KEY_MANAGE_APPS);
-        if (manageApps != null) {
-            manageApps.setPersistent(false);
-            manageApps.setOnPreferenceClickListener(preference -> {
-                startAppSelectionActivity(PopupSystemSettings.SELECTION_MODE_QUICK_MENU);
-                return true;
-            });
-        }
-
         Preference manageAppsEditor = findPreference(KEY_MANAGE_APPS_EDITOR);
         if (manageAppsEditor != null) {
             manageAppsEditor.setPersistent(false);
