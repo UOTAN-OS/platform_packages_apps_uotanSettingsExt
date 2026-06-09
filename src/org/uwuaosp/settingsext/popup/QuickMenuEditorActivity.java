@@ -121,7 +121,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
             mRestoredPendingKey = savedInstanceState.getString(STATE_PENDING_KEY);
         }
 
-        for (int i = 0; i < QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT; i++) {
+        for (int i = 0; i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
             mAssignedTargets.add(null);
         }
 
@@ -335,7 +335,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
                 mAllApps.addAll(loadedData.apps);
                 mAllShortcuts.clear();
                 mAllShortcuts.addAll(loadedData.shortcuts);
-                for (int i = 0; i < QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT; i++) {
+                for (int i = 0; i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
                     mAssignedTargets.set(i, loadedData.assignedTargets.get(i));
                 }
                 mShortcutsUnavailable = loadedData.shortcutsUnavailable;
@@ -370,10 +370,11 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
         }
 
         ArrayList<TargetInfo> assignedTargets = new ArrayList<>();
-        List<String> storedTargets = PopupSystemSettings.getQuickMenuTargets(this);
         int count = 0;
-        for (String rawTarget : storedTargets) {
-            if (count >= QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT) {
+
+        List<String> innerTargets = PopupSystemSettings.getQuickMenuTargets(this);
+        for (String rawTarget : innerTargets) {
+            if (count >= QuickMenuSlotLayout.INNER_CONFIGURABLE) {
                 break;
             }
             ParsedTarget parsedTarget = parseTarget(rawTarget);
@@ -390,7 +391,31 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
                 count++;
             }
         }
-        while (assignedTargets.size() < QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT) {
+        while (assignedTargets.size() < QuickMenuSlotLayout.INNER_CONFIGURABLE) {
+            assignedTargets.add(null);
+        }
+
+        List<String> outerTargets = PopupSystemSettings.getOuterRingQuickMenuTargets(this);
+        count = 0;
+        for (String rawTarget : outerTargets) {
+            if (count >= QuickMenuSlotLayout.OUTER_CONFIGURABLE) {
+                break;
+            }
+            ParsedTarget parsedTarget = parseTarget(rawTarget);
+            if (parsedTarget == null) {
+                continue;
+            }
+            TargetInfo resolved = allTargetsByKey.get(parsedTarget.getKey());
+            if (resolved == null) {
+                resolved = parsedTarget.resolve(packageManager, launcherApps, appLabels,
+                        getResources().getDisplayMetrics().densityDpi);
+            }
+            if (resolved != null) {
+                assignedTargets.add(resolved);
+                count++;
+            }
+        }
+        while (assignedTargets.size() < QuickMenuSlotLayout.TOTAL_CONFIGURABLE) {
             assignedTargets.add(null);
         }
 
@@ -566,13 +591,14 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     }
 
     private boolean onSlotLongClicked(int slotIndex) {
-        if (slotIndex < 0 || slotIndex >= QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT) {
+        int targetIndex = slotToTargetIndex(slotIndex);
+        if (targetIndex < 0 || targetIndex >= mAssignedTargets.size()) {
             return false;
         }
-        if (mAssignedTargets.get(slotIndex) == null) {
+        if (mAssignedTargets.get(targetIndex) == null) {
             return false;
         }
-        mAssignedTargets.set(slotIndex, null);
+        mAssignedTargets.set(targetIndex, null);
         persistAssignedTargets();
         updatePreview();
         return true;
@@ -587,18 +613,26 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     }
 
     private void placeTarget(int slotIndex, @NonNull TargetInfo target) {
-        if (slotIndex < 0 || slotIndex >= QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT) {
+        int targetIndex = slotToTargetIndex(slotIndex);
+        if (targetIndex < 0 || targetIndex >= mAssignedTargets.size()) {
             return;
         }
         int existingIndex = indexOfAssignedTarget(target.getKey());
-        if (existingIndex >= 0 && existingIndex != slotIndex) {
+        if (existingIndex >= 0 && existingIndex != targetIndex) {
             mAssignedTargets.set(existingIndex, null);
         }
-        mAssignedTargets.set(slotIndex, target);
+        mAssignedTargets.set(targetIndex, target);
         mPendingTarget = null;
         persistAssignedTargets();
         updatePreview();
         refreshSelectionState();
+    }
+
+    private int slotToTargetIndex(int slotIndex) {
+        if (slotIndex < QuickMenuSlotLayout.INNER_CONFIGURABLE) {
+            return slotIndex;
+        }
+        return slotIndex - 1;
     }
 
     private int indexOfAssignedTarget(@NonNull String key) {
@@ -613,7 +647,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
 
     private void updatePreview() {
         ArrayList<QuickMenuSlotLayout.SlotItem> slotItems = new ArrayList<>();
-        for (int i = 0; i < QuickMenuSlotLayout.CONFIGURABLE_SLOT_COUNT; i++) {
+        for (int i = 0; i < QuickMenuSlotLayout.INNER_CONFIGURABLE; i++) {
             TargetInfo target = mAssignedTargets.get(i);
             if (target == null || target.getIcon() == null) {
                 slotItems.add(QuickMenuSlotLayout.SlotItem.empty(
@@ -627,17 +661,40 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
         slotItems.add(QuickMenuSlotLayout.SlotItem.moreApps(
                 getDrawable(R.drawable.ic_popup_more_apps),
                 getString(R.string.popup_editor_more_apps)));
+        for (int i = QuickMenuSlotLayout.INNER_CONFIGURABLE;
+                i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
+            TargetInfo target = mAssignedTargets.get(i);
+            if (target == null || target.getIcon() == null) {
+                slotItems.add(QuickMenuSlotLayout.SlotItem.empty(
+                        getString(R.string.popup_editor_slot_empty)));
+            } else {
+                slotItems.add(QuickMenuSlotLayout.SlotItem.filled(
+                        target.getIcon(),
+                        getString(R.string.popup_editor_slot_filled, target.getTitle())));
+            }
+        }
         mPreview.setSlots(slotItems);
     }
 
     private void persistAssignedTargets() {
-        ArrayList<String> storedTargets = new ArrayList<>();
-        for (TargetInfo target : mAssignedTargets) {
+        ArrayList<String> innerTargets = new ArrayList<>();
+        for (int i = 0; i < QuickMenuSlotLayout.INNER_CONFIGURABLE; i++) {
+            TargetInfo target = mAssignedTargets.get(i);
             if (target != null) {
-                storedTargets.add(target.toStoredValue());
+                innerTargets.add(target.toStoredValue());
             }
         }
-        PopupSystemSettings.saveQuickMenuTargets(this, storedTargets);
+        PopupSystemSettings.saveQuickMenuTargets(this, innerTargets);
+
+        ArrayList<String> outerTargets = new ArrayList<>();
+        for (int i = QuickMenuSlotLayout.INNER_CONFIGURABLE;
+                i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
+            TargetInfo target = mAssignedTargets.get(i);
+            if (target != null) {
+                outerTargets.add(target.toStoredValue());
+            }
+        }
+        PopupSystemSettings.saveOuterRingQuickMenuTargets(this, outerTargets);
     }
 
     private void updateSideToggleTitle() {

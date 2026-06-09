@@ -33,20 +33,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuickMenuSlotLayout extends ViewGroup {
-    static final int MAX_SLOTS = 6;
-    static final int CONFIGURABLE_SLOT_COUNT = MAX_SLOTS - 1;
+    static final int INNER_SLOTS = 6;
+    static final int OUTER_SLOTS = 7;
+    static final int TOTAL_SLOTS = 13;
+    static final int CONFIGURABLE_SLOT_COUNT = 12;
+    static final int INNER_CONFIGURABLE = 5;
+    static final int OUTER_CONFIGURABLE = 7;
+    private static final int MORE_APPS_SLOT = 5;
 
     private static final int SLOT_SIZE_DP = 40;
     private static final int CIRCLE_RADIUS_DP = 144;
+    private static final int OUTER_SLOT_SIZE_DP = 32;
+    private static final int OUTER_CIRCLE_RADIUS_DP = 210;
     private static final int SIDE_OFFSET_DP = 36;
     private static final int BOTTOM_OFFSET_DP = 28;
     private static final float ICON_SPACING_MULTIPLIER = 1.5f;
+    private static final float OUTER_ICON_SPACING_MULTIPLIER = 1.2f;
+    private static final int INNER_ANGLE_START = 45;
+    private static final int INNER_ANGLE_END = 135;
+    private static final int OUTER_ANGLE_START = 30;
+    private static final int OUTER_ANGLE_END = 150;
+
     private final int mSlotSizePx;
     private final int mCircleRadiusPx;
+    private final int mOuterSlotSizePx;
+    private final int mOuterCircleRadiusPx;
     private final int mSideOffsetPx;
     private final int mBottomOffsetPx;
 
-    private final ArrayList<SlotItem> mSlots = new ArrayList<>(MAX_SLOTS);
+    private final ArrayList<SlotItem> mSlots = new ArrayList<>(TOTAL_SLOTS);
     private boolean mIsLeftSide = true;
 
     @Nullable
@@ -68,11 +83,13 @@ public class QuickMenuSlotLayout extends ViewGroup {
         super(context, attrs, defStyleAttr);
         mSlotSizePx = dpToPx(SLOT_SIZE_DP);
         mCircleRadiusPx = dpToPx(CIRCLE_RADIUS_DP);
+        mOuterSlotSizePx = dpToPx(OUTER_SLOT_SIZE_DP);
+        mOuterCircleRadiusPx = dpToPx(OUTER_CIRCLE_RADIUS_DP);
         mSideOffsetPx = dpToPx(SIDE_OFFSET_DP);
         mBottomOffsetPx = dpToPx(BOTTOM_OFFSET_DP);
         setClipChildren(false);
         setClipToPadding(false);
-        for (int i = 0; i < MAX_SLOTS; i++) {
+        for (int i = 0; i < TOTAL_SLOTS; i++) {
             final int slotIndex = i;
             ImageView slotView = new ImageView(context);
             slotView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -113,10 +130,10 @@ public class QuickMenuSlotLayout extends ViewGroup {
     }
 
     public void setSlots(@NonNull List<SlotItem> slots) {
-        for (int i = 0; i < MAX_SLOTS; i++) {
+        for (int i = 0; i < TOTAL_SLOTS; i++) {
             if (i < slots.size() && slots.get(i) != null) {
                 mSlots.set(i, slots.get(i));
-            } else if (i == CONFIGURABLE_SLOT_COUNT) {
+            } else if (i == MORE_APPS_SLOT) {
                 mSlots.set(i, SlotItem.moreApps(
                         getContext().getDrawable(R.drawable.ic_popup_more_apps),
                         getContext().getString(R.string.popup_editor_more_apps)));
@@ -131,9 +148,12 @@ public class QuickMenuSlotLayout extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        int childSpec = MeasureSpec.makeMeasureSpec(mSlotSizePx, MeasureSpec.EXACTLY);
+        int innerSpec = MeasureSpec.makeMeasureSpec(mSlotSizePx, MeasureSpec.EXACTLY);
+        int outerSpec = MeasureSpec.makeMeasureSpec(mOuterSlotSizePx, MeasureSpec.EXACTLY);
         for (int i = 0; i < getChildCount(); i++) {
-            getChildAt(i).measure(childSpec, childSpec);
+            boolean isInner = i < INNER_SLOTS;
+            getChildAt(i).measure(isInner ? innerSpec : outerSpec,
+                    isInner ? innerSpec : outerSpec);
         }
         setMeasuredDimension(width, height);
     }
@@ -146,7 +166,6 @@ public class QuickMenuSlotLayout extends ViewGroup {
 
         int width = right - left;
         int height = bottom - top;
-        float slotRadius = mSlotSizePx / 2f;
         float centerX = mIsLeftSide
                 ? getPaddingLeft() + mSideOffsetPx
                 : width - getPaddingRight() - mSideOffsetPx;
@@ -154,20 +173,30 @@ public class QuickMenuSlotLayout extends ViewGroup {
 
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
-            int position = i + 1;
-            int total = getChildCount();
-            float angle = 45f + ((total + 1) / 2f - position)
-                    * (90f / (total + 1)) * ICON_SPACING_MULTIPLIER;
+            boolean isInner = i < INNER_SLOTS;
+            int localIndex = isInner ? i : i - INNER_SLOTS;
+            int localTotal = isInner ? INNER_SLOTS : OUTER_SLOTS;
+            float slotRadius = (isInner ? mSlotSizePx : mOuterSlotSizePx) / 2f;
+            float radius = isInner ? mCircleRadiusPx : mOuterCircleRadiusPx;
+            float spacing = isInner ? ICON_SPACING_MULTIPLIER : OUTER_ICON_SPACING_MULTIPLIER;
+            float angleStart = isInner ? INNER_ANGLE_START : OUTER_ANGLE_START;
+            float angleEnd = isInner ? INNER_ANGLE_END : OUTER_ANGLE_END;
+            float angleRange = angleEnd - angleStart;
+
+            int position = localIndex + 1;
+            float angle = angleStart + ((localTotal + 1) / 2f - position)
+                    * (angleRange / (localTotal + 1)) * spacing;
+
             float childCenterX;
             if (mIsLeftSide) {
                 childCenterX = centerX
-                        + (float) (mCircleRadiusPx * Math.cos(Math.toRadians(angle)));
+                        + (float) (radius * Math.cos(Math.toRadians(angle)));
             } else {
                 childCenterX = centerX
-                        - (float) (mCircleRadiusPx * Math.cos(Math.toRadians(angle)));
+                        - (float) (radius * Math.cos(Math.toRadians(angle)));
             }
             float childCenterY = centerY
-                    - (float) (mCircleRadiusPx * Math.sin(Math.toRadians(angle)));
+                    - (float) (radius * Math.sin(Math.toRadians(angle)));
 
             int childLeft = Math.round(childCenterX - slotRadius);
             int childTop = Math.round(childCenterY - slotRadius);
@@ -195,7 +224,8 @@ public class QuickMenuSlotLayout extends ViewGroup {
     }
 
     private boolean isEditableSlot(int slotIndex) {
-        return slotIndex >= 0 && slotIndex < CONFIGURABLE_SLOT_COUNT;
+        return (slotIndex >= 0 && slotIndex < INNER_CONFIGURABLE)
+                || (slotIndex >= INNER_SLOTS && slotIndex < TOTAL_SLOTS);
     }
 
     private void updateChildStates() {

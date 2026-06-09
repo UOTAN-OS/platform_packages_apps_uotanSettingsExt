@@ -138,6 +138,36 @@ final class PopupSystemSettings {
         ), "|");
     }
 
+    static void saveOuterRingSelectedApps(Context context, List<String> selectedApps) {
+        putSystemString(
+                context,
+                Settings.System.POP_UP_VIEW_QUICK_MENU_OUTER_RING_SELECTED_APPS,
+                joinFiltered(selectedApps, "|"));
+    }
+
+    static List<String> getOuterRingSelectedApps(Context context) {
+        return splitAndFilter(getStringSetting(
+                context,
+                Settings.System.POP_UP_VIEW_QUICK_MENU_OUTER_RING_SELECTED_APPS,
+                ""
+        ), "|");
+    }
+
+    static void saveOuterRingQuickMenuTargets(Context context, List<String> targets) {
+        putSystemString(
+                context,
+                Settings.System.POP_UP_VIEW_QUICK_MENU_OUTER_RING_SELECTED_APPS,
+                joinFiltered(targets, "|"));
+    }
+
+    static List<String> getOuterRingQuickMenuTargets(Context context) {
+        return splitAndFilter(getStringSetting(
+                context,
+                Settings.System.POP_UP_VIEW_QUICK_MENU_OUTER_RING_SELECTED_APPS,
+                ""
+        ), "|");
+    }
+
     static void saveNotificationBlacklist(Context context, List<String> packages) {
         putSystemString(
                 context,
