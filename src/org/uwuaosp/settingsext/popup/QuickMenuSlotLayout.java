@@ -36,7 +36,7 @@ public class QuickMenuSlotLayout extends ViewGroup {
     static final int INNER_SLOTS = 6;
     static final int OUTER_SLOTS = 7;
     static final int TOTAL_SLOTS = 13;
-    static final int CONFIGURABLE_SLOT_COUNT = 12;
+    static final int TOTAL_CONFIGURABLE = 12;
     static final int INNER_CONFIGURABLE = 5;
     static final int OUTER_CONFIGURABLE = 7;
     private static final int MORE_APPS_SLOT = 5;

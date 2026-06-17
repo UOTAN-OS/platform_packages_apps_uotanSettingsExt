@@ -19,7 +19,8 @@ package org.uwuaosp.settingsext.lyric;
 import android.content.Context;
 import android.provider.Settings;
 
-import java.util.ArrayList;
+import org.uwuaosp.settingsext.util.SettingsUtils;
+
 import java.util.List;
 
 public final class LyricSecureSettings {
@@ -31,131 +32,46 @@ public final class LyricSecureSettings {
     }
 
     public static void setEnabled(Context context, boolean enabled) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_SHOW_LYRIC, enabled ? 1 : 0);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureBoolean(context, Settings.Secure.STATUS_BAR_SHOW_LYRIC, enabled);
     }
 
     public static boolean isEnabled(Context context, boolean defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_SHOW_LYRIC, defaultValue ? 1 : 0) == 1;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureBoolean(context, Settings.Secure.STATUS_BAR_SHOW_LYRIC, defaultValue);
     }
 
     public static void setPosition(Context context, int position) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_LYRIC_POSITION, position);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureInt(context, Settings.Secure.STATUS_BAR_LYRIC_POSITION, position);
     }
 
     public static int getPosition(Context context, int defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_LYRIC_POSITION, defaultValue);
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureInt(context, Settings.Secure.STATUS_BAR_LYRIC_POSITION, defaultValue);
     }
 
     public static void setShowTranslation(Context context, boolean enabled) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_LYRIC_SHOW_TRANSLATION, enabled ? 1 : 0);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureBoolean(context, Settings.Secure.STATUS_BAR_LYRIC_SHOW_TRANSLATION, enabled);
     }
 
     public static boolean isShowTranslationEnabled(Context context, boolean defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_LYRIC_SHOW_TRANSLATION,
-                    defaultValue ? 1 : 0) == 1;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureBoolean(context, Settings.Secure.STATUS_BAR_LYRIC_SHOW_TRANSLATION, defaultValue);
     }
 
     public static void setHideIconOnClockRight(Context context, boolean enabled) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_LYRIC_HIDE_ICON_CLOCK_RIGHT, enabled ? 1 : 0);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureBoolean(context, Settings.Secure.STATUS_BAR_LYRIC_HIDE_ICON_CLOCK_RIGHT, enabled);
     }
 
     public static boolean isHideIconOnClockRightEnabled(Context context, boolean defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.STATUS_BAR_LYRIC_HIDE_ICON_CLOCK_RIGHT,
-                    defaultValue ? 1 : 0) == 1;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureBoolean(context, Settings.Secure.STATUS_BAR_LYRIC_HIDE_ICON_CLOCK_RIGHT, defaultValue);
     }
 
     public static void setAllowedPackages(Context context, List<String> packages) {
-        try {
-            Settings.Secure.putString(context.getContentResolver(),
-                    KEY_ALLOWED_PACKAGES, joinFiltered(packages, ";"));
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureString(context, KEY_ALLOWED_PACKAGES, SettingsUtils.joinList(packages, ";"));
     }
 
     public static List<String> getAllowedPackages(Context context) {
-        try {
-            return splitAndFilter(Settings.Secure.getString(
-                    context.getContentResolver(), KEY_ALLOWED_PACKAGES), ";");
-        } catch (Exception ignored) {
-            return new ArrayList<>();
-        }
+        return SettingsUtils.splitList(SettingsUtils.getSecureString(context, KEY_ALLOWED_PACKAGES), ";");
     }
 
     public static String getAllowedPackagesKey() {
         return KEY_ALLOWED_PACKAGES;
-    }
-
-    private static String joinFiltered(List<String> values, String delimiter) {
-        StringBuilder builder = new StringBuilder();
-        if (values == null) {
-            return "";
-        }
-        for (String value : values) {
-            if (value == null) {
-                continue;
-            }
-            String trimmed = value.trim();
-            if (trimmed.isEmpty()) {
-                continue;
-            }
-            if (builder.length() > 0) {
-                builder.append(delimiter);
-            }
-            builder.append(trimmed);
-        }
-        return builder.toString();
-    }
-
-    private static List<String> splitAndFilter(String value, String delimiter) {
-        ArrayList<String> values = new ArrayList<>();
-        if (value == null || value.isEmpty()) {
-            return values;
-        }
-        for (String part : value.split(java.util.regex.Pattern.quote(delimiter))) {
-            if (part == null) {
-                continue;
-            }
-            String trimmed = part.trim();
-            if (!trimmed.isEmpty()) {
-                values.add(trimmed);
-            }
-        }
-        return values;
     }
 }

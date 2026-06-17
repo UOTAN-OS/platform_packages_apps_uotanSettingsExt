@@ -19,45 +19,28 @@ package org.uwuaosp.settingsext.launcher;
 import android.content.Context;
 import android.provider.Settings;
 
+import org.uwuaosp.settingsext.util.SettingsUtils;
+
 public final class LauncherSecureSettings {
 
     private LauncherSecureSettings() {
     }
 
     public static void setAllAppsThemedIconsEnabled(Context context, boolean enabled) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.LAUNCHER_ALLAPPS_THEMED_ICONS, enabled ? 1 : 0);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureBoolean(context, Settings.Secure.LAUNCHER_ALLAPPS_THEMED_ICONS, enabled);
     }
 
     public static boolean isAllAppsThemedIconsEnabled(Context context, boolean defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.LAUNCHER_ALLAPPS_THEMED_ICONS,
-                    defaultValue ? 1 : 0) == 1;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureBoolean(context, Settings.Secure.LAUNCHER_ALLAPPS_THEMED_ICONS, defaultValue);
     }
 
     private static final String LENS_ICON_KEY = "launcher_lens_icon";
 
     public static void setLensIconEnabled(Context context, boolean enabled) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    LENS_ICON_KEY, enabled ? 1 : 0);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureBoolean(context, LENS_ICON_KEY, enabled);
     }
 
     public static boolean isLensIconEnabled(Context context, boolean defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    LENS_ICON_KEY, defaultValue ? 1 : 0) == 1;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureBoolean(context, LENS_ICON_KEY, defaultValue);
     }
 }

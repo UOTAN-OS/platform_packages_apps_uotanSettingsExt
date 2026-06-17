@@ -19,24 +19,17 @@ package org.uwuaosp.settingsext.navigation;
 import android.content.Context;
 import android.provider.Settings;
 
+import org.uwuaosp.settingsext.util.SettingsUtils;
+
 public final class NavigationSecureSettings {
     private NavigationSecureSettings() {
     }
 
     public static void setNavigationBarHintEnabled(Context context, boolean enabled) {
-        try {
-            Settings.Secure.putInt(context.getContentResolver(),
-                    Settings.Secure.NAVIGATION_BAR_HINT, enabled ? 1 : 0);
-        } catch (Exception ignored) {
-        }
+        SettingsUtils.putSecureBoolean(context, Settings.Secure.NAVIGATION_BAR_HINT, enabled);
     }
 
     public static boolean isNavigationBarHintEnabled(Context context, boolean defaultValue) {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.NAVIGATION_BAR_HINT, defaultValue ? 1 : 0) == 1;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
+        return SettingsUtils.getSecureBoolean(context, Settings.Secure.NAVIGATION_BAR_HINT, defaultValue);
     }
 }

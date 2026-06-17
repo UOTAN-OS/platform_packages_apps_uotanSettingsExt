@@ -28,16 +28,14 @@ public class SettingsExtActivity extends CollapsingToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getIntent().getBooleanExtra(EXTRA_OPEN_POPUP_SETTINGS, false)
-                ? R.string.popup_settings_title
-                : R.string.app_name);
+
+        boolean openPopup = getIntent().getBooleanExtra(EXTRA_OPEN_POPUP_SETTINGS, false);
+        setTitle(openPopup ? R.string.popup_settings_title : R.string.app_name);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                            getIntent().getBooleanExtra(EXTRA_OPEN_POPUP_SETTINGS, false)
-                                    ? new PopupSettingsFragment()
-                                    : new SettingsExtFragment())
+                            openPopup ? new PopupSettingsFragment() : new SettingsExtFragment())
                     .commit();
         }
     }
