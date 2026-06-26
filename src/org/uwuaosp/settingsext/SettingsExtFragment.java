@@ -31,6 +31,7 @@ import org.uwuaosp.settingsext.attestation.KeyAttestationSettingsActivity;
 import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity;
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings;
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity;
+import org.uwuaosp.settingsext.popup.PopupSettingsActivity;
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity;
 import org.uwuaosp.settingsext.util.FeatureUtils;
 import org.uwuaosp.settingsext.util.IconUtils;
@@ -63,8 +64,7 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
 
         if (FeatureUtils.isPopUpSettingsEnabled(requireContext())) {
             setupPreference(KEY_POPUP_SETTINGS, R.drawable.ic_popup,
-                    () -> startActivity(new Intent(requireContext(), SettingsExtActivity.class)
-                            .putExtra(SettingsExtActivity.EXTRA_OPEN_POPUP_SETTINGS, true)));
+                    () -> startActivity(new Intent(requireContext(), PopupSettingsActivity.class)));
         } else {
             removePreference(KEY_CATEGORY_POPUP);
         }

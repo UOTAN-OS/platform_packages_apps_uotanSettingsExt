@@ -17,7 +17,10 @@
 android_app {
     name: "uwuSettingsExt",
 
-    srcs: ["src/**/*.java"],
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
     resource_dirs: ["res"],
     manifest: "AndroidManifest.xml",
 
@@ -28,9 +31,23 @@ android_app {
     required: ["privapp_whitelist_org.uwuaosp.settingsext"],
 
     static_libs: [
+        "androidx.activity_activity",
+        "androidx.activity_activity-compose",
+        "androidx.compose.foundation_foundation",
+        "androidx.compose.foundation_foundation-layout",
+        "androidx.compose.material3_material3",
+        "androidx.compose.material_material-icons-extended",
+        "androidx.compose.runtime_runtime",
+        "androidx.compose.ui_ui",
+        "androidx.compose.ui_ui-graphics",
+        "androidx.core_core-ktx",
+        "kotlin-stdlib",
         "androidx.preference_preference",
         "SettingsLib",
+        "uwuComposeSettingsLib",
     ],
+
+    kotlincflags: ["-Xjvm-default=all"],
 
     optimize: {
         optimize: true,

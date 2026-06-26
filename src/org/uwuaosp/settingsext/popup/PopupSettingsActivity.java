@@ -14,30 +14,24 @@
  * limitations under the License.
  */
 
-package org.uwuaosp.settingsext;
+package org.uwuaosp.settingsext.popup;
 
 import android.os.Bundle;
 
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
-import org.uwuaosp.settingsext.popup.PopupSettingsFragment;
-import org.uwuaosp.settingsext.util.FeatureUtils;
+import org.uwuaosp.settingsext.R;
 
-public class SettingsExtActivity extends CollapsingToolbarBaseActivity {
-    public static final String EXTRA_OPEN_POPUP_SETTINGS = "open_popup_settings";
-
+public class PopupSettingsActivity extends CollapsingToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        boolean openPopup = FeatureUtils.isPopUpSettingsEnabled(this)
-                && getIntent().getBooleanExtra(EXTRA_OPEN_POPUP_SETTINGS, false);
-        setTitle(openPopup ? R.string.popup_settings_title : R.string.app_name);
+        setTitle(R.string.popup_settings_title);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                            openPopup ? new PopupSettingsFragment() : new SettingsExtFragment())
+                            new PopupSettingsFragment())
                     .commit();
         }
     }

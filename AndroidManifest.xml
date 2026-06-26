@@ -38,6 +38,11 @@
             android:label="@string/app_name" />
 
         <activity
+            android:name=".popup.PopupSettingsActivity"
+            android:exported="false"
+            android:label="@string/popup_settings_title" />
+
+        <activity
             android:name=".smartsuggestions.SmartSuggestionsSettingsActivity"
             android:exported="false"
             android:label="@string/smart_suggestions_settings_title" />
