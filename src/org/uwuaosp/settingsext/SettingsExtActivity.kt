@@ -16,6 +16,7 @@
 
 package org.uwuaosp.settingsext
 
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -47,14 +48,11 @@ import org.uwuaosp.compose.settingslib.SettingsCategory
 import org.uwuaosp.compose.settingslib.SettingsHomepageIcon
 import org.uwuaosp.compose.settingslib.SettingsIllustrationHeader
 import org.uwuaosp.compose.settingslib.SettingsScaffold
-import org.uwuaosp.compose.settingslib.SwitchPreferenceRow
 import org.uwuaosp.compose.settingslib.rememberSettingsTypography
 import org.uwuaosp.settingsext.attestation.KeyAttestationSettingsActivity
 import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity
-import org.uwuaosp.settingsext.launcher.LauncherSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
-import org.uwuaosp.settingsext.navigation.NavigationSecureSettings
 import org.uwuaosp.settingsext.popup.PopupSettingsActivity
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity
 import org.uwuaosp.settingsext.util.FeatureUtils
@@ -76,6 +74,10 @@ class SettingsExtActivity : ComponentActivity() {
         const val EXTRA_OPEN_POPUP_SETTINGS = "open_popup_settings"
     }
 }
+
+private const val AI_CORE_PACKAGE = "org.uwuaosp.aicore"
+private const val AI_CORE_ACTIVITY = "org.uwuaosp.aicore.AiSettingsActivity"
+private const val LAUNCHER_PACKAGE = "com.android.launcher3"
 
 @Composable
 private fun SettingsExtTheme(content: @Composable () -> Unit) {
@@ -105,15 +107,6 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
 
     var lyricEnabled by remember {
         mutableStateOf(LyricSecureSettings.isEnabled(context, false))
-    }
-    var navigationBarHintEnabled by remember {
-        mutableStateOf(NavigationSecureSettings.isNavigationBarHintEnabled(context, true))
-    }
-    var allAppsThemedIconsEnabled by remember {
-        mutableStateOf(LauncherSecureSettings.isAllAppsThemedIconsEnabled(context, false))
-    }
-    var lensIconEnabled by remember {
-        mutableStateOf(LauncherSecureSettings.isLensIconEnabled(context, false))
     }
 
     SettingsScaffold(
@@ -181,37 +174,18 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
 
         Spacer(modifier = Modifier.height(8.dp))
         SettingsCategory(title = stringResource(R.string.settings_ext_category_launcher))
-        SwitchPreferenceRow(
-            title = stringResource(R.string.settings_ext_navigation_bar_hint_title),
-            summary = stringResource(R.string.settings_ext_navigation_bar_hint_summary),
-            checked = navigationBarHintEnabled,
-            onCheckedChange = { enabled ->
-                navigationBarHintEnabled = enabled
-                NavigationSecureSettings.setNavigationBarHintEnabled(context, enabled)
+        PreferenceRow(
+            title = stringResource(R.string.settings_ext_launcher_settings_title),
+            summary = "",
+            showSummary = false,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_launcher_settings)
             },
-            position = PreferencePosition.Top,
-        )
-        PreferenceGroupSpacer()
-        SwitchPreferenceRow(
-            title = stringResource(R.string.settings_ext_launcher_allapps_themed_icons_title),
-            summary = stringResource(R.string.settings_ext_launcher_allapps_themed_icons_summary),
-            checked = allAppsThemedIconsEnabled,
-            onCheckedChange = { enabled ->
-                allAppsThemedIconsEnabled = enabled
-                LauncherSecureSettings.setAllAppsThemedIconsEnabled(context, enabled)
+            onClick = {
+                context.startActivity(
+                    Intent(Intent.ACTION_APPLICATION_PREFERENCES).setPackage(LAUNCHER_PACKAGE),
+                )
             },
-            position = PreferencePosition.Middle,
-        )
-        PreferenceGroupSpacer()
-        SwitchPreferenceRow(
-            title = stringResource(R.string.settings_ext_launcher_lens_icon_title),
-            summary = stringResource(R.string.settings_ext_launcher_lens_icon_summary),
-            checked = lensIconEnabled,
-            onCheckedChange = { enabled ->
-                lensIconEnabled = enabled
-                LauncherSecureSettings.setLensIconEnabled(context, enabled)
-            },
-            position = PreferencePosition.Bottom,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -229,6 +203,22 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             },
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_statusbarlyric)
+            },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        SettingsCategory(title = stringResource(R.string.settings_ext_category_ai))
+        PreferenceRow(
+            title = stringResource(R.string.settings_ext_ai_core_title),
+            summary = "",
+            showSummary = false,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_ai)
+            },
+            onClick = {
+                context.startActivity(
+                    Intent().setComponent(ComponentName(AI_CORE_PACKAGE, AI_CORE_ACTIVITY)),
+                )
             },
         )
     }

@@ -34,6 +34,8 @@
     <string name="settings_ext_launcher_settings_title">主屏幕设置</string>
     <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
     <string name="settings_ext_lyric_fetch_summary">管理歌词显示、通知使用权限与应用白名单</string>
+    <string name="settings_ext_category_ai">AI</string>
+    <string name="settings_ext_ai_core_title">uwuAI Core</string>
 
     <string name="popup_settings_title">Pop-Up View</string>
     <string name="popup_section_apps">快捷菜单</string>

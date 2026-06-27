@@ -23,6 +23,7 @@
     <string name="settings_ext_category_smart_suggestions">Smart Suggestions</string>
     <string name="settings_ext_category_launcher">Launcher</string>
     <string name="settings_ext_category_lyric">Status Bar</string>
+    <string name="settings_ext_category_ai">AI</string>
     <string name="settings_ext_key_attestation_title">Spoofing Settings</string>
     <string name="settings_ext_key_attestation_summary">Import Keybox XML and custom pif.json</string>
     <string name="settings_ext_app_jump_title">App Jump Permissions</string>
@@ -34,6 +35,7 @@
     <string name="settings_ext_launcher_settings_title">Home screen settings</string>
     <string name="settings_ext_lyric_fetch_title">Status Bar Lyric</string>
     <string name="settings_ext_lyric_fetch_summary">Manage lyric display, notification access, and app whitelist</string>
+    <string name="settings_ext_ai_core_title">uwuAI Core</string>
 
     <string name="popup_settings_title">Pop-Up View</string>
     <string name="popup_section_apps">Quick Menu</string>

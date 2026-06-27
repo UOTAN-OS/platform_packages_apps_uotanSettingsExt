@@ -78,4 +78,13 @@
             android:title="@string/settings_ext_lyric_fetch_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="settings_ext_category_ai"
+        android:title="@string/settings_ext_category_ai">
+
+        <Preference
+            android:key="ai_core_settings"
+            android:title="@string/settings_ext_ai_core_title" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

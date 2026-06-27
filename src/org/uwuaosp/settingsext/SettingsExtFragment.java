@@ -16,6 +16,7 @@
 
 package org.uwuaosp.settingsext;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,6 +46,9 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_SETTINGS_EXT_HEADER = "settings_ext_header";
     private static final String KEY_KEY_ATTESTATION_SETTINGS = "key_attestation_settings";
     private static final String KEY_LAUNCHER_SETTINGS = "launcher_settings";
+    private static final String AI_CORE_PACKAGE = "org.uwuaosp.aicore";
+    private static final String AI_CORE_ACTIVITY = "org.uwuaosp.aicore.AiSettingsActivity";
+    private static final String KEY_AI_CORE_SETTINGS = "ai_core_settings";
     private static final String KEY_LYRIC_FETCH_SETTINGS = "lyric_fetch_settings";
     private static final String KEY_POPUP_SETTINGS = "popup_settings";
     private static final String KEY_SMART_SUGGESTIONS_SETTINGS = "smart_suggestions_settings";
@@ -75,6 +79,10 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
         setupPreference(KEY_LAUNCHER_SETTINGS, R.drawable.ic_launcher_settings,
                 () -> startActivity(new Intent(Intent.ACTION_APPLICATION_PREFERENCES)
                         .setPackage(LAUNCHER_PACKAGE)));
+
+        setupPreference(KEY_AI_CORE_SETTINGS, R.drawable.ic_ai,
+                () -> startActivity(new Intent().setComponent(
+                        new ComponentName(AI_CORE_PACKAGE, AI_CORE_ACTIVITY))));
 
         setupSwitchPreference(KEY_LYRIC_FETCH_SETTINGS, R.drawable.ic_statusbarlyric,
                 () -> LyricSecureSettings.isEnabled(requireContext(), false),
