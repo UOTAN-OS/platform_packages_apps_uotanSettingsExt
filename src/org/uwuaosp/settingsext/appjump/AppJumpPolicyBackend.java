@@ -103,6 +103,14 @@ final class AppJumpPolicyBackend {
         mPreferences.edit().putBoolean(KEY_SHOW_SYSTEM_APPS, enabled).apply();
     }
 
+    boolean isEnabled() throws RemoteException {
+        return ActivityTaskManager.getService().isAppJumpEnabled(UserHandle.myUserId());
+    }
+
+    void setEnabled(boolean enabled) throws RemoteException {
+        ActivityTaskManager.getService().setAppJumpEnabled(UserHandle.myUserId(), enabled);
+    }
+
     List<AppEntry> loadUserApps() {
         return loadUserApps(false);
     }

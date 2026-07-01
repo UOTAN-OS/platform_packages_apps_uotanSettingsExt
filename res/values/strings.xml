@@ -206,6 +206,8 @@
 
     <string name="app_jump_settings_title">App Jump Permissions</string>
     <string name="app_jump_detail_title">App jump permission</string>
+    <string name="app_jump_enabled_title">Enable App Jump protection</string>
+    <string name="app_jump_enabled_summary">Ask or block app-to-app launches using the rules below</string>
     <string name="app_jump_all_apps_title">All apps</string>
     <string name="app_jump_all_apps_summary">Browse %1$d apps. Recently used apps appear first.</string>
     <string name="app_jump_all_apps_summary_fallback">Browse every app. Recently used apps appear first.</string>
@@ -264,6 +266,7 @@
     <string name="app_jump_search_empty">No apps match this search</string>
     <string name="app_jump_system_app_warning">Warning: changing App Jump rules for system apps may cause serious bugs or system instability.</string>
     <string name="app_jump_settings_footer">You can change app jump permissions here at any time. Rules apply per user or profile.</string>
+    <string name="app_jump_settings_disabled_footer">App Jump protection is off. Saved rules are kept but will not take effect until protection is enabled again.</string>
     <string name="app_jump_load_failed">Could not load app jump settings</string>
     <string name="app_jump_update_failed">Could not update app jump settings</string>
 

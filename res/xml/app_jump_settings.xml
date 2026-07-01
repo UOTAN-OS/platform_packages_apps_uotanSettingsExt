@@ -17,12 +17,20 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/app_jump_settings_title">
 
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="app_jump_enabled"
+        android:summary="@string/app_jump_enabled_summary"
+        android:title="@string/app_jump_enabled_title" />
+
     <Preference
         android:key="app_jump_all_apps"
         android:summary="@string/app_jump_all_apps_summary_fallback"
         android:title="@string/app_jump_all_apps_title" />
 
-    <PreferenceCategory android:title="@string/app_jump_section_outgoing">
+    <PreferenceCategory
+        android:key="app_jump_section_outgoing"
+        android:title="@string/app_jump_section_outgoing">
         <Preference
             android:key="app_jump_always_allow"
             android:summary="@string/app_jump_category_source_always_allow_summary"
@@ -39,7 +47,9 @@
             android:title="@string/app_jump_category_source_ask_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/app_jump_section_incoming">
+    <PreferenceCategory
+        android:key="app_jump_section_incoming"
+        android:title="@string/app_jump_section_incoming">
         <Preference
             android:key="app_jump_target_allow"
             android:summary="@string/app_jump_category_target_always_allow_summary"

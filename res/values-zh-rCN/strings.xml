@@ -203,6 +203,8 @@
 
     <string name="app_jump_settings_title">应用跳转权限</string>
     <string name="app_jump_detail_title">应用跳转权限</string>
+    <string name="app_jump_enabled_title">启用应用跳转保护</string>
+    <string name="app_jump_enabled_summary">按下方规则询问或阻止应用之间的跳转</string>
     <string name="app_jump_all_apps_title">所有应用</string>
     <string name="app_jump_all_apps_summary">查看全部 %1$d 个应用，最近打开的应用会排在最前面。</string>
     <string name="app_jump_all_apps_summary_fallback">查看全部应用，最近打开的应用会排在最前面。</string>
@@ -261,6 +263,7 @@
     <string name="app_jump_search_empty">没有匹配的应用</string>
     <string name="app_jump_system_app_warning">警告：更改系统应用的跳转规则可能导致严重 bug 或系统不稳定。</string>
     <string name="app_jump_settings_footer">您可以随时在这里更改应用跳转权限。规则按用户或工作资料分别生效。</string>
+    <string name="app_jump_settings_disabled_footer">应用跳转保护已关闭。已保存的规则会保留，但在重新启用前不会生效。</string>
     <string name="app_jump_load_failed">无法加载应用跳转设置</string>
     <string name="app_jump_update_failed">无法更新应用跳转设置项</string>
 
