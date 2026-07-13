@@ -31,12 +31,7 @@
     <string name="settings_ext_popup_summary">Manage quick menu apps, gestures, notification entry, and Pop-Up View behavior</string>
     <string name="settings_ext_smart_suggestions_title">Smart Suggestions</string>
     <string name="settings_ext_smart_suggestions_summary">Manage smart suggestions, rules, and shortcut actions</string>
-    <string name="settings_ext_navigation_bar_hint_title">Gesture Navigation Hint</string>
-    <string name="settings_ext_navigation_bar_hint_summary">Show the small gesture bar handle at the bottom of the screen</string>
-    <string name="settings_ext_launcher_allapps_themed_icons_title">All Apps Themed Icons</string>
-    <string name="settings_ext_launcher_allapps_themed_icons_summary">Use themed icons in the app drawer when icon theming is enabled</string>
-    <string name="settings_ext_launcher_lens_icon_title">Google Lens Icon</string>
-    <string name="settings_ext_launcher_lens_icon_summary">Show the Google Lens icon in the overview actions bar</string>
+    <string name="settings_ext_launcher_settings_title">Home screen settings</string>
     <string name="settings_ext_lyric_fetch_title">Status Bar Lyric</string>
     <string name="settings_ext_lyric_fetch_summary">Manage lyric display, notification access, and app whitelist</string>
 

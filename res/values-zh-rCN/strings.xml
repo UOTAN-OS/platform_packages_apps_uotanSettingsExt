@@ -31,12 +31,7 @@
     <string name="settings_ext_popup_summary">集中管理快捷菜单应用、手势、通知入口与 Pop-Up View 行为</string>
     <string name="settings_ext_smart_suggestions_title">智能建议</string>
     <string name="settings_ext_smart_suggestions_summary">集中管理智能建议、规则与快捷操作</string>
-    <string name="settings_ext_navigation_bar_hint_title">手势导航提示条</string>
-    <string name="settings_ext_navigation_bar_hint_summary">显示屏幕底部的小白条手势提示</string>
-    <string name="settings_ext_launcher_allapps_themed_icons_title">抽屉主题图标</string>
-    <string name="settings_ext_launcher_allapps_themed_icons_summary">启用图标主题时，在应用抽屉中也使用主题图标</string>
-    <string name="settings_ext_launcher_lens_icon_title">Google Lens 图标</string>
-    <string name="settings_ext_launcher_lens_icon_summary">在多任务页面底部显示Google Lens 图标</string>
+    <string name="settings_ext_launcher_settings_title">主屏幕设置</string>
     <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
     <string name="settings_ext_lyric_fetch_summary">管理歌词显示、通知使用权限与应用白名单</string>
 

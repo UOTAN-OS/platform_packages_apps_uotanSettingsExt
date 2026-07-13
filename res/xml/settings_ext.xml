@@ -62,20 +62,9 @@
         android:key="settings_ext_category_launcher"
         android:title="@string/settings_ext_category_launcher">
 
-        <SwitchPreferenceCompat
-            android:key="navigation_bar_hint"
-            android:summary="@string/settings_ext_navigation_bar_hint_summary"
-            android:title="@string/settings_ext_navigation_bar_hint_title" />
-
-        <SwitchPreferenceCompat
-            android:key="launcher_allapps_themed_icons"
-            android:summary="@string/settings_ext_launcher_allapps_themed_icons_summary"
-            android:title="@string/settings_ext_launcher_allapps_themed_icons_title" />
-
-        <SwitchPreferenceCompat
-            android:key="launcher_lens_icon"
-            android:summary="@string/settings_ext_launcher_lens_icon_summary"
-            android:title="@string/settings_ext_launcher_lens_icon_title" />
+        <Preference
+            android:key="launcher_settings"
+            android:title="@string/settings_ext_launcher_settings_title" />
 
     </PreferenceCategory>
 

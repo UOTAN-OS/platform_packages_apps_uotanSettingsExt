@@ -16,7 +16,6 @@
 
 package org.uwuaosp.settingsext;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -30,10 +29,8 @@ import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 
 import org.uwuaosp.settingsext.attestation.KeyAttestationSettingsActivity;
 import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity;
-import org.uwuaosp.settingsext.launcher.LauncherSecureSettings;
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings;
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity;
-import org.uwuaosp.settingsext.navigation.NavigationSecureSettings;
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity;
 import org.uwuaosp.settingsext.util.IconUtils;
 
@@ -44,12 +41,11 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_APP_JUMP_SETTINGS = "app_jump_settings";
     private static final String KEY_SETTINGS_EXT_HEADER = "settings_ext_header";
     private static final String KEY_KEY_ATTESTATION_SETTINGS = "key_attestation_settings";
-    private static final String KEY_LAUNCHER_ALLAPPS_THEMED_ICONS = "launcher_allapps_themed_icons";
-    private static final String KEY_LAUNCHER_LENS_ICON = "launcher_lens_icon";
+    private static final String KEY_LAUNCHER_SETTINGS = "launcher_settings";
     private static final String KEY_LYRIC_FETCH_SETTINGS = "lyric_fetch_settings";
-    private static final String KEY_NAVIGATION_BAR_HINT = "navigation_bar_hint";
     private static final String KEY_POPUP_SETTINGS = "popup_settings";
     private static final String KEY_SMART_SUGGESTIONS_SETTINGS = "smart_suggestions_settings";
+    private static final String LAUNCHER_PACKAGE = "com.android.launcher3";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -70,25 +66,15 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
         setupPreference(KEY_SMART_SUGGESTIONS_SETTINGS, R.drawable.ic_smart_suggestions,
                 () -> startActivity(new Intent(requireContext(), SmartSuggestionsSettingsActivity.class)));
 
+        setupPreference(KEY_LAUNCHER_SETTINGS, R.drawable.ic_launcher_settings,
+                () -> startActivity(new Intent(Intent.ACTION_APPLICATION_PREFERENCES)
+                        .setPackage(LAUNCHER_PACKAGE)));
+
         setupSwitchPreference(KEY_LYRIC_FETCH_SETTINGS, R.drawable.ic_statusbarlyric,
                 () -> LyricSecureSettings.isEnabled(requireContext(), false),
                 enabled -> LyricSecureSettings.setEnabled(requireContext(), enabled),
                 () -> startActivity(new Intent(requireContext(), LyricSettingsActivity.class)));
 
-        setupSwitchPreference(KEY_NAVIGATION_BAR_HINT, 0,
-                () -> NavigationSecureSettings.isNavigationBarHintEnabled(requireContext(), true),
-                enabled -> NavigationSecureSettings.setNavigationBarHintEnabled(requireContext(), enabled),
-                null);
-
-        setupSwitchPreference(KEY_LAUNCHER_ALLAPPS_THEMED_ICONS, 0,
-                () -> LauncherSecureSettings.isAllAppsThemedIconsEnabled(requireContext(), false),
-                enabled -> LauncherSecureSettings.setAllAppsThemedIconsEnabled(requireContext(), enabled),
-                null);
-
-        setupSwitchPreference(KEY_LAUNCHER_LENS_ICON, 0,
-                () -> LauncherSecureSettings.isLensIconEnabled(requireContext(), false),
-                enabled -> LauncherSecureSettings.setLensIconEnabled(requireContext(), enabled),
-                null);
     }
 
     private void setupHeader() {
@@ -156,9 +142,6 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
 
     private void updateStates() {
         updateSwitchState(KEY_LYRIC_FETCH_SETTINGS, () -> LyricSecureSettings.isEnabled(requireContext(), false));
-        updateSwitchState(KEY_NAVIGATION_BAR_HINT, () -> NavigationSecureSettings.isNavigationBarHintEnabled(requireContext(), true));
-        updateSwitchState(KEY_LAUNCHER_ALLAPPS_THEMED_ICONS, () -> LauncherSecureSettings.isAllAppsThemedIconsEnabled(requireContext(), false));
-        updateSwitchState(KEY_LAUNCHER_LENS_ICON, () -> LauncherSecureSettings.isLensIconEnabled(requireContext(), false));
     }
 
     private void updateSwitchState(String key, Supplier<Boolean> getter) {
