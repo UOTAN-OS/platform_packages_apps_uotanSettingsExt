@@ -299,11 +299,11 @@ final class AppJumpPolicyBackend {
                 || targetMode == ActivityTaskManager.APP_JUMP_SOURCE_MODE_BLOCK) {
             return ActivityTaskManager.APP_JUMP_SOURCE_MODE_BLOCK;
         }
-        if (sourceMode == ActivityTaskManager.APP_JUMP_SOURCE_MODE_ASK
-                || targetMode == ActivityTaskManager.APP_JUMP_SOURCE_MODE_ASK) {
-            return ActivityTaskManager.APP_JUMP_SOURCE_MODE_ASK;
+        if (sourceMode == ActivityTaskManager.APP_JUMP_SOURCE_MODE_ALLOW
+                || targetMode == ActivityTaskManager.APP_JUMP_SOURCE_MODE_ALLOW) {
+            return ActivityTaskManager.APP_JUMP_SOURCE_MODE_ALLOW;
         }
-        return ActivityTaskManager.APP_JUMP_SOURCE_MODE_ALLOW;
+        return ActivityTaskManager.APP_JUMP_SOURCE_MODE_ASK;
     }
 
     private static boolean shouldIncludeApp(@Nullable ApplicationInfo appInfo,
