@@ -32,6 +32,7 @@ import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity;
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings;
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity;
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity;
+import org.uwuaosp.settingsext.util.FeatureUtils;
 import org.uwuaosp.settingsext.util.IconUtils;
 
 import java.util.function.Consumer;
@@ -39,6 +40,7 @@ import java.util.function.Supplier;
 
 public class SettingsExtFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_APP_JUMP_SETTINGS = "app_jump_settings";
+    private static final String KEY_CATEGORY_POPUP = "settings_ext_category_popup";
     private static final String KEY_SETTINGS_EXT_HEADER = "settings_ext_header";
     private static final String KEY_KEY_ATTESTATION_SETTINGS = "key_attestation_settings";
     private static final String KEY_LAUNCHER_SETTINGS = "launcher_settings";
@@ -59,9 +61,13 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
         setupPreference(KEY_KEY_ATTESTATION_SETTINGS, R.drawable.ic_spoofing,
                 () -> startActivity(new Intent(requireContext(), KeyAttestationSettingsActivity.class)));
 
-        setupPreference(KEY_POPUP_SETTINGS, R.drawable.ic_popup,
-                () -> startActivity(new Intent(requireContext(), SettingsExtActivity.class)
-                        .putExtra(SettingsExtActivity.EXTRA_OPEN_POPUP_SETTINGS, true)));
+        if (FeatureUtils.isPopUpSettingsEnabled(requireContext())) {
+            setupPreference(KEY_POPUP_SETTINGS, R.drawable.ic_popup,
+                    () -> startActivity(new Intent(requireContext(), SettingsExtActivity.class)
+                            .putExtra(SettingsExtActivity.EXTRA_OPEN_POPUP_SETTINGS, true)));
+        } else {
+            removePreference(KEY_CATEGORY_POPUP);
+        }
 
         setupPreference(KEY_SMART_SUGGESTIONS_SETTINGS, R.drawable.ic_smart_suggestions,
                 () -> startActivity(new Intent(requireContext(), SmartSuggestionsSettingsActivity.class)));
@@ -82,6 +88,13 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
         if (header != null) {
             header.setPersistent(false);
             header.setImageDrawable(requireContext().getDrawable(R.drawable.settings_ext_header_image));
+        }
+    }
+
+    private void removePreference(String key) {
+        Preference pref = findPreference(key);
+        if (pref != null) {
+            getPreferenceScreen().removePreference(pref);
         }
     }
 

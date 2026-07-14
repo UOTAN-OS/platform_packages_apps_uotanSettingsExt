@@ -21,6 +21,7 @@ import android.os.Bundle;
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
 import org.uwuaosp.settingsext.popup.PopupSettingsFragment;
+import org.uwuaosp.settingsext.util.FeatureUtils;
 
 public class SettingsExtActivity extends CollapsingToolbarBaseActivity {
     public static final String EXTRA_OPEN_POPUP_SETTINGS = "open_popup_settings";
@@ -29,7 +30,8 @@ public class SettingsExtActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean openPopup = getIntent().getBooleanExtra(EXTRA_OPEN_POPUP_SETTINGS, false);
+        boolean openPopup = FeatureUtils.isPopUpSettingsEnabled(this)
+                && getIntent().getBooleanExtra(EXTRA_OPEN_POPUP_SETTINGS, false);
         setTitle(openPopup ? R.string.popup_settings_title : R.string.app_name);
 
         if (savedInstanceState == null) {
