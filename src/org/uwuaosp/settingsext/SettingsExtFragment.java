@@ -17,6 +17,7 @@
 package org.uwuaosp.settingsext;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -41,6 +42,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SettingsExtFragment extends SettingsBasePreferenceFragment {
+    private static final String SETTINGS_EXT_PREFS = "settings_ext_prefs";
+    private static final String PREF_AI_ENTRY_UNLOCKED = "ai_entry_unlocked";
     private static final String KEY_APP_JUMP_SETTINGS = "app_jump_settings";
     private static final String KEY_MOMENT_SETTINGS_CATEGORY = "moment_settings_category";
     private static final String KEY_SETTINGS_EXT_HEADER = "settings_ext_header";
@@ -49,6 +52,7 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
     private static final String AI_CORE_PACKAGE = "org.uwuaosp.aicore";
     private static final String AI_CORE_ACTIVITY = "org.uwuaosp.aicore.AiSettingsActivity";
     private static final String KEY_AI_CORE_SETTINGS = "ai_core_settings";
+    private static final String KEY_SETTINGS_EXT_CATEGORY_AI = "settings_ext_category_ai";
     private static final String KEY_LYRIC_FETCH_SETTINGS = "lyric_fetch_settings";
     private static final String KEY_MOMENT_SETTINGS = "moment_settings";
     private static final String KEY_SMART_SUGGESTIONS_SETTINGS = "smart_suggestions_settings";
@@ -80,15 +84,33 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
                 () -> startActivity(new Intent(Intent.ACTION_APPLICATION_PREFERENCES)
                         .setPackage(LAUNCHER_PACKAGE)));
 
-        setupPreference(KEY_AI_CORE_SETTINGS, R.drawable.ic_ai,
-                () -> startActivity(new Intent().setComponent(
-                        new ComponentName(AI_CORE_PACKAGE, AI_CORE_ACTIVITY))));
+        boolean aiEntryUnlocked = isAiEntryUnlocked(requireContext());
+        Preference aiCategory = findPreference(KEY_SETTINGS_EXT_CATEGORY_AI);
+        if (aiCategory != null) {
+            aiCategory.setVisible(aiEntryUnlocked);
+        }
+
+        Preference aiCorePreference = findPreference(KEY_AI_CORE_SETTINGS);
+        if (aiCorePreference != null) {
+            aiCorePreference.setVisible(aiEntryUnlocked);
+            aiCorePreference.setIcon(IconUtils.createHomeEntryIcon(requireContext(), R.drawable.ic_ai));
+            aiCorePreference.setOnPreferenceClickListener(preference -> {
+                startActivity(new Intent().setComponent(
+                        new ComponentName(AI_CORE_PACKAGE, AI_CORE_ACTIVITY)));
+                return true;
+            });
+        }
 
         setupSwitchPreference(KEY_LYRIC_FETCH_SETTINGS, R.drawable.ic_statusbarlyric,
                 () -> LyricSecureSettings.isEnabled(requireContext(), false),
                 enabled -> LyricSecureSettings.setEnabled(requireContext(), enabled),
                 () -> startActivity(new Intent(requireContext(), LyricSettingsActivity.class)));
 
+    }
+
+    private boolean isAiEntryUnlocked(Context context) {
+        return context.getSharedPreferences(SETTINGS_EXT_PREFS, Context.MODE_PRIVATE)
+                .getBoolean(PREF_AI_ENTRY_UNLOCKED, false);
     }
 
     private void setupHeader() {

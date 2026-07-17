@@ -17,12 +17,15 @@
 package org.uwuaosp.settingsext
 
 import android.content.ComponentName
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -32,11 +35,13 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -73,6 +78,9 @@ class SettingsExtActivity : ComponentActivity() {
 
 private const val AI_CORE_PACKAGE = "org.uwuaosp.aicore"
 private const val AI_CORE_ACTIVITY = "org.uwuaosp.aicore.AiSettingsActivity"
+private const val AI_ENTRY_UNLOCK_TAPS = 7
+private const val SETTINGS_EXT_PREFS = "settings_ext_prefs"
+private const val PREF_AI_ENTRY_UNLOCKED = "ai_entry_unlocked"
 private const val LAUNCHER_PACKAGE = "com.android.launcher3"
 
 @Composable
@@ -100,9 +108,16 @@ private fun SettingsExtTheme(content: @Composable () -> Unit) {
 @Composable
 private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
     val context = LocalContext.current
+    val preferences = remember(context) {
+        context.getSharedPreferences(SETTINGS_EXT_PREFS, MODE_PRIVATE)
+    }
     var lyricEnabled by remember {
         mutableStateOf(LyricSecureSettings.isEnabled(context, false))
     }
+    var aiEntryUnlocked by remember {
+        mutableStateOf(preferences.isAiEntryUnlocked())
+    }
+    var headerTapCount by remember { mutableIntStateOf(0) }
 
     SettingsScaffold(
         title = stringResource(R.string.app_name),
@@ -111,6 +126,16 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
     ) {
         SettingsIllustrationHeader(
             imageRes = R.drawable.settings_ext_header_image,
+            modifier = Modifier.pointerInput(Unit) {
+                detectTapGestures {
+                    if (aiEntryUnlocked) return@detectTapGestures
+                    headerTapCount += 1
+                    if (headerTapCount >= AI_ENTRY_UNLOCK_TAPS) {
+                        preferences.setAiEntryUnlocked(true)
+                        aiEntryUnlocked = true
+                    }
+                }
+            },
             height = 180.dp,
         )
 
@@ -201,20 +226,30 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             },
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_ai))
-        PreferenceRow(
-            title = stringResource(R.string.settings_ext_ai_core_title),
-            summary = "",
-            showSummary = false,
-            iconContent = {
-                SettingsHomepageIcon(iconRes = R.drawable.ic_ai)
-            },
-            onClick = {
-                context.startActivity(
-                    Intent().setComponent(ComponentName(AI_CORE_PACKAGE, AI_CORE_ACTIVITY)),
-                )
-            },
-        )
+        if (aiEntryUnlocked) {
+            Spacer(modifier = Modifier.height(8.dp))
+            SettingsCategory(title = stringResource(R.string.settings_ext_category_ai))
+            PreferenceRow(
+                title = stringResource(R.string.settings_ext_ai_core_title),
+                summary = "",
+                showSummary = false,
+                iconContent = {
+                    SettingsHomepageIcon(iconRes = R.drawable.ic_ai)
+                },
+                onClick = {
+                    context.startActivity(
+                        Intent().setComponent(ComponentName(AI_CORE_PACKAGE, AI_CORE_ACTIVITY)),
+                    )
+                },
+            )
+        }
     }
+}
+
+private fun SharedPreferences.isAiEntryUnlocked(): Boolean {
+    return getBoolean(PREF_AI_ENTRY_UNLOCKED, false)
+}
+
+private fun SharedPreferences.setAiEntryUnlocked(unlocked: Boolean) {
+    edit().putBoolean(PREF_AI_ENTRY_UNLOCKED, unlocked).apply()
 }
