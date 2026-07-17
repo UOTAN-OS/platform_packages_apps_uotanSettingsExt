@@ -16,14 +16,14 @@
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/popup_editor_search_menu"
-        android:title="@string/popup_editor_search_title"
+        android:id="@+id/moment_arc_editor_search_menu"
+        android:title="@string/moment_arc_editor_search_title"
         android:icon="@drawable/ic_search_24"
         android:showAsAction="always|collapseActionView"
         android:actionViewClass="android.widget.SearchView" />
 
     <item
-        android:id="@+id/popup_editor_toggle_side_menu"
-        android:title="@string/popup_editor_right_side"
+        android:id="@+id/moment_arc_editor_toggle_side_menu"
+        android:title="@string/moment_arc_editor_right_side"
         android:showAsAction="always" />
 </menu>

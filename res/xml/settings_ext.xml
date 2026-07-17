@@ -39,13 +39,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="settings_ext_category_popup"
-        android:title="@string/settings_ext_category_popup">
+        android:key="moment_settings_category"
+        android:title="@string/moment_settings_title">
 
         <Preference
-            android:key="popup_settings"
-            android:summary="@string/settings_ext_popup_summary"
-            android:title="@string/settings_ext_popup_title" />
+            android:key="moment_settings"
+            android:summary="@string/moment_settings_summary"
+            android:title="@string/moment_settings_title" />
     </PreferenceCategory>
 
     <PreferenceCategory

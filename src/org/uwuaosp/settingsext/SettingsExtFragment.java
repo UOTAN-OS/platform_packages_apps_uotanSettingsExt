@@ -32,7 +32,7 @@ import org.uwuaosp.settingsext.attestation.KeyAttestationSettingsActivity;
 import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity;
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings;
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity;
-import org.uwuaosp.settingsext.popup.PopupSettingsActivity;
+import org.uwuaosp.settingsext.moment.MomentSettingsActivity;
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity;
 import org.uwuaosp.settingsext.util.FeatureUtils;
 import org.uwuaosp.settingsext.util.IconUtils;
@@ -42,7 +42,7 @@ import java.util.function.Supplier;
 
 public class SettingsExtFragment extends SettingsBasePreferenceFragment {
     private static final String KEY_APP_JUMP_SETTINGS = "app_jump_settings";
-    private static final String KEY_CATEGORY_POPUP = "settings_ext_category_popup";
+    private static final String KEY_MOMENT_SETTINGS_CATEGORY = "moment_settings_category";
     private static final String KEY_SETTINGS_EXT_HEADER = "settings_ext_header";
     private static final String KEY_KEY_ATTESTATION_SETTINGS = "key_attestation_settings";
     private static final String KEY_LAUNCHER_SETTINGS = "launcher_settings";
@@ -50,7 +50,7 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
     private static final String AI_CORE_ACTIVITY = "org.uwuaosp.aicore.AiSettingsActivity";
     private static final String KEY_AI_CORE_SETTINGS = "ai_core_settings";
     private static final String KEY_LYRIC_FETCH_SETTINGS = "lyric_fetch_settings";
-    private static final String KEY_POPUP_SETTINGS = "popup_settings";
+    private static final String KEY_MOMENT_SETTINGS = "moment_settings";
     private static final String KEY_SMART_SUGGESTIONS_SETTINGS = "smart_suggestions_settings";
     private static final String LAUNCHER_PACKAGE = "com.android.launcher3";
 
@@ -66,11 +66,11 @@ public class SettingsExtFragment extends SettingsBasePreferenceFragment {
         setupPreference(KEY_KEY_ATTESTATION_SETTINGS, R.drawable.ic_spoofing,
                 () -> startActivity(new Intent(requireContext(), KeyAttestationSettingsActivity.class)));
 
-        if (FeatureUtils.isPopUpSettingsEnabled(requireContext())) {
-            setupPreference(KEY_POPUP_SETTINGS, R.drawable.ic_popup,
-                    () -> startActivity(new Intent(requireContext(), PopupSettingsActivity.class)));
+        if (FeatureUtils.isMomentSettingsEnabled(requireContext())) {
+            setupPreference(KEY_MOMENT_SETTINGS, R.drawable.ic_moment,
+                    () -> startActivity(new Intent(requireContext(), MomentSettingsActivity.class)));
         } else {
-            removePreference(KEY_CATEGORY_POPUP);
+            removePreference(KEY_MOMENT_SETTINGS_CATEGORY);
         }
 
         setupPreference(KEY_SMART_SUGGESTIONS_SETTINGS, R.drawable.ic_smart_suggestions,

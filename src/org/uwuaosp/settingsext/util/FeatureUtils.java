@@ -25,7 +25,7 @@ public final class FeatureUtils {
     private FeatureUtils() {
     }
 
-    public static boolean isPopUpSettingsEnabled(Context context) {
+    public static boolean isMomentSettingsEnabled(Context context) {
         return !SettingsThemeHelper.isTablet(context);
     }
 }

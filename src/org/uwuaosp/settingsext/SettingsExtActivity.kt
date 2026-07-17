@@ -53,7 +53,7 @@ import org.uwuaosp.settingsext.attestation.KeyAttestationSettingsActivity
 import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
-import org.uwuaosp.settingsext.popup.PopupSettingsActivity
+import org.uwuaosp.settingsext.moment.MomentSettingsActivity
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity
 import org.uwuaosp.settingsext.util.FeatureUtils
 
@@ -69,10 +69,6 @@ class SettingsExtActivity : ComponentActivity() {
         }
     }
 
-    companion object {
-        @Deprecated("Use PopupSettingsActivity instead.")
-        const val EXTRA_OPEN_POPUP_SETTINGS = "open_popup_settings"
-    }
 }
 
 private const val AI_CORE_PACKAGE = "org.uwuaosp.aicore"
@@ -104,7 +100,6 @@ private fun SettingsExtTheme(content: @Composable () -> Unit) {
 @Composable
 private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
     val context = LocalContext.current
-
     var lyricEnabled by remember {
         mutableStateOf(LyricSecureSettings.isEnabled(context, false))
     }
@@ -144,17 +139,17 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             },
         )
 
-        if (FeatureUtils.isPopUpSettingsEnabled(context)) {
+        if (FeatureUtils.isMomentSettingsEnabled(context)) {
             Spacer(modifier = Modifier.height(8.dp))
-            SettingsCategory(title = stringResource(R.string.settings_ext_category_popup))
+            SettingsCategory(title = stringResource(R.string.moment_settings_title))
             PreferenceRow(
-                title = stringResource(R.string.settings_ext_popup_title),
-                summary = stringResource(R.string.settings_ext_popup_summary),
+                title = stringResource(R.string.moment_settings_title),
+                summary = stringResource(R.string.moment_settings_summary),
                 iconContent = {
-                    SettingsHomepageIcon(iconRes = R.drawable.ic_popup)
+                    SettingsHomepageIcon(iconRes = R.drawable.ic_moment)
                 },
                 onClick = {
-                    context.startActivity(Intent(context, PopupSettingsActivity::class.java))
+                    context.startActivity(Intent(context, MomentSettingsActivity::class.java))
                 },
             )
         }

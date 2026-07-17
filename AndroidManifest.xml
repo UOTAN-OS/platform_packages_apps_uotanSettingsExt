@@ -38,9 +38,20 @@
             android:label="@string/app_name" />
 
         <activity
-            android:name=".popup.PopupSettingsActivity"
+            android:name=".moment.MomentArcEditorActivity"
             android:exported="false"
-            android:label="@string/popup_settings_title" />
+            android:label="@string/moment_arc_editor_entry_title" />
+
+        <activity
+            android:name=".moment.MomentSettingsActivity"
+            android:exported="false"
+            android:label="@string/moment_settings_title" />
+
+        <activity
+            android:name=".moment.MomentAllAppsActivity"
+            android:exported="true"
+            android:label="@string/moment_all_apps"
+            android:permission="android.permission.STATUS_BAR" />
 
         <activity
             android:name=".smartsuggestions.SmartSuggestionsSettingsActivity"
@@ -53,19 +64,9 @@
             android:label="@string/key_attestation_settings_title" />
 
         <activity
-            android:name=".popup.AppSelectionActivity"
+            android:name=".apppicker.AppSelectionActivity"
             android:exported="false"
-            android:label="@string/popup_manage_apps_title" />
-
-        <activity
-            android:name=".popup.QuickMenuEditorActivity"
-            android:exported="false"
-            android:label="@string/popup_manage_apps_editor_title" />
-
-        <activity
-            android:name=".popup.AllAppsActivity"
-            android:exported="false"
-            android:label="@string/popup_all_apps" />
+            android:label="@string/app_picker_title" />
 
         <activity
             android:name=".appjump.AppJumpSettingsActivity"

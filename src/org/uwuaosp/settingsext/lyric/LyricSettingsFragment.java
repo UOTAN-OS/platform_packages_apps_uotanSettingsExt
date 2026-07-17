@@ -31,7 +31,7 @@ import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 
 import org.uwuaosp.settingsext.R;
-import org.uwuaosp.settingsext.popup.AppSelectionActivity;
+import org.uwuaosp.settingsext.apppicker.AppSelectionActivity;
 
 import java.util.List;
 

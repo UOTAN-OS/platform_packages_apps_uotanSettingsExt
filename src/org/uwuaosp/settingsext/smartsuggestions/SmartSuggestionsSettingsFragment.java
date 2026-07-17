@@ -29,7 +29,7 @@ import com.android.settingslib.widget.SettingsBasePreferenceFragment;
 
 import org.uwuaosp.settingsext.R;
 import org.uwuaosp.settingsext.apppicker.LaunchableAppPicker;
-import org.uwuaosp.settingsext.popup.AppSelectionActivity;
+import org.uwuaosp.settingsext.apppicker.AppSelectionActivity;
 import org.uwuaosp.settingsext.smartsuggestions.clipboard.ClipboardRuleStore;
 import org.uwuaosp.settingsext.smartsuggestions.sms.SmsCodeRuleStore;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.uwuaosp.settingsext.popup;
+package org.uwuaosp.settingsext.apppicker;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -70,13 +70,13 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
     private final ArrayList<AppEntry> mAppList = new ArrayList<>();
     private final ArrayList<String> mSelectedApps = new ArrayList<>();
 
-    private String mSelectionMode = PopupSystemSettings.SELECTION_MODE_QUICK_MENU;
-    private boolean mAllowReorder = true;
+    private String mSelectionMode = SELECTION_MODE_SINGLE_APP;
+    private boolean mAllowReorder = false;
     private boolean mSingleSelect = false;
     private boolean mResultOnly = false;
-    private int mMaxSelectionCount = MAX_ICONS - 1;
-    private int mScreenTitleRes = R.string.popup_manage_apps_title;
-    private int mSelectedSectionTitleRes = R.string.popup_selected_apps;
+    private int mMaxSelectionCount = 1;
+    private int mScreenTitleRes = R.string.app_picker_title;
+    private int mSelectedSectionTitleRes = R.string.app_picker_selected_app;
 
     private RecyclerView mAppListView;
     private ProgressBar mLoading;
@@ -130,13 +130,8 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
 
     private void resolveSelectionMode() {
         String mode = getIntent().getStringExtra(EXTRA_SELECTION_MODE);
-        mSelectionMode = mode != null ? mode : PopupSystemSettings.SELECTION_MODE_QUICK_MENU;
-        if (PopupSystemSettings.SELECTION_MODE_NOTIFICATION_BLACKLIST.equals(mSelectionMode)) {
-            mAllowReorder = false;
-            mMaxSelectionCount = Integer.MAX_VALUE;
-            mScreenTitleRes = R.string.popup_notification_blacklist_title;
-            mSelectedSectionTitleRes = R.string.popup_notification_blacklisted_apps;
-        } else if (SELECTION_MODE_MUSIC_SUGGESTION.equals(mSelectionMode)) {
+        mSelectionMode = mode != null ? mode : SELECTION_MODE_SINGLE_APP;
+        if (SELECTION_MODE_MUSIC_SUGGESTION.equals(mSelectionMode)) {
             mAllowReorder = false;
             mSingleSelect = true;
             mMaxSelectionCount = 1;
@@ -242,10 +237,7 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
         if (SELECTION_MODE_LYRIC_WHITELIST.equals(mSelectionMode)) {
             return LyricSecureSettings.getAllowedPackages(this);
         }
-        if (PopupSystemSettings.SELECTION_MODE_NOTIFICATION_BLACKLIST.equals(mSelectionMode)) {
-            return PopupSystemSettings.getNotificationBlacklist(this);
-        }
-        return PopupSystemSettings.getSelectedApps(this);
+        return new ArrayList<>();
     }
 
     private void persistSelection() {
@@ -259,11 +251,6 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
         if (SELECTION_MODE_LYRIC_WHITELIST.equals(mSelectionMode)) {
             LyricSecureSettings.setAllowedPackages(this, mSelectedApps);
             return;
-        }
-        if (PopupSystemSettings.SELECTION_MODE_NOTIFICATION_BLACKLIST.equals(mSelectionMode)) {
-            PopupSystemSettings.saveNotificationBlacklist(this, mSelectedApps);
-        } else {
-            PopupSystemSettings.saveSelectedApps(this, mSelectedApps);
         }
     }
 
@@ -374,14 +361,14 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
                 }
             }
             if (selectedInfos.isEmpty()) {
-                newItems.add(UiItem.empty(R.string.popup_no_apps_selected));
+                newItems.add(UiItem.empty(R.string.app_picker_no_apps_selected));
             } else {
                 for (AppEntry app : selectedInfos) {
                     newItems.add(UiItem.selected(app));
                 }
             }
 
-            newItems.add(UiItem.header(R.string.popup_all_apps));
+            newItems.add(UiItem.header(R.string.app_picker_all_apps));
             ArrayList<AppEntry> unselected = new ArrayList<>();
             for (AppEntry app : mAppList) {
                 if (!mSelectedApps.contains(app.getPackageName())) {
@@ -587,7 +574,8 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
                 if (mAllowReorder && mSelectedApps.size() >= mMaxSelectionCount) {
                     Toast.makeText(
                             AppSelectionActivity.this,
-                            getString(R.string.popup_selection_limit_toast, mMaxSelectionCount),
+                            getString(R.string.app_picker_selection_limit_toast,
+                                    mMaxSelectionCount),
                             Toast.LENGTH_SHORT)
                             .show();
                     buildItems();
@@ -676,5 +664,4 @@ public class AppSelectionActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
-    private static final int MAX_ICONS = 6;
 }

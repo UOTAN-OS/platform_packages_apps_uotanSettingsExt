@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.uwuaosp.settingsext.popup;
+package org.uwuaosp.settingsext.moment;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -32,7 +32,7 @@ import org.uwuaosp.settingsext.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuickMenuSlotLayout extends ViewGroup {
+public class MomentArcLayout extends ViewGroup {
     static final int INNER_SLOTS = 6;
     static final int OUTER_SLOTS = 7;
     static final int TOTAL_SLOTS = 13;
@@ -71,15 +71,15 @@ public class QuickMenuSlotLayout extends ViewGroup {
     @Nullable
     private OnSlotDropListener mOnSlotDropListener;
 
-    public QuickMenuSlotLayout(Context context) {
+    public MomentArcLayout(Context context) {
         this(context, null);
     }
 
-    public QuickMenuSlotLayout(Context context, @Nullable AttributeSet attrs) {
+    public MomentArcLayout(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public QuickMenuSlotLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MomentArcLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mSlotSizePx = dpToPx(SLOT_SIZE_DP);
         mCircleRadiusPx = dpToPx(CIRCLE_RADIUS_DP);
@@ -131,12 +131,12 @@ public class QuickMenuSlotLayout extends ViewGroup {
 
     public void setSlots(@NonNull List<SlotItem> slots) {
         for (int i = 0; i < TOTAL_SLOTS; i++) {
-            if (i < slots.size() && slots.get(i) != null) {
-                mSlots.set(i, slots.get(i));
-            } else if (i == MORE_APPS_SLOT) {
+            if (i == MORE_APPS_SLOT) {
                 mSlots.set(i, SlotItem.moreApps(
-                        getContext().getDrawable(R.drawable.ic_popup_more_apps),
-                        getContext().getString(R.string.popup_editor_more_apps)));
+                        getContext().getDrawable(R.drawable.ic_moment_arc_all_apps),
+                        getContext().getString(R.string.moment_arc_editor_more_apps)));
+            } else if (i < slots.size() && slots.get(i) != null) {
+                mSlots.set(i, slots.get(i));
             } else {
                 mSlots.set(i, SlotItem.empty());
             }
@@ -287,12 +287,13 @@ public class QuickMenuSlotLayout extends ViewGroup {
 
         @NonNull
         public static SlotItem empty() {
-            return new SlotItem(null, R.drawable.quick_menu_editor_slot_empty, "");
+            return new SlotItem(null, R.drawable.moment_arc_editor_slot_empty, "");
         }
 
         @NonNull
         public static SlotItem empty(@NonNull CharSequence contentDescription) {
-            return new SlotItem(null, R.drawable.quick_menu_editor_slot_empty, contentDescription);
+            return new SlotItem(null, R.drawable.moment_arc_editor_slot_empty,
+                    contentDescription);
         }
 
         @NonNull

@@ -51,6 +51,6 @@
         android:layout_width="20dp"
         android:layout_height="3dp"
         android:layout_marginTop="6dp"
-        android:background="@drawable/quick_menu_editor_target_indicator"
+        android:background="@drawable/moment_arc_editor_target_indicator"
         android:visibility="invisible" />
 </LinearLayout>

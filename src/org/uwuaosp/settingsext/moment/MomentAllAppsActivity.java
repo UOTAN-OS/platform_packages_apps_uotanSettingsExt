@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.uwuaosp.settingsext.popup;
+package org.uwuaosp.settingsext.moment;
 
 import android.app.ActivityOptions;
 import android.app.WindowConfiguration;
@@ -51,7 +51,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AllAppsActivity extends CollapsingToolbarBaseActivity {
+public class MomentAllAppsActivity extends CollapsingToolbarBaseActivity {
     private static final int SPAN_COUNT = 4;
 
     private final Handler mMainHandler = new Handler(Looper.getMainLooper());
@@ -66,7 +66,7 @@ public class AllAppsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_apps);
-        setTitle(R.string.popup_all_apps);
+        setTitle(R.string.moment_all_apps);
 
         mAppGrid = findViewById(R.id.app_grid);
         mLoading = findViewById(R.id.loading);
@@ -98,11 +98,11 @@ public class AllAppsActivity extends CollapsingToolbarBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static void startInPopup(Context context) {
-        Intent intent = new Intent(context, AllAppsActivity.class)
+    public static void startInMoment(Context context) {
+        Intent intent = new Intent(context, MomentAllAppsActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         ActivityOptions options = ActivityOptions.makeBasic();
-        options.setLaunchWindowingMode(WindowConfiguration.WINDOWING_MODE_MINI_WINDOW_EXT);
+        options.setLaunchWindowingMode(WindowConfiguration.WINDOWING_MODE_MOMENT);
         options.setPendingIntentBackgroundActivityStartMode(
                 ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
         context.startActivity(intent, options.toBundle());
@@ -195,18 +195,17 @@ public class AllAppsActivity extends CollapsingToolbarBaseActivity {
         launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         try {
             ActivityOptions options = ActivityOptions.makeBasic();
-            options.setLaunchWindowingMode(WindowConfiguration.WINDOWING_MODE_MINI_WINDOW_EXT);
+            options.setLaunchWindowingMode(WindowConfiguration.WINDOWING_MODE_MOMENT);
             options.setPendingIntentBackgroundActivityStartMode(
                     ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
             startActivity(launchIntent, options.toBundle());
-            finish();
         } catch (Exception e) {
             showLaunchFailToast();
         }
     }
 
     private void showLaunchFailToast() {
-        Toast.makeText(this, R.string.popup_cannot_launch_app, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.moment_cannot_launch_app, Toast.LENGTH_SHORT).show();
     }
 
     private static final class AppEntry {

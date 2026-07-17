@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.uwuaosp.settingsext.popup;
+package org.uwuaosp.settingsext.moment;
 
 import android.content.ClipData;
 import android.content.Intent;
@@ -57,7 +57,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
+public class MomentArcEditorActivity extends CollapsingToolbarBaseActivity {
     private static final int SOURCE_SPAN_COUNT = 5;
     private static final String STATE_IS_LEFT = "is_left";
     private static final String STATE_SEARCH_QUERY = "search_query";
@@ -76,7 +76,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     private final ArrayList<TargetInfo> mFilteredShortcuts = new ArrayList<>();
     private final ArrayList<TargetInfo> mAssignedTargets = new ArrayList<>();
 
-    private QuickMenuSlotLayout mPreview;
+    private MomentArcLayout mPreview;
     private RecyclerView mAppsList;
     private RecyclerView mShortcutsList;
     private View mAppsHeader;
@@ -110,8 +110,8 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_popup_quick_menu_editor);
-        setTitle(R.string.popup_editor_title);
+        setContentView(R.layout.activity_moment_arc_editor);
+        setTitle(R.string.moment_arc_editor_title);
 
         if (savedInstanceState != null) {
             mIsLeftSide = savedInstanceState.getBoolean(STATE_IS_LEFT, true);
@@ -121,7 +121,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
             mRestoredPendingKey = savedInstanceState.getString(STATE_PENDING_KEY);
         }
 
-        for (int i = 0; i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
+        for (int i = 0; i < MomentArcLayout.TOTAL_CONFIGURABLE; i++) {
             mAssignedTargets.add(null);
         }
 
@@ -171,11 +171,11 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.popup_quick_menu_editor, menu);
+        inflater.inflate(R.menu.moment_arc_editor, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.popup_editor_search_menu);
+        MenuItem searchItem = menu.findItem(R.id.moment_arc_editor_search_menu);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint(getString(R.string.popup_editor_search_title));
+        searchView.setQueryHint(getString(R.string.moment_arc_editor_search_title));
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
@@ -228,7 +228,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
             applyPreviewPositionCompensation();
         }
 
-        mSideToggleItem = menu.findItem(R.id.popup_editor_toggle_side_menu);
+        mSideToggleItem = menu.findItem(R.id.moment_arc_editor_toggle_side_menu);
         updateSideToggleTitle();
         super.onCreateOptionsMenu(menu);
         return true;
@@ -240,7 +240,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
             finish();
             return true;
         }
-        if (item.getItemId() == R.id.popup_editor_toggle_side_menu) {
+        if (item.getItemId() == R.id.moment_arc_editor_toggle_side_menu) {
             mIsLeftSide = !mIsLeftSide;
             mPreview.setLeftSide(mIsLeftSide);
             updateSideToggleTitle();
@@ -250,17 +250,17 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     }
 
     private void bindViews() {
-        mPreview = findViewById(R.id.popup_editor_preview);
-        mAppsHeader = findViewById(R.id.popup_editor_apps_header);
-        mShortcutsHeader = findViewById(R.id.popup_editor_shortcuts_header);
-        mAppsContainer = findViewById(R.id.popup_editor_apps_container);
-        mShortcutsContainer = findViewById(R.id.popup_editor_shortcuts_container);
-        mAppsArrow = findViewById(R.id.popup_editor_apps_arrow);
-        mShortcutsArrow = findViewById(R.id.popup_editor_shortcuts_arrow);
-        mAppsEmpty = findViewById(R.id.popup_editor_apps_empty);
-        mShortcutsEmpty = findViewById(R.id.popup_editor_shortcuts_empty);
-        mAppsList = findViewById(R.id.popup_editor_apps_list);
-        mShortcutsList = findViewById(R.id.popup_editor_shortcuts_list);
+        mPreview = findViewById(R.id.moment_arc_editor_preview);
+        mAppsHeader = findViewById(R.id.moment_arc_editor_apps_header);
+        mShortcutsHeader = findViewById(R.id.moment_arc_editor_shortcuts_header);
+        mAppsContainer = findViewById(R.id.moment_arc_editor_apps_container);
+        mShortcutsContainer = findViewById(R.id.moment_arc_editor_shortcuts_container);
+        mAppsArrow = findViewById(R.id.moment_arc_editor_apps_arrow);
+        mShortcutsArrow = findViewById(R.id.moment_arc_editor_shortcuts_arrow);
+        mAppsEmpty = findViewById(R.id.moment_arc_editor_apps_empty);
+        mShortcutsEmpty = findViewById(R.id.moment_arc_editor_shortcuts_empty);
+        mAppsList = findViewById(R.id.moment_arc_editor_apps_list);
+        mShortcutsList = findViewById(R.id.moment_arc_editor_shortcuts_list);
     }
 
     private void collapseAndLockAppBar() {
@@ -335,7 +335,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
                 mAllApps.addAll(loadedData.apps);
                 mAllShortcuts.clear();
                 mAllShortcuts.addAll(loadedData.shortcuts);
-                for (int i = 0; i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
+                for (int i = 0; i < MomentArcLayout.TOTAL_CONFIGURABLE; i++) {
                     mAssignedTargets.set(i, loadedData.assignedTargets.get(i));
                 }
                 mShortcutsUnavailable = loadedData.shortcutsUnavailable;
@@ -372,9 +372,9 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
         ArrayList<TargetInfo> assignedTargets = new ArrayList<>();
         int count = 0;
 
-        List<String> innerTargets = PopupSystemSettings.getQuickMenuTargets(this);
+        List<String> innerTargets = MomentArcSettings.getInnerRingTargets(this);
         for (String rawTarget : innerTargets) {
-            if (count >= QuickMenuSlotLayout.INNER_CONFIGURABLE) {
+            if (count >= MomentArcLayout.INNER_CONFIGURABLE) {
                 break;
             }
             ParsedTarget parsedTarget = parseTarget(rawTarget);
@@ -391,14 +391,14 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
                 count++;
             }
         }
-        while (assignedTargets.size() < QuickMenuSlotLayout.INNER_CONFIGURABLE) {
+        while (assignedTargets.size() < MomentArcLayout.INNER_CONFIGURABLE) {
             assignedTargets.add(null);
         }
 
-        List<String> outerTargets = PopupSystemSettings.getOuterRingQuickMenuTargets(this);
+        List<String> outerTargets = MomentArcSettings.getOuterRingTargets(this);
         count = 0;
         for (String rawTarget : outerTargets) {
-            if (count >= QuickMenuSlotLayout.OUTER_CONFIGURABLE) {
+            if (count >= MomentArcLayout.OUTER_CONFIGURABLE) {
                 break;
             }
             ParsedTarget parsedTarget = parseTarget(rawTarget);
@@ -415,7 +415,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
                 count++;
             }
         }
-        while (assignedTargets.size() < QuickMenuSlotLayout.TOTAL_CONFIGURABLE) {
+        while (assignedTargets.size() < MomentArcLayout.TOTAL_CONFIGURABLE) {
             assignedTargets.add(null);
         }
 
@@ -564,8 +564,8 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
         mAppsEmpty.setVisibility(mFilteredApps.isEmpty() ? View.VISIBLE : View.GONE);
         mShortcutsEmpty.setVisibility(mFilteredShortcuts.isEmpty() ? View.VISIBLE : View.GONE);
         mShortcutsEmpty.setText(mShortcutsUnavailable
-                ? R.string.popup_editor_shortcuts_unavailable
-                : R.string.popup_editor_empty_shortcuts);
+                ? R.string.moment_arc_editor_shortcuts_unavailable
+                : R.string.moment_arc_editor_empty_shortcuts);
     }
 
     private void selectPendingTarget(@NonNull TargetInfo target) {
@@ -629,7 +629,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     }
 
     private int slotToTargetIndex(int slotIndex) {
-        if (slotIndex < QuickMenuSlotLayout.INNER_CONFIGURABLE) {
+        if (slotIndex < MomentArcLayout.INNER_CONFIGURABLE) {
             return slotIndex;
         }
         return slotIndex - 1;
@@ -646,31 +646,31 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
     }
 
     private void updatePreview() {
-        ArrayList<QuickMenuSlotLayout.SlotItem> slotItems = new ArrayList<>();
-        for (int i = 0; i < QuickMenuSlotLayout.INNER_CONFIGURABLE; i++) {
+        ArrayList<MomentArcLayout.SlotItem> slotItems = new ArrayList<>();
+        for (int i = 0; i < MomentArcLayout.INNER_CONFIGURABLE; i++) {
             TargetInfo target = mAssignedTargets.get(i);
             if (target == null || target.getIcon() == null) {
-                slotItems.add(QuickMenuSlotLayout.SlotItem.empty(
-                        getString(R.string.popup_editor_slot_empty)));
+                slotItems.add(MomentArcLayout.SlotItem.empty(
+                        getString(R.string.moment_arc_editor_slot_empty)));
             } else {
-                slotItems.add(QuickMenuSlotLayout.SlotItem.filled(
+                slotItems.add(MomentArcLayout.SlotItem.filled(
                         target.getIcon(),
-                        getString(R.string.popup_editor_slot_filled, target.getTitle())));
+                        getString(R.string.moment_arc_editor_slot_filled, target.getTitle())));
             }
         }
-        slotItems.add(QuickMenuSlotLayout.SlotItem.moreApps(
-                getDrawable(R.drawable.ic_popup_more_apps),
-                getString(R.string.popup_editor_more_apps)));
-        for (int i = QuickMenuSlotLayout.INNER_CONFIGURABLE;
-                i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
+        slotItems.add(MomentArcLayout.SlotItem.moreApps(
+                getDrawable(R.drawable.ic_moment_arc_all_apps),
+                getString(R.string.moment_arc_editor_more_apps)));
+        for (int i = MomentArcLayout.INNER_CONFIGURABLE;
+                i < MomentArcLayout.TOTAL_CONFIGURABLE; i++) {
             TargetInfo target = mAssignedTargets.get(i);
             if (target == null || target.getIcon() == null) {
-                slotItems.add(QuickMenuSlotLayout.SlotItem.empty(
-                        getString(R.string.popup_editor_slot_empty)));
+                slotItems.add(MomentArcLayout.SlotItem.empty(
+                        getString(R.string.moment_arc_editor_slot_empty)));
             } else {
-                slotItems.add(QuickMenuSlotLayout.SlotItem.filled(
+                slotItems.add(MomentArcLayout.SlotItem.filled(
                         target.getIcon(),
-                        getString(R.string.popup_editor_slot_filled, target.getTitle())));
+                        getString(R.string.moment_arc_editor_slot_filled, target.getTitle())));
             }
         }
         mPreview.setSlots(slotItems);
@@ -678,30 +678,30 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
 
     private void persistAssignedTargets() {
         ArrayList<String> innerTargets = new ArrayList<>();
-        for (int i = 0; i < QuickMenuSlotLayout.INNER_CONFIGURABLE; i++) {
+        for (int i = 0; i < MomentArcLayout.INNER_CONFIGURABLE; i++) {
             TargetInfo target = mAssignedTargets.get(i);
             if (target != null) {
                 innerTargets.add(target.toStoredValue());
             }
         }
-        PopupSystemSettings.saveQuickMenuTargets(this, innerTargets);
+        MomentArcSettings.saveInnerRingTargets(this, innerTargets);
 
         ArrayList<String> outerTargets = new ArrayList<>();
-        for (int i = QuickMenuSlotLayout.INNER_CONFIGURABLE;
-                i < QuickMenuSlotLayout.TOTAL_CONFIGURABLE; i++) {
+        for (int i = MomentArcLayout.INNER_CONFIGURABLE;
+                i < MomentArcLayout.TOTAL_CONFIGURABLE; i++) {
             TargetInfo target = mAssignedTargets.get(i);
             if (target != null) {
                 outerTargets.add(target.toStoredValue());
             }
         }
-        PopupSystemSettings.saveOuterRingQuickMenuTargets(this, outerTargets);
+        MomentArcSettings.saveOuterRingTargets(this, outerTargets);
     }
 
     private void updateSideToggleTitle() {
         if (mSideToggleItem != null) {
             mSideToggleItem.setTitle(mIsLeftSide
-                    ? R.string.popup_editor_right_side
-                    : R.string.popup_editor_left_side);
+                    ? R.string.moment_arc_editor_right_side
+                    : R.string.moment_arc_editor_left_side);
         }
     }
 
@@ -1056,7 +1056,7 @@ public class QuickMenuEditorActivity extends CollapsingToolbarBaseActivity {
         @Override
         public TargetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_quick_menu_target, parent, false);
+                    .inflate(R.layout.item_moment_arc_target, parent, false);
             return new TargetViewHolder(view);
         }
 

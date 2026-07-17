@@ -82,7 +82,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/settingslib_expressive_space_extrasmall4"
-            android:contentDescription="@string/popup_drag_handle"
+            android:contentDescription="@string/app_picker_drag_handle"
             android:src="@drawable/drag_handle" />
 
         <CheckBox
