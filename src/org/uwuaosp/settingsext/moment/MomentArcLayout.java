@@ -43,7 +43,6 @@ public class MomentArcLayout extends ViewGroup {
 
     private static final int SLOT_SIZE_DP = 40;
     private static final int CIRCLE_RADIUS_DP = 144;
-    private static final int OUTER_SLOT_SIZE_DP = 32;
     private static final int OUTER_CIRCLE_RADIUS_DP = 210;
     private static final int SIDE_OFFSET_DP = 36;
     private static final int BOTTOM_OFFSET_DP = 28;
@@ -56,7 +55,6 @@ public class MomentArcLayout extends ViewGroup {
 
     private final int mSlotSizePx;
     private final int mCircleRadiusPx;
-    private final int mOuterSlotSizePx;
     private final int mOuterCircleRadiusPx;
     private final int mSideOffsetPx;
     private final int mBottomOffsetPx;
@@ -83,7 +81,6 @@ public class MomentArcLayout extends ViewGroup {
         super(context, attrs, defStyleAttr);
         mSlotSizePx = dpToPx(SLOT_SIZE_DP);
         mCircleRadiusPx = dpToPx(CIRCLE_RADIUS_DP);
-        mOuterSlotSizePx = dpToPx(OUTER_SLOT_SIZE_DP);
         mOuterCircleRadiusPx = dpToPx(OUTER_CIRCLE_RADIUS_DP);
         mSideOffsetPx = dpToPx(SIDE_OFFSET_DP);
         mBottomOffsetPx = dpToPx(BOTTOM_OFFSET_DP);
@@ -148,12 +145,9 @@ public class MomentArcLayout extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        int innerSpec = MeasureSpec.makeMeasureSpec(mSlotSizePx, MeasureSpec.EXACTLY);
-        int outerSpec = MeasureSpec.makeMeasureSpec(mOuterSlotSizePx, MeasureSpec.EXACTLY);
+        int slotSpec = MeasureSpec.makeMeasureSpec(mSlotSizePx, MeasureSpec.EXACTLY);
         for (int i = 0; i < getChildCount(); i++) {
-            boolean isInner = i < INNER_SLOTS;
-            getChildAt(i).measure(isInner ? innerSpec : outerSpec,
-                    isInner ? innerSpec : outerSpec);
+            getChildAt(i).measure(slotSpec, slotSpec);
         }
         setMeasuredDimension(width, height);
     }
@@ -176,7 +170,7 @@ public class MomentArcLayout extends ViewGroup {
             boolean isInner = i < INNER_SLOTS;
             int localIndex = isInner ? i : i - INNER_SLOTS;
             int localTotal = isInner ? INNER_SLOTS : OUTER_SLOTS;
-            float slotRadius = (isInner ? mSlotSizePx : mOuterSlotSizePx) / 2f;
+            float slotRadius = mSlotSizePx / 2f;
             float radius = isInner ? mCircleRadiusPx : mOuterCircleRadiusPx;
             float spacing = isInner ? ICON_SPACING_MULTIPLIER : OUTER_ICON_SPACING_MULTIPLIER;
             float angleStart = isInner ? INNER_ANGLE_START : OUTER_ANGLE_START;
