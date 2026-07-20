@@ -1,0 +1,8 @@
+*.iml
+.gradle/
+.idea/
+build/
+app/build/
+gradle/uwu-compose/build/
+local.properties
+system_libs/
