@@ -199,6 +199,7 @@ public class MomentAllAppsActivity extends CollapsingToolbarBaseActivity {
             options.setPendingIntentBackgroundActivityStartMode(
                     ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
             startActivity(launchIntent, options.toBundle());
+            finish();
         } catch (Exception e) {
             showLaunchFailToast();
         }
