@@ -59,6 +59,11 @@
             android:label="@string/moment_settings_title" />
 
         <activity
+            android:name=".moment.NavHandleDoubleTapSettingsActivity"
+            android:exported="false"
+            android:label="@string/moment_nav_handle_double_tap_title" />
+
+        <activity
             android:name=".moment.MomentAllAppsActivity"
             android:exported="true"
             android:label="@string/moment_all_apps"

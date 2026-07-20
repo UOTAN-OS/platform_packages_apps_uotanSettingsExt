@@ -69,6 +69,8 @@
     <string name="moment_enabled_title">Enable Moment</string>
     <string name="moment_nav_handle_double_tap_title">Double tap navigation handle</string>
     <string name="moment_nav_handle_double_tap_summary">Convert the current app to Moment, or open all apps from the Home screen</string>
+    <string name="moment_nav_handle_double_tap_animation_description">Animation demonstrating a double tap on the navigation handle</string>
+    <string name="replay_animation">Replay animation</string>
     <string name="moment_settings_summary">Configure MomentArc and try launching apps in Moment</string>
     <string name="moment_launch_title">Open Moment</string>
     <string name="moment_launch_summary">Choose an app to launch in Moment</string>

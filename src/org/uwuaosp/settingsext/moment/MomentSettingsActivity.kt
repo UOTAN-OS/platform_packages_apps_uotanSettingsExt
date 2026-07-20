@@ -19,8 +19,10 @@ package org.uwuaosp.settingsext.moment
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -37,11 +39,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.uwuaosp.compose.settingslib.MainSwitchPreference
+import org.uwuaosp.compose.settingslib.PrimarySwitchPreferenceRow
 import org.uwuaosp.compose.settingslib.PreferenceGroupSpacer
 import org.uwuaosp.compose.settingslib.PreferencePosition
 import org.uwuaosp.compose.settingslib.PreferenceRow
 import org.uwuaosp.compose.settingslib.SettingsCategory
-import org.uwuaosp.compose.settingslib.SettingsFooterPreference
 import org.uwuaosp.compose.settingslib.SettingsHomepageIcon
 import org.uwuaosp.compose.settingslib.SettingsScaffold
 import org.uwuaosp.compose.settingslib.SwitchPreferenceRow
@@ -85,6 +87,12 @@ private fun MomentSettingsScreen(onNavigateUp: () -> Unit) {
     var navHandleDoubleTapEnabled by remember {
         mutableStateOf(MomentSecureSettings.isNavHandleDoubleTapEnabled(context, true))
     }
+    val navHandleDoubleTapSettingsLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) {
+        navHandleDoubleTapEnabled =
+            MomentSecureSettings.isNavHandleDoubleTapEnabled(context, true)
+    }
 
     SettingsScaffold(
         title = stringResource(R.string.moment_settings_title),
@@ -100,19 +108,20 @@ private fun MomentSettingsScreen(onNavigateUp: () -> Unit) {
             },
         )
 
-        SwitchPreferenceRow(
+        PrimarySwitchPreferenceRow(
             title = stringResource(R.string.moment_nav_handle_double_tap_title),
-            summary = "",
-            showSummary = false,
+            summary = stringResource(R.string.moment_nav_handle_double_tap_summary),
             checked = navHandleDoubleTapEnabled,
             onCheckedChange = { enabled ->
                 navHandleDoubleTapEnabled = enabled
                 MomentSecureSettings.setNavHandleDoubleTapEnabled(context, enabled)
             },
+            onClick = {
+                navHandleDoubleTapSettingsLauncher.launch(
+                    Intent(context, NavHandleDoubleTapSettingsActivity::class.java),
+                )
+            },
             enabled = momentEnabled,
-        )
-        SettingsFooterPreference(
-            text = stringResource(R.string.moment_nav_handle_double_tap_summary),
         )
 
         SettingsCategory(title = stringResource(R.string.moment_arc_section))
