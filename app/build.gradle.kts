@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.tasks.compile.JavaCompile
 
 plugins {
@@ -80,4 +81,8 @@ dependencies {
 tasks.withType<JavaCompile>().configureEach {
     // The public SDK shadows hidden and uwuAOSP-added members on android.* classes.
     options.compilerArgs.add("-Xbootclasspath/p:${file("../system_libs/framework.jar")}")
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    libraries.from(file("../system_libs/framework.jar"))
 }
