@@ -56,6 +56,7 @@ import org.uwuaosp.compose.settingslib.SettingsScaffold
 import org.uwuaosp.compose.settingslib.rememberSettingsTypography
 import org.uwuaosp.settingsext.attestation.KeyAttestationSettingsActivity
 import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity
+import org.uwuaosp.settingsext.background.BackgroundManagementActivity
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
 import org.uwuaosp.settingsext.moment.MomentSettingsActivity
@@ -84,7 +85,7 @@ private const val PREF_AI_ENTRY_UNLOCKED = "ai_entry_unlocked"
 private const val LAUNCHER_PACKAGE = "com.android.launcher3"
 
 @Composable
-private fun SettingsExtTheme(content: @Composable () -> Unit) {
+internal fun SettingsExtTheme(content: @Composable () -> Unit) {
     val context = LocalContext.current
     val darkTheme = isSystemInDarkTheme()
     val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -139,6 +140,20 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             height = 180.dp,
         )
 
+        SettingsCategory(title = stringResource(R.string.settings_ext_category_system_features))
+        PreferenceRow(
+            title = stringResource(R.string.background_management_title),
+            summary = "",
+            showSummary = false,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_background_management)
+            },
+            onClick = {
+                context.startActivity(Intent(context, BackgroundManagementActivity::class.java))
+            },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
         SettingsCategory(title = stringResource(R.string.settings_ext_category_privacy))
         PreferenceRow(
             title = stringResource(R.string.settings_ext_key_attestation_title),

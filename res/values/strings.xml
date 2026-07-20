@@ -23,6 +23,7 @@
     <string name="settings_ext_category_launcher">Launcher</string>
     <string name="settings_ext_category_lyric">Status Bar</string>
     <string name="settings_ext_category_ai">AI</string>
+    <string name="settings_ext_category_system_features">System Features</string>
     <string name="settings_ext_key_attestation_title">Spoofing Settings</string>
     <string name="settings_ext_key_attestation_summary">Import Keybox XML and custom pif.json</string>
     <string name="settings_ext_app_jump_title">App Jump Permissions</string>
@@ -33,6 +34,30 @@
     <string name="settings_ext_lyric_fetch_title">Status Bar Lyric</string>
     <string name="settings_ext_lyric_fetch_summary">Manage lyric display, notification access, and app whitelist</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
+
+    <string name="background_management_title">Background management</string>
+    <string name="background_settings_title">Background management settings</string>
+    <string name="background_apps_category">Apps</string>
+    <string name="background_app_mode">App mode</string>
+    <string name="background_mode_default">Default</string>
+    <string name="background_mode_tombstone">Tombstone</string>
+    <string name="background_mode_full">Full</string>
+    <string name="background_search_apps">Search apps</string>
+    <string name="background_search_close">Close search</string>
+    <string name="background_no_apps">No apps found</string>
+    <string name="background_load_failed">Could not load apps</string>
+    <string name="background_retry">Retry</string>
+    <string name="background_mode_update_failed">Could not update app mode</string>
+    <string name="background_display_category">Display</string>
+    <string name="background_show_system_apps">Show system apps</string>
+    <string name="background_behavior_category">Behavior</string>
+    <string name="background_ignore_task_removal">Ignore launcher task removal</string>
+    <string name="background_ignore_task_removal_summary">Keep managed app tasks, UI state, and processes when dismissed from recents</string>
+    <string name="background_setting_update_failed">Could not update background setting</string>
+    <string name="background_diagnostics_category">Diagnostics</string>
+    <string name="background_export_logs">Export logs</string>
+    <string name="background_log_exported">Log exported</string>
+    <string name="background_log_export_failed">Could not export log</string>
 
     <string name="app_picker_selected_app">Selected App</string>
     <string name="app_picker_no_apps_selected">No apps selected</string>

@@ -32,7 +32,32 @@
     <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
     <string name="settings_ext_lyric_fetch_summary">管理歌词显示、通知使用权限与应用白名单</string>
     <string name="settings_ext_category_ai">AI</string>
+    <string name="settings_ext_category_system_features">系统功能</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
+
+    <string name="background_management_title">后台管理</string>
+    <string name="background_settings_title">后台管理设置</string>
+    <string name="background_apps_category">应用</string>
+    <string name="background_app_mode">应用模式</string>
+    <string name="background_mode_default">默认</string>
+    <string name="background_mode_tombstone">墓碑模式</string>
+    <string name="background_mode_full">Full</string>
+    <string name="background_search_apps">搜索应用</string>
+    <string name="background_search_close">关闭搜索</string>
+    <string name="background_no_apps">未找到应用</string>
+    <string name="background_load_failed">无法加载应用列表</string>
+    <string name="background_retry">重试</string>
+    <string name="background_mode_update_failed">无法更新应用模式</string>
+    <string name="background_display_category">显示</string>
+    <string name="background_show_system_apps">显示系统应用</string>
+    <string name="background_behavior_category">行为</string>
+    <string name="background_ignore_task_removal">忽略启动器任务卡移除</string>
+    <string name="background_ignore_task_removal_summary">从最近任务划掉时保留已管理应用的任务、页面状态和进程</string>
+    <string name="background_setting_update_failed">无法更新后台管理设置</string>
+    <string name="background_diagnostics_category">诊断</string>
+    <string name="background_export_logs">导出日志</string>
+    <string name="background_log_exported">日志已导出</string>
+    <string name="background_log_export_failed">无法导出日志</string>
 
     <string name="app_picker_selected_app">已选应用</string>
     <string name="app_picker_no_apps_selected">未选择任何应用</string>

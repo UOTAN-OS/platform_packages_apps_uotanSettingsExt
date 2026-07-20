@@ -43,6 +43,8 @@ android_app {
         "androidx.core_core-ktx",
         "kotlin-stdlib",
         "androidx.preference_preference",
+        "kotlinx_coroutines",
+        "kotlinx_coroutines_android",
         "SettingsLib",
         "uwuComposeSettingsLib",
     ],
