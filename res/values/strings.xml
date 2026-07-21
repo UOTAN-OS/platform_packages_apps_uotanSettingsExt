@@ -59,11 +59,7 @@
     <string name="background_log_exported">Log exported</string>
     <string name="background_log_export_failed">Could not export log</string>
 
-    <string name="app_picker_selected_app">Selected App</string>
-    <string name="app_picker_no_apps_selected">No apps selected</string>
     <string name="app_picker_all_apps">All Apps</string>
-    <string name="app_picker_selection_limit_toast">You can select up to %d apps</string>
-    <string name="app_picker_drag_handle">Drag handle</string>
     <string name="moment_section_experience">Try It</string>
     <string name="moment_settings_title">Moment</string>
     <string name="moment_enabled_title">Enable Moment</string>
@@ -186,7 +182,6 @@
     <string name="switch_music_suggestion_summary_off">Disabled</string>
     <string name="privacy_notice">We do not upload any of your data. All processing is done locally</string>
     <string name="app_picker_title">Choose app</string>
-    <string name="app_picker_replace_hint">Tap another app to replace it. Turn off this suggestion on the previous page.</string>
 
     <string name="lyric_settings_title">Status Bar Lyric</string>
     <string name="lyric_settings_section_behavior">Behavior</string>
@@ -204,8 +199,7 @@
     <string name="lyric_notification_listener_summary_on">Allowed</string>
     <string name="lyric_notification_listener_summary_off">Tap to grant access</string>
     <string name="lyric_whitelist_title">Allowed Apps</string>
-    <string name="lyric_whitelist_summary_empty">All apps</string>
-    <string name="lyric_whitelisted_apps">Allowed Apps</string>
+    <string name="lyric_whitelist_summary_empty">No apps allowed</string>
 
     <string name="app_jump_settings_title">App Jump Permissions</string>
     <string name="app_jump_detail_title">App jump permission</string>
@@ -305,15 +299,6 @@
     <string name="key_attestation_pif_device_value">Device: %1$s</string>
     <string name="key_attestation_pif_security_patch_value">Security patch: %1$s</string>
     <string name="key_attestation_pif_fingerprint_value">Fingerprint: %1$s</string>
-
-    <string-array name="lyric_position_entries">
-        <item>@string/lyric_position_entry_overlay</item>
-        <item>@string/lyric_position_entry_clock_right</item>
-    </string-array>
-    <string-array name="lyric_position_values">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
 
     <plurals name="lyric_whitelist_summary_count">
         <item quantity="one">%d allowed app</item>

@@ -24,7 +24,6 @@ import org.uwuaosp.settingsext.util.SettingsUtils;
 import java.util.List;
 
 public final class LyricSecureSettings {
-    private static final String KEY_ALLOWED_PACKAGES = "status_bar_lyric_allowed_packages";
     public static final int POSITION_OVERLAY = 0;
     public static final int POSITION_CLOCK_RIGHT = 1;
 
@@ -64,14 +63,16 @@ public final class LyricSecureSettings {
     }
 
     public static void setAllowedPackages(Context context, List<String> packages) {
-        SettingsUtils.putSecureString(context, KEY_ALLOWED_PACKAGES, SettingsUtils.joinList(packages, ";"));
+        SettingsUtils.putSecureString(context, Settings.Secure.STATUS_BAR_LYRIC_ALLOWED_PACKAGES,
+                SettingsUtils.joinList(packages, ";"));
     }
 
     public static List<String> getAllowedPackages(Context context) {
-        return SettingsUtils.splitList(SettingsUtils.getSecureString(context, KEY_ALLOWED_PACKAGES), ";");
+        return SettingsUtils.splitList(SettingsUtils.getSecureString(
+                context, Settings.Secure.STATUS_BAR_LYRIC_ALLOWED_PACKAGES), ";");
     }
 
     public static String getAllowedPackagesKey() {
-        return KEY_ALLOWED_PACKAGES;
+        return Settings.Secure.STATUS_BAR_LYRIC_ALLOWED_PACKAGES;
     }
 }
