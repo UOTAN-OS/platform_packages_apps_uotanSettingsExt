@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.airbnb.lottie.LottieAnimationView
 import org.uwuaosp.compose.settingslib.MainSwitchPreference
-import org.uwuaosp.compose.settingslib.SettingsFooterPreference
+import org.uwuaosp.compose.settingslib.SettingsFooterLegacy
 import org.uwuaosp.compose.settingslib.SettingsScaffold
 import org.uwuaosp.compose.settingslib.SettingsToolbarActionButton
 import org.uwuaosp.settingsext.R
@@ -83,9 +83,7 @@ private fun NavHandleDoubleTapSettingsScreen(onNavigateUp: () -> Unit) {
                 MomentSecureSettings.setNavHandleDoubleTapEnabled(context, newValue)
             },
         )
-        SettingsFooterPreference(
-            text = stringResource(R.string.moment_nav_handle_double_tap_summary),
-        )
+        SettingsFooterLegacy(stringResource(R.string.moment_nav_handle_double_tap_summary))
     }
 }
 
