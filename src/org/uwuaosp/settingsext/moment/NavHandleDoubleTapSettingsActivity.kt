@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -44,8 +45,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.airbnb.lottie.LottieAnimationView
 import org.uwuaosp.compose.settingslib.MainSwitchPreference
-import org.uwuaosp.compose.settingslib.SettingsFooterLegacy
 import org.uwuaosp.compose.settingslib.SettingsScaffold
+import org.uwuaosp.compose.settingslib.SettingsTopIntro
 import org.uwuaosp.compose.settingslib.SettingsToolbarActionButton
 import org.uwuaosp.settingsext.R
 import org.uwuaosp.settingsext.SettingsExtTheme
@@ -73,17 +74,21 @@ private fun NavHandleDoubleTapSettingsScreen(onNavigateUp: () -> Unit) {
         title = stringResource(R.string.moment_nav_handle_double_tap_title),
         showBackButton = true,
         onNavigateUp = onNavigateUp,
+        contentTopPadding = 0.dp,
     ) {
+        SettingsTopIntro(
+            text = stringResource(R.string.moment_nav_handle_double_tap_description),
+            modifier = Modifier.padding(bottom = 16.dp),
+        )
         NavHandleDoubleTapIllustration()
         MainSwitchPreference(
-            title = stringResource(R.string.moment_nav_handle_double_tap_title),
+            title = stringResource(R.string.moment_nav_handle_double_tap_switch_title),
             checked = enabled,
             onCheckedChange = { newValue ->
                 enabled = newValue
                 MomentSecureSettings.setNavHandleDoubleTapEnabled(context, newValue)
             },
         )
-        SettingsFooterLegacy(stringResource(R.string.moment_nav_handle_double_tap_summary))
     }
 }
 

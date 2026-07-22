@@ -46,7 +46,6 @@ import org.uwuaosp.compose.settingslib.PreferenceRow
 import org.uwuaosp.compose.settingslib.SettingsCategory
 import org.uwuaosp.compose.settingslib.SettingsHomepageIcon
 import org.uwuaosp.compose.settingslib.SettingsScaffold
-import org.uwuaosp.compose.settingslib.SwitchPreferenceRow
 import org.uwuaosp.compose.settingslib.rememberSettingsTypography
 import org.uwuaosp.settingsext.R
 
@@ -108,6 +107,7 @@ private fun MomentSettingsScreen(onNavigateUp: () -> Unit) {
             },
         )
 
+        SettingsCategory(title = stringResource(R.string.moment_gestures_section))
         PrimarySwitchPreferenceRow(
             title = stringResource(R.string.moment_nav_handle_double_tap_title),
             summary = stringResource(R.string.moment_nav_handle_double_tap_summary),
@@ -122,10 +122,10 @@ private fun MomentSettingsScreen(onNavigateUp: () -> Unit) {
                 )
             },
             enabled = momentEnabled,
+            position = PreferencePosition.Top,
         )
-
-        SettingsCategory(title = stringResource(R.string.moment_arc_section))
-        SwitchPreferenceRow(
+        PreferenceGroupSpacer()
+        PrimarySwitchPreferenceRow(
             title = stringResource(R.string.moment_arc_gesture_title),
             summary = stringResource(R.string.moment_arc_gesture_summary),
             checked = arcGestureEnabled,
@@ -133,21 +133,11 @@ private fun MomentSettingsScreen(onNavigateUp: () -> Unit) {
                 arcGestureEnabled = enabled
                 MomentSecureSettings.setArcGestureEnabled(context, enabled)
             },
-            enabled = momentEnabled,
-            position = PreferencePosition.Top,
-        )
-        PreferenceGroupSpacer()
-        PreferenceRow(
-            title = stringResource(R.string.moment_arc_editor_entry_title),
-            summary = stringResource(R.string.moment_arc_editor_entry_summary),
-            iconContent = {
-                SettingsHomepageIcon(iconRes = R.drawable.ic_moment_arc_edit)
-            },
-            enabled = momentEnabled,
-            position = PreferencePosition.Bottom,
             onClick = {
                 context.startActivity(Intent(context, MomentArcEditorActivity::class.java))
             },
+            enabled = momentEnabled,
+            position = PreferencePosition.Bottom,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -164,4 +154,9 @@ private fun MomentSettingsScreen(onNavigateUp: () -> Unit) {
             },
         )
     }
+}
+
+@Composable
+private fun MomentArcEditorIcon() {
+    SettingsHomepageIcon(iconRes = R.drawable.ic_moment_arc_edit)
 }

@@ -56,6 +56,7 @@ import org.uwuaosp.compose.settingslib.PreferencePosition
 import org.uwuaosp.compose.settingslib.PreferenceRow
 import org.uwuaosp.compose.settingslib.SettingsCategory
 import org.uwuaosp.compose.settingslib.SettingsScaffold
+import org.uwuaosp.compose.settingslib.SettingsTopIntro
 import org.uwuaosp.compose.settingslib.SwitchPreferenceRow
 import org.uwuaosp.settingsext.R
 import org.uwuaosp.settingsext.SettingsExtTheme
@@ -112,7 +113,12 @@ private fun LyricSettingsScreen(refreshToken: Int, onNavigateUp: () -> Unit) {
         title = stringResource(R.string.lyric_settings_title),
         showBackButton = true,
         onNavigateUp = onNavigateUp,
+        contentTopPadding = 0.dp,
     ) {
+        SettingsTopIntro(
+            text = stringResource(R.string.lyric_settings_description),
+            modifier = Modifier.padding(bottom = 16.dp),
+        )
         MainSwitchPreference(
             title = stringResource(R.string.settings_ext_lyric_fetch_title),
             checked = enabled,

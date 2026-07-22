@@ -17,22 +17,14 @@
 -->
 <resources>
     <string name="app_name">uwuAOSP 扩展功能</string>
-    <string name="settings_ext_summary">更多 uwuAOSP 功能与集成工具</string>
-    <string name="settings_ext_category_privacy">隐私</string>
-    <string name="settings_ext_category_smart_suggestions">智能建议</string>
-    <string name="settings_ext_category_launcher">启动器</string>
-    <string name="settings_ext_category_lyric">状态栏</string>
+    <string name="settings_ext_category_system_interface">系统与界面</string>
+    <string name="settings_ext_category_privacy_security">隐私与安全</string>
+    <string name="settings_ext_category_intelligence">智能功能</string>
     <string name="settings_ext_key_attestation_title">伪装设置</string>
-    <string name="settings_ext_key_attestation_summary">管理 Keybox、排除应用与自定义 pif.json</string>
     <string name="settings_ext_app_jump_title">应用跳转权限</string>
-    <string name="settings_ext_app_jump_summary">管理应用如何打开其他应用，以及它们如何被其他应用打开</string>
     <string name="settings_ext_smart_suggestions_title">智能建议</string>
-    <string name="settings_ext_smart_suggestions_summary">集中管理智能建议、规则与快捷操作</string>
     <string name="settings_ext_launcher_settings_title">主屏幕设置</string>
     <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
-    <string name="settings_ext_lyric_fetch_summary">管理歌词显示、通知使用权限与应用白名单</string>
-    <string name="settings_ext_category_ai">AI</string>
-    <string name="settings_ext_category_system_features">系统功能</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
 
     <string name="background_management_title">后台管理</string>
@@ -60,23 +52,25 @@
     <string name="background_log_export_failed">无法导出日志</string>
 
     <string name="app_picker_all_apps">全部应用</string>
-    <string name="moment_section_experience">立即体验</string>
+    <string name="moment_section_experience">启动与体验</string>
     <string name="moment_settings_title">Moment</string>
     <string name="moment_enabled_title">启用 Moment</string>
-    <string name="moment_nav_handle_double_tap_title">双击导航栏小白条</string>
-    <string name="moment_nav_handle_double_tap_summary">将当前应用转换为 Moment\n在桌面上则打开全部应用</string>
-    <string name="moment_nav_handle_double_tap_animation_description">双击导航栏小白条操作演示动画</string>
+    <string name="moment_nav_handle_double_tap_title">双击进入 Moment</string>
+    <string name="moment_nav_handle_double_tap_summary">双击导航栏小白条进入 Moment</string>
+    <string name="moment_nav_handle_double_tap_description">双击导航栏小白条，将当前应用转换为 Moment；在主屏幕上双击时，会打开全部应用</string>
+    <string name="moment_nav_handle_double_tap_switch_title">启用双击手势</string>
+    <string name="moment_nav_handle_double_tap_animation_description">进入 Moment 的操作演示动画</string>
     <string name="replay_animation">重播动画</string>
-    <string name="moment_settings_summary">配置 MomentArc，并体验以 Moment 启动应用</string>
-    <string name="moment_launch_title">打开 Moment</string>
-    <string name="moment_launch_summary">选择一个应用并以 Moment 启动</string>
+    <string name="moment_launch_title">以 Moment 启动应用</string>
+    <string name="moment_launch_summary">选择要启动的应用</string>
     <string name="moment_all_apps">全部应用</string>
     <string name="moment_cannot_launch_app">无法启动该应用</string>
+    <string name="moment_gestures_section">手势</string>
     <string name="moment_arc_section">MomentArc</string>
-    <string name="moment_arc_gesture_title">MomentArc 手势</string>
-    <string name="moment_arc_gesture_summary">从底部左角或右角向内滑动以打开 MomentArc</string>
-    <string name="moment_arc_editor_entry_title">编辑 MomentArc</string>
-    <string name="moment_arc_editor_entry_summary">直接在镜像预览中安排 MomentArc 槽位，并支持快捷方式</string>
+    <string name="moment_arc_gesture_title">打开 MomentArc</string>
+    <string name="moment_arc_gesture_summary">从底部任一角向内滑动</string>
+    <string name="moment_arc_editor_entry_title">编辑 MomentArc 布局</string>
+    <string name="moment_arc_editor_entry_summary">安排应用和快捷方式</string>
     <string name="moment_arc_editor_title">MomentArc 布局</string>
     <string name="moment_arc_editor_left_side">左侧</string>
     <string name="moment_arc_editor_right_side">右侧</string>
@@ -181,6 +175,7 @@
     <string name="app_picker_title">选择应用</string>
 
     <string name="lyric_settings_title">状态栏歌词</string>
+    <string name="lyric_settings_description">在状态栏中显示允许的音乐应用提供的歌词，并选择歌词显示位置和可提供歌词的应用</string>
     <string name="lyric_settings_section_behavior">行为</string>
     <string name="lyric_settings_section_apps">应用</string>
     <string name="lyric_position_title">显示位置</string>

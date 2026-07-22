@@ -17,22 +17,14 @@
 -->
 <resources>
     <string name="app_name">uwuAOSP Extensions</string>
-    <string name="settings_ext_summary">Additional uwuAOSP features and integrated tools</string>
-    <string name="settings_ext_category_privacy">Privacy</string>
-    <string name="settings_ext_category_smart_suggestions">Smart Suggestions</string>
-    <string name="settings_ext_category_launcher">Launcher</string>
-    <string name="settings_ext_category_lyric">Status Bar</string>
-    <string name="settings_ext_category_ai">AI</string>
-    <string name="settings_ext_category_system_features">System Features</string>
+    <string name="settings_ext_category_system_interface">System &amp; interface</string>
+    <string name="settings_ext_category_privacy_security">Privacy &amp; security</string>
+    <string name="settings_ext_category_intelligence">Intelligence</string>
     <string name="settings_ext_key_attestation_title">Spoofing Settings</string>
-    <string name="settings_ext_key_attestation_summary">Manage Keybox, excluded apps, and custom pif.json</string>
     <string name="settings_ext_app_jump_title">App Jump Permissions</string>
-    <string name="settings_ext_app_jump_summary">Manage how apps open other apps and how they can be opened in return</string>
     <string name="settings_ext_smart_suggestions_title">Smart Suggestions</string>
-    <string name="settings_ext_smart_suggestions_summary">Manage smart suggestions, rules, and shortcut actions</string>
     <string name="settings_ext_launcher_settings_title">Home screen settings</string>
     <string name="settings_ext_lyric_fetch_title">Status Bar Lyric</string>
-    <string name="settings_ext_lyric_fetch_summary">Manage lyric display, notification access, and app whitelist</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
 
     <string name="background_management_title">Background management</string>
@@ -60,23 +52,25 @@
     <string name="background_log_export_failed">Could not export log</string>
 
     <string name="app_picker_all_apps">All Apps</string>
-    <string name="moment_section_experience">Try It</string>
+    <string name="moment_section_experience">Launch and experience</string>
     <string name="moment_settings_title">Moment</string>
     <string name="moment_enabled_title">Enable Moment</string>
-    <string name="moment_nav_handle_double_tap_title">Double tap navigation handle</string>
-    <string name="moment_nav_handle_double_tap_summary">Convert the current app to Moment\nOpen all apps from the Home screen</string>
-    <string name="moment_nav_handle_double_tap_animation_description">Animation demonstrating a double tap on the navigation handle</string>
+    <string name="moment_nav_handle_double_tap_title">Double tap for Moment</string>
+    <string name="moment_nav_handle_double_tap_summary">Enter Moment by double-tapping the navigation handle</string>
+    <string name="moment_nav_handle_double_tap_description">Double-tap the navigation handle to turn the current app into a Moment; from the Home screen, double-tap to open all apps</string>
+    <string name="moment_nav_handle_double_tap_switch_title">Use double-tap gesture</string>
+    <string name="moment_nav_handle_double_tap_animation_description">Animation showing how to enter Moment</string>
     <string name="replay_animation">Replay animation</string>
-    <string name="moment_settings_summary">Configure MomentArc and try launching apps in Moment</string>
-    <string name="moment_launch_title">Open Moment</string>
-    <string name="moment_launch_summary">Choose an app to launch in Moment</string>
+    <string name="moment_launch_title">Launch app in Moment</string>
+    <string name="moment_launch_summary">Choose an app to launch</string>
     <string name="moment_all_apps">All Apps</string>
     <string name="moment_cannot_launch_app">Could not launch the app</string>
+    <string name="moment_gestures_section">Gestures</string>
     <string name="moment_arc_section">MomentArc</string>
-    <string name="moment_arc_gesture_title">MomentArc gesture</string>
-    <string name="moment_arc_gesture_summary">Swipe inward from either bottom corner to open MomentArc</string>
-    <string name="moment_arc_editor_entry_title">Edit MomentArc</string>
-    <string name="moment_arc_editor_entry_summary">Arrange MomentArc slots directly on a mirrored preview, including shortcuts</string>
+    <string name="moment_arc_gesture_title">Open MomentArc</string>
+    <string name="moment_arc_gesture_summary">Swipe inward from either bottom corner</string>
+    <string name="moment_arc_editor_entry_title">Edit MomentArc layout</string>
+    <string name="moment_arc_editor_entry_summary">Arrange apps and shortcuts</string>
     <string name="moment_arc_editor_title">MomentArc Layout</string>
     <string name="moment_arc_editor_left_side">Left side</string>
     <string name="moment_arc_editor_right_side">Right side</string>
@@ -184,6 +178,7 @@
     <string name="app_picker_title">Choose app</string>
 
     <string name="lyric_settings_title">Status Bar Lyric</string>
+    <string name="lyric_settings_description">Show lyrics from allowed music apps in the status bar; choose where lyrics appear and which apps can provide them</string>
     <string name="lyric_settings_section_behavior">Behavior</string>
     <string name="lyric_settings_section_apps">Apps</string>
     <string name="lyric_position_title">Display Position</string>

@@ -35,9 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +43,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.uwuaosp.compose.settingslib.PreferenceRow
 import org.uwuaosp.compose.settingslib.SettingsCategory
+import org.uwuaosp.compose.settingslib.SettingsHomepageIcon
 import org.uwuaosp.compose.settingslib.SettingsScaffold
 import org.uwuaosp.compose.settingslib.SwitchPreferenceRow
 import org.uwuaosp.settingsext.R
@@ -142,7 +141,9 @@ private fun BackgroundManagementSettingsScreen(onNavigateUp: () -> Unit) {
             summary = "",
             showSummary = false,
             enabled = !exporting,
-            icon = ImageVector.vectorResource(R.drawable.ic_background_log_description),
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_background_log_description)
+            },
             onClick = {
                 val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date())
                 exportLauncher.launch("uwu-background-$timestamp.log")

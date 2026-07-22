@@ -49,7 +49,6 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -79,6 +78,7 @@ import org.uwuaosp.compose.settingslib.AppListScaffold
 import org.uwuaosp.compose.settingslib.PreferenceGroupSpacer
 import org.uwuaosp.compose.settingslib.PreferencePosition
 import org.uwuaosp.compose.settingslib.SettingsCategory
+import org.uwuaosp.compose.settingslib.SettingsToolbarActionButton
 import org.uwuaosp.compose.settingslib.preferencePosition
 import org.uwuaosp.settingsext.R
 import org.uwuaosp.settingsext.SettingsExtTheme
@@ -200,17 +200,11 @@ private fun BackgroundManagementScreen(
         onSearchQueryChange = { searchQuery = it },
         onNavigateUp = onNavigateUp,
         actions = {
-            IconButton(
+            SettingsToolbarActionButton(
+                imageVector = Icons.Outlined.Settings,
+                contentDescription = stringResource(R.string.background_settings_title),
                 onClick = onOpenSettings,
-                modifier = Modifier.size(56.dp),
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Settings,
-                    contentDescription = stringResource(R.string.background_settings_title),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(24.dp),
-                )
-            }
+            )
         },
     ) {
         item(key = "apps_category") {

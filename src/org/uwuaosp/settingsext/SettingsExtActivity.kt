@@ -23,8 +23,10 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Spacer
@@ -120,6 +122,14 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
     var lyricEnabled by remember {
         mutableStateOf(LyricSecureSettings.isEnabled(context, false))
     }
+    var momentEnabled by remember {
+        mutableStateOf(MomentSecureSettings.isEnabled(context, false))
+    }
+    val momentSettingsLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) {
+        momentEnabled = MomentSecureSettings.isEnabled(context, false)
+    }
     var aiEntryUnlocked by remember {
         mutableStateOf(preferences.isAiEntryUnlocked())
     }
@@ -145,11 +155,12 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             height = 180.dp,
         )
 
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_system_features))
+        SettingsCategory(title = stringResource(R.string.settings_ext_category_system_interface))
         PreferenceRow(
             title = stringResource(R.string.background_management_title),
             summary = "",
             showSummary = false,
+            position = PreferencePosition.Top,
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_background_management)
             },
@@ -157,67 +168,34 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                 context.startActivity(Intent(context, BackgroundManagementActivity::class.java))
             },
         )
-
-        Spacer(modifier = Modifier.height(8.dp))
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_privacy))
-        PreferenceRow(
-            title = stringResource(R.string.settings_ext_key_attestation_title),
-            summary = stringResource(R.string.settings_ext_key_attestation_summary),
-            iconContent = {
-                SettingsHomepageIcon(iconRes = R.drawable.ic_spoofing)
-            },
-            position = PreferencePosition.Top,
-            onClick = {
-                context.startActivity(Intent(context, KeyAttestationSettingsActivity::class.java))
-            },
-        )
         PreferenceGroupSpacer()
-        PreferenceRow(
-            title = stringResource(R.string.settings_ext_app_jump_title),
-            summary = stringResource(R.string.settings_ext_app_jump_summary),
-            iconContent = {
-                SettingsHomepageIcon(iconRes = R.drawable.ic_appjump)
-            },
-            position = PreferencePosition.Bottom,
-            onClick = {
-                context.startActivity(AppJumpSettingsActivity.createIntent(context))
-            },
-        )
-
         if (FeatureUtils.isMomentSettingsEnabled(context)) {
-            Spacer(modifier = Modifier.height(8.dp))
-            SettingsCategory(title = stringResource(R.string.moment_settings_title))
-            PreferenceRow(
+            PrimarySwitchPreferenceRow(
                 title = stringResource(R.string.moment_settings_title),
-                summary = stringResource(R.string.moment_settings_summary),
+                summary = "",
+                showSummary = false,
+                checked = momentEnabled,
+                onCheckedChange = { enabled ->
+                    momentEnabled = enabled
+                    MomentSecureSettings.setEnabled(context, enabled)
+                },
+                position = PreferencePosition.Middle,
                 iconContent = {
                     SettingsHomepageIcon(iconRes = R.drawable.ic_moment)
                 },
                 onClick = {
-                    context.startActivity(Intent(context, MomentSettingsActivity::class.java))
+                    momentSettingsLauncher.launch(
+                        Intent(context, MomentSettingsActivity::class.java),
+                    )
                 },
             )
+            PreferenceGroupSpacer()
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_smart_suggestions))
-        PreferenceRow(
-            title = stringResource(R.string.settings_ext_smart_suggestions_title),
-            summary = stringResource(R.string.settings_ext_smart_suggestions_summary),
-            iconContent = {
-                SettingsHomepageIcon(iconRes = R.drawable.ic_smart_suggestions)
-            },
-            onClick = {
-                context.startActivity(Intent(context, SmartSuggestionsSettingsActivity::class.java))
-            },
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_launcher))
         PreferenceRow(
             title = stringResource(R.string.settings_ext_launcher_settings_title),
             summary = "",
             showSummary = false,
+            position = PreferencePosition.Middle,
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_launcher_settings)
             },
@@ -227,13 +205,13 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                 )
             },
         )
-
-        Spacer(modifier = Modifier.height(8.dp))
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_lyric))
+        PreferenceGroupSpacer()
         PrimarySwitchPreferenceRow(
             title = stringResource(R.string.settings_ext_lyric_fetch_title),
-            summary = stringResource(R.string.settings_ext_lyric_fetch_summary),
+            summary = "",
+            showSummary = false,
             checked = lyricEnabled,
+            position = PreferencePosition.Bottom,
             onCheckedChange = { enabled ->
                 lyricEnabled = enabled
                 LyricSecureSettings.setEnabled(context, enabled)
@@ -246,13 +224,59 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             },
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+        SettingsCategory(title = stringResource(R.string.settings_ext_category_privacy_security))
+        PreferenceRow(
+            title = stringResource(R.string.settings_ext_key_attestation_title),
+            summary = "",
+            showSummary = false,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_spoofing)
+            },
+            position = PreferencePosition.Top,
+            onClick = {
+                context.startActivity(Intent(context, KeyAttestationSettingsActivity::class.java))
+            },
+        )
+        PreferenceGroupSpacer()
+        PreferenceRow(
+            title = stringResource(R.string.settings_ext_app_jump_title),
+            summary = "",
+            showSummary = false,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_appjump)
+            },
+            position = PreferencePosition.Bottom,
+            onClick = {
+                context.startActivity(AppJumpSettingsActivity.createIntent(context))
+            },
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        SettingsCategory(title = stringResource(R.string.settings_ext_category_intelligence))
+        PreferenceRow(
+            title = stringResource(R.string.settings_ext_smart_suggestions_title),
+            summary = "",
+            showSummary = false,
+            position = if (aiEntryUnlocked) {
+                PreferencePosition.Top
+            } else {
+                PreferencePosition.Single
+            },
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_smart_suggestions)
+            },
+            onClick = {
+                context.startActivity(Intent(context, SmartSuggestionsSettingsActivity::class.java))
+            },
+        )
         if (aiEntryUnlocked) {
-            Spacer(modifier = Modifier.height(8.dp))
-            SettingsCategory(title = stringResource(R.string.settings_ext_category_ai))
+            PreferenceGroupSpacer()
             PreferenceRow(
                 title = stringResource(R.string.settings_ext_ai_core_title),
                 summary = "",
                 showSummary = false,
+                position = PreferencePosition.Bottom,
                 iconContent = {
                     SettingsHomepageIcon(iconRes = R.drawable.ic_ai)
                 },
