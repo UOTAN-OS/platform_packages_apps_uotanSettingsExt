@@ -25,6 +25,12 @@ public final class MomentSecureSettings {
     private MomentSecureSettings() {
     }
 
+    public static void disableAll(Context context) {
+        setEnabled(context, false);
+        setArcGestureEnabled(context, false);
+        setNavHandleDoubleTapEnabled(context, false);
+    }
+
     public static void setEnabled(Context context, boolean enabled) {
         SettingsUtils.putSecureBoolean(context, Settings.Secure.MOMENT_ENABLED, enabled);
     }

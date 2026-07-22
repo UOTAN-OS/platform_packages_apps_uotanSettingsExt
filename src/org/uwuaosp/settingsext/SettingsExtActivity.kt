@@ -59,6 +59,7 @@ import org.uwuaosp.settingsext.appjump.AppJumpSettingsActivity
 import org.uwuaosp.settingsext.background.BackgroundManagementActivity
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
+import org.uwuaosp.settingsext.moment.MomentSecureSettings
 import org.uwuaosp.settingsext.moment.MomentSettingsActivity
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity
 import org.uwuaosp.settingsext.util.FeatureUtils
@@ -66,6 +67,10 @@ import org.uwuaosp.settingsext.util.FeatureUtils
 class SettingsExtActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!FeatureUtils.isMomentSettingsEnabled(this)) {
+            MomentSecureSettings.disableAll(this)
+        }
 
         enableEdgeToEdge()
         setContent {
