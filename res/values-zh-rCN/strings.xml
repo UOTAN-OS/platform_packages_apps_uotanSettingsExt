@@ -86,6 +86,7 @@
     <string name="moment_arc_editor_slot_filled">%1$s MomentArc 槽位</string>
 
     <string name="smart_suggestions_settings_title">智能建议</string>
+    <string name="smart_suggestions_settings_description">根据当前操作提供实用建议，所有处理均在设备本地完成</string>
     <string name="suggestion_section_flashlight">手电筒</string>
     <string name="suggestion_section_music">音乐</string>
     <string name="suggestion_section_sms">短信验证码</string>
@@ -171,7 +172,6 @@
     <string name="sms_code_rule_preset_keyword_followed_name">关键词后置验证码</string>
     <string name="switch_music_suggestion_summary_on">当连接到耳机时建议打开 %1$s</string>
     <string name="switch_music_suggestion_summary_off">关闭建议</string>
-    <string name="privacy_notice">我们不会上传您的任何数据，所有处理均在本地完成</string>
     <string name="app_picker_title">选择应用</string>
 
     <string name="lyric_settings_title">状态栏歌词</string>

@@ -86,6 +86,7 @@
     <string name="moment_arc_editor_slot_filled">%1$s MomentArc slot</string>
 
     <string name="smart_suggestions_settings_title">Smart Suggestions</string>
+    <string name="smart_suggestions_settings_description">Get useful actions based on what you are doing, with all processing performed on your device</string>
     <string name="suggestion_section_flashlight">Flashlight</string>
     <string name="suggestion_section_music">Music</string>
     <string name="suggestion_section_sms">SMS Verification</string>
@@ -174,7 +175,6 @@
     <string name="sms_code_rule_preset_keyword_followed_pattern">(?i)(?:验证码|code|otp).{0,20}?([A-Za-z0-9]{4,8})</string>
     <string name="switch_music_suggestion_summary_on">Open %1$s when connected to ears</string>
     <string name="switch_music_suggestion_summary_off">Disabled</string>
-    <string name="privacy_notice">We do not upload any of your data. All processing is done locally</string>
     <string name="app_picker_title">Choose app</string>
 
     <string name="lyric_settings_title">Status Bar Lyric</string>
