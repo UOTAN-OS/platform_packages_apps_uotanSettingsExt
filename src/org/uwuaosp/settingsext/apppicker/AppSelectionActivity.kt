@@ -16,8 +16,8 @@
 
 package org.uwuaosp.settingsext.apppicker
 
-import android.content.Intent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.graphics.drawable.toBitmap
+import java.text.Collator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.uwuaosp.compose.settingslib.AppListEmpty
@@ -48,9 +49,9 @@ import org.uwuaosp.compose.settingslib.SettingsCategory
 import org.uwuaosp.compose.settingslib.preferencePosition
 import org.uwuaosp.settingsext.R
 import org.uwuaosp.settingsext.SettingsExtTheme
+import org.uwuaosp.settingsext.attestation.KeyAttestationSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSecureSettings
-import java.text.Collator
 
 class AppSelectionActivity : ComponentActivity() {
     companion object {
@@ -59,6 +60,7 @@ class AppSelectionActivity : ComponentActivity() {
         const val EXTRA_RESULT_PACKAGE = "result_package"
         const val EXTRA_RESULT_LABEL = "result_label"
         const val SELECTION_MODE_LYRIC_WHITELIST = "lyric_whitelist"
+        const val SELECTION_MODE_KEYBOX_EXCLUSION = "keybox_exclusion"
         const val SELECTION_MODE_MUSIC_SUGGESTION = "music_suggestion"
         const val SELECTION_MODE_SINGLE_APP = "single_app"
     }
@@ -76,7 +78,10 @@ class AppSelectionActivity : ComponentActivity() {
                     onSingleAppSelected = { app ->
                         when (mode) {
                             SELECTION_MODE_MUSIC_SUGGESTION -> {
-                                SmartSuggestionsSecureSettings.setMusicPackage(this, app.packageName)
+                                SmartSuggestionsSecureSettings.setMusicPackage(
+                                    this,
+                                    app.packageName,
+                                )
                                 SmartSuggestionsSecureSettings.setMusicEnabled(this, true)
                                 setResult(RESULT_OK)
                             }
@@ -97,11 +102,7 @@ class AppSelectionActivity : ComponentActivity() {
     }
 }
 
-private data class AppPickerEntry(
-    val label: String,
-    val packageName: String,
-    val icon: Bitmap,
-)
+private data class AppPickerEntry(val label: String, val packageName: String, val icon: Bitmap)
 
 @Composable
 private fun AppSelectionScreen(
@@ -111,21 +112,26 @@ private fun AppSelectionScreen(
     onSingleAppSelected: (AppPickerEntry) -> Unit,
 ) {
     val context = LocalContext.current
-    val multiple = mode == AppSelectionActivity.SELECTION_MODE_LYRIC_WHITELIST
+    val multiple =
+        mode == AppSelectionActivity.SELECTION_MODE_LYRIC_WHITELIST ||
+            mode == AppSelectionActivity.SELECTION_MODE_KEYBOX_EXCLUSION
     var apps by remember { mutableStateOf<List<AppPickerEntry>>(emptyList()) }
     var selectedPackages by remember {
         mutableStateOf(
             when (mode) {
                 AppSelectionActivity.SELECTION_MODE_LYRIC_WHITELIST ->
                     LyricSecureSettings.getAllowedPackages(context).toSet()
-                AppSelectionActivity.SELECTION_MODE_MUSIC_SUGGESTION -> setOf(
-                    SmartSuggestionsSecureSettings.getMusicPackage(
-                        context,
-                        context.getString(R.string.default_music_app),
-                    ),
-                )
+                AppSelectionActivity.SELECTION_MODE_KEYBOX_EXCLUSION ->
+                    KeyAttestationSecureSettings.getExcludedPackages(context).toSet()
+                AppSelectionActivity.SELECTION_MODE_MUSIC_SUGGESTION ->
+                    setOf(
+                        SmartSuggestionsSecureSettings.getMusicPackage(
+                            context,
+                            context.getString(R.string.default_music_app),
+                        )
+                    )
                 else -> setOfNotNull(initialPackage?.takeIf { it.isNotBlank() })
-            },
+            }
         )
     }
     var loading by remember { mutableStateOf(true) }
@@ -137,37 +143,54 @@ private fun AppSelectionScreen(
         loading = true
         loadFailed = false
         runCatching {
-            withContext(Dispatchers.IO) { loadLaunchableApps(context) }
-        }.onSuccess { loaded ->
-            apps = loaded
-            if (multiple) {
-                val validSelection = selectedPackages.filterTo(mutableSetOf()) { packageName ->
-                    runCatching { context.packageManager.getApplicationInfo(packageName, 0) }
-                        .isSuccess
-                }
-                if (validSelection != selectedPackages) {
-                    selectedPackages = validSelection
-                    LyricSecureSettings.setAllowedPackages(context, validSelection.toList())
+                withContext(Dispatchers.IO) {
+                    if (mode == AppSelectionActivity.SELECTION_MODE_KEYBOX_EXCLUSION) {
+                        loadInstalledApps(context)
+                    } else {
+                        loadLaunchableApps(context)
+                    }
                 }
             }
-        }.onFailure { loadFailed = true }
+            .onSuccess { loaded ->
+                apps = loaded
+                if (multiple) {
+                    val validSelection =
+                        selectedPackages.filterTo(mutableSetOf()) { packageName ->
+                            runCatching {
+                                    context.packageManager.getApplicationInfo(packageName, 0)
+                                }
+                                .isSuccess
+                        }
+                    if (validSelection != selectedPackages) {
+                        selectedPackages = validSelection
+                        saveMultipleSelection(context, mode, validSelection)
+                    }
+                }
+            }
+            .onFailure { loadFailed = true }
         loading = false
     }
 
-    val filteredApps = remember(apps, searchQuery) {
-        val query = searchQuery.trim()
-        if (query.isEmpty()) apps else apps.filter {
-            it.label.contains(query, ignoreCase = true) ||
-                it.packageName.contains(query, ignoreCase = true)
+    val filteredApps =
+        remember(apps, searchQuery) {
+            val query = searchQuery.trim()
+            if (query.isEmpty()) apps
+            else
+                apps.filter {
+                    it.label.contains(query, ignoreCase = true) ||
+                        it.packageName.contains(query, ignoreCase = true)
+                }
         }
-    }
-    val title = when (mode) {
-        AppSelectionActivity.SELECTION_MODE_LYRIC_WHITELIST ->
-            stringResource(R.string.lyric_whitelist_title)
-        AppSelectionActivity.SELECTION_MODE_MUSIC_SUGGESTION ->
-            stringResource(R.string.switch_music_suggestion_title)
-        else -> stringResource(R.string.app_picker_title)
-    }
+    val title =
+        when (mode) {
+            AppSelectionActivity.SELECTION_MODE_LYRIC_WHITELIST ->
+                stringResource(R.string.lyric_whitelist_title)
+            AppSelectionActivity.SELECTION_MODE_KEYBOX_EXCLUSION ->
+                stringResource(R.string.key_attestation_excluded_apps_title)
+            AppSelectionActivity.SELECTION_MODE_MUSIC_SUGGESTION ->
+                stringResource(R.string.switch_music_suggestion_title)
+            else -> stringResource(R.string.app_picker_title)
+        }
 
     AppListScaffold(
         title = title,
@@ -182,85 +205,127 @@ private fun AppSelectionScreen(
         }
         when {
             loading -> item(key = "loading") { AppListLoading() }
-            loadFailed -> item(key = "error") {
-                AppListError(
-                    text = stringResource(R.string.background_load_failed),
-                    retryText = stringResource(R.string.background_retry),
-                    onRetry = { reloadToken += 1 },
-                )
-            }
-            filteredApps.isEmpty() -> item(key = "empty") {
-                AppListEmpty(text = stringResource(R.string.background_no_apps))
-            }
-            else -> items(
-                count = filteredApps.size,
-                key = { filteredApps[it].packageName },
-            ) { index ->
-                val app = filteredApps[index]
-                val selected = app.packageName in selectedPackages
-                androidx.compose.foundation.layout.Column {
-                    AppListItem(
-                        label = app.label,
-                        packageName = app.packageName,
-                        icon = app.icon.asImageBitmap(),
-                        position = preferencePosition(index, filteredApps.lastIndex),
-                        onClick = {
-                            if (multiple) {
-                                selectedPackages = if (selected) {
-                                    selectedPackages - app.packageName
-                                } else {
-                                    selectedPackages + app.packageName
-                                }
-                                LyricSecureSettings.setAllowedPackages(
-                                    context,
-                                    selectedPackages.toList(),
-                                )
-                            } else {
-                                onSingleAppSelected(app)
-                            }
-                        },
-                    ) {
-                        Checkbox(checked = selected, onCheckedChange = null)
-                    }
-                    if (index != filteredApps.lastIndex) PreferenceGroupSpacer()
+            loadFailed ->
+                item(key = "error") {
+                    AppListError(
+                        text = stringResource(R.string.background_load_failed),
+                        retryText = stringResource(R.string.background_retry),
+                        onRetry = { reloadToken += 1 },
+                    )
                 }
-            }
+            filteredApps.isEmpty() ->
+                item(key = "empty") {
+                    AppListEmpty(text = stringResource(R.string.background_no_apps))
+                }
+            else ->
+                items(count = filteredApps.size, key = { filteredApps[it].packageName }) { index ->
+                    val app = filteredApps[index]
+                    val selected = app.packageName in selectedPackages
+                    androidx.compose.foundation.layout.Column {
+                        AppListItem(
+                            label = app.label,
+                            packageName = app.packageName,
+                            icon = app.icon.asImageBitmap(),
+                            position = preferencePosition(index, filteredApps.lastIndex),
+                            onClick = {
+                                if (multiple) {
+                                    selectedPackages =
+                                        if (selected) {
+                                            selectedPackages - app.packageName
+                                        } else {
+                                            selectedPackages + app.packageName
+                                        }
+                                    saveMultipleSelection(context, mode, selectedPackages)
+                                } else {
+                                    onSingleAppSelected(app)
+                                }
+                            },
+                        ) {
+                            Checkbox(checked = selected, onCheckedChange = null)
+                        }
+                        if (index != filteredApps.lastIndex) PreferenceGroupSpacer()
+                    }
+                }
         }
+    }
+}
+
+private fun saveMultipleSelection(context: Context, mode: String, packages: Set<String>) {
+    when (mode) {
+        AppSelectionActivity.SELECTION_MODE_LYRIC_WHITELIST ->
+            LyricSecureSettings.setAllowedPackages(context, packages.toList())
+        AppSelectionActivity.SELECTION_MODE_KEYBOX_EXCLUSION ->
+            KeyAttestationSecureSettings.setExcludedPackages(context, packages.toList())
     }
 }
 
 private fun loadLaunchableApps(context: Context): List<AppPickerEntry> {
     val packageManager = context.packageManager
     val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
-    val iconSize = (48 * context.resources.displayMetrics.density)
-        .toInt()
-        .coerceAtLeast(1)
+    val iconSize = (48 * context.resources.displayMetrics.density).toInt().coerceAtLeast(1)
     val apps = LinkedHashMap<String, AppPickerEntry>()
-    for (resolveInfo in packageManager.queryIntentActivities(
-        intent,
-        PackageManager.GET_META_DATA or PackageManager.MATCH_ALL,
-    )) {
+    for (resolveInfo in
+        packageManager.queryIntentActivities(
+            intent,
+            PackageManager.GET_META_DATA or PackageManager.MATCH_ALL,
+        )) {
         val packageName = resolveInfo.activityInfo?.packageName ?: continue
         if (packageName in apps) continue
-        val label = resolveInfo.loadLabel(packageManager)?.toString().orEmpty()
-            .ifBlank { packageName }
-        val icon = runCatching {
-            resolveInfo.loadIcon(packageManager).toBitmap(
-                iconSize,
-                iconSize,
-                Bitmap.Config.ARGB_8888,
-            )
-        }.getOrElse {
-            packageManager.defaultActivityIcon.toBitmap(
-                iconSize,
-                iconSize,
-                Bitmap.Config.ARGB_8888,
-            )
-        }
+        val label =
+            resolveInfo.loadLabel(packageManager)?.toString().orEmpty().ifBlank { packageName }
+        val icon =
+            runCatching {
+                    resolveInfo
+                        .loadIcon(packageManager)
+                        .toBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888)
+                }
+                .getOrElse {
+                    packageManager.defaultActivityIcon.toBitmap(
+                        iconSize,
+                        iconSize,
+                        Bitmap.Config.ARGB_8888,
+                    )
+                }
         apps[packageName] = AppPickerEntry(label, packageName, icon)
     }
+    return apps.values.sortedWith(appEntryComparator())
+}
+
+private fun loadInstalledApps(context: Context): List<AppPickerEntry> {
+    val packageManager = context.packageManager
+    val iconSize = (48 * context.resources.displayMetrics.density).toInt().coerceAtLeast(1)
+    return packageManager
+        .getInstalledApplications(PackageManager.MATCH_ALL)
+        .asSequence()
+        .filter { it.packageName != context.packageName }
+        .map { applicationInfo ->
+            val packageName = applicationInfo.packageName
+            val label =
+                applicationInfo.loadLabel(packageManager)?.toString().orEmpty().ifBlank {
+                    packageName
+                }
+            val icon =
+                runCatching {
+                        applicationInfo
+                            .loadIcon(packageManager)
+                            .toBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888)
+                    }
+                    .getOrElse {
+                        packageManager.defaultActivityIcon.toBitmap(
+                            iconSize,
+                            iconSize,
+                            Bitmap.Config.ARGB_8888,
+                        )
+                    }
+            AppPickerEntry(label, packageName, icon)
+        }
+        .sortedWith(appEntryComparator())
+        .toList()
+}
+
+private fun appEntryComparator(): Comparator<AppPickerEntry> {
     val collator = Collator.getInstance()
-    return apps.values.sortedWith { first, second ->
+    return Comparator { first, second ->
         val labelOrder = collator.compare(first.label, second.label)
         if (labelOrder != 0) labelOrder else first.packageName.compareTo(second.packageName)
     }

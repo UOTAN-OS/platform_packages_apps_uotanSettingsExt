@@ -25,7 +25,7 @@
     <string name="settings_ext_category_ai">AI</string>
     <string name="settings_ext_category_system_features">System Features</string>
     <string name="settings_ext_key_attestation_title">Spoofing Settings</string>
-    <string name="settings_ext_key_attestation_summary">Import Keybox XML and custom pif.json</string>
+    <string name="settings_ext_key_attestation_summary">Manage Keybox, excluded apps, and custom pif.json</string>
     <string name="settings_ext_app_jump_title">App Jump Permissions</string>
     <string name="settings_ext_app_jump_summary">Manage how apps open other apps and how they can be opened in return</string>
     <string name="settings_ext_smart_suggestions_title">Smart Suggestions</string>
@@ -268,19 +268,26 @@
     <string name="app_jump_update_failed">Could not update app jump settings</string>
 
     <string name="key_attestation_settings_title">Spoofing Settings</string>
+    <string name="key_attestation_keybox_category">Keybox</string>
+    <string name="key_attestation_apps_category">App exclusions</string>
+    <string name="key_attestation_pif_category">Play Integrity properties</string>
     <string name="keybox_data_title">Import Keybox XML</string>
-    <string name="keybox_data_summary">Import keybox. Tap Delete to reset to defaults.</string>
+    <string name="keybox_data_summary">Select a Keybox XML file to replace the built-in default</string>
     <string name="pif_data_title">Import pif.json</string>
-    <string name="pif_data_summary">Import pif.json used to spoof properties for GMS and the Play Store. Tap Delete to revert to dynamic defaults.</string>
-    <string name="key_attestation_delete_button">Delete imported data</string>
+    <string name="pif_data_summary">Select a pif.json used for GMS and the Play Store</string>
+    <string name="key_attestation_clear_keybox_title">Clear imported Keybox</string>
+    <string name="key_attestation_clear_keybox_summary">Return to the built-in Keybox</string>
+    <string name="key_attestation_clear_pif_title">Clear imported pif.json</string>
+    <string name="key_attestation_clear_pif_summary">Return to dynamically fetched properties</string>
+    <string name="key_attestation_excluded_apps_title">Excluded apps</string>
+    <string name="key_attestation_excluded_apps_empty">No apps excluded</string>
+    <string name="key_attestation_excluded_apps_footer">Excluded apps use the device attestation implementation instead of the built-in Keybox. This can restore compatibility with apps that reject substituted attestation certificates.</string>
+    <string name="key_attestation_file_read_failed">Failed to read the selected file</string>
     <string name="key_attestation_xml_cleared">Imported Keybox XML cleared</string>
     <string name="key_attestation_json_cleared">Imported pif.json cleared</string>
-    <string name="key_attestation_invalid_file">Invalid file selected</string>
     <string name="key_attestation_invalid_xml">Invalid XML: missing required data</string>
     <string name="key_attestation_xml_loaded">Keybox XML loaded</string>
     <string name="key_attestation_json_loaded">pif.json loaded</string>
-    <string name="key_attestation_xml_read_failed">Failed to read Keybox XML</string>
-    <string name="key_attestation_json_read_failed">Failed to read pif.json</string>
     <string name="key_attestation_status_imported">Status: Imported custom data</string>
     <string name="key_attestation_status_unparsed">Status: Some fields could not be parsed</string>
     <string name="key_attestation_unknown">Unknown</string>
@@ -303,5 +310,9 @@
     <plurals name="lyric_whitelist_summary_count">
         <item quantity="one">%d allowed app</item>
         <item quantity="other">%d allowed apps</item>
+    </plurals>
+    <plurals name="key_attestation_excluded_apps_count">
+        <item quantity="one">%d excluded app</item>
+        <item quantity="other">%d excluded apps</item>
     </plurals>
 </resources>

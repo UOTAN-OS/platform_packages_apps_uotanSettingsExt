@@ -19,6 +19,11 @@ package org.uwuaosp.settingsext.attestation;
 import android.content.Context;
 import android.provider.Settings;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public final class KeyAttestationSecureSettings {
     private KeyAttestationSecureSettings() {
     }
@@ -38,5 +43,29 @@ public final class KeyAttestationSecureSettings {
 
     public static void setPifData(Context context, String value) {
         Settings.Secure.putString(context.getContentResolver(), Settings.Secure.PIF_DATA, value);
+    }
+
+    public static List<String> getExcludedPackages(Context context) {
+        String value = Settings.Secure.getString(
+                context.getContentResolver(), Settings.Secure.KEYBOX_EXCLUDED_PACKAGES);
+        if (value == null || value.isBlank()) {
+            return Collections.emptyList();
+        }
+        return Arrays.stream(value.split(":"))
+                .filter(packageName -> !packageName.isBlank())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public static void setExcludedPackages(Context context, List<String> packages) {
+        String value = packages.stream()
+                .filter(packageName -> packageName != null && !packageName.isBlank())
+                .distinct()
+                .sorted()
+                .collect(Collectors.joining(":"));
+        Settings.Secure.putString(
+                context.getContentResolver(),
+                Settings.Secure.KEYBOX_EXCLUDED_PACKAGES,
+                value.isEmpty() ? null : value);
     }
 }

@@ -23,7 +23,7 @@
     <string name="settings_ext_category_launcher">启动器</string>
     <string name="settings_ext_category_lyric">状态栏</string>
     <string name="settings_ext_key_attestation_title">伪装设置</string>
-    <string name="settings_ext_key_attestation_summary">导入 Keybox XML 和自定义 pif.json</string>
+    <string name="settings_ext_key_attestation_summary">管理 Keybox、排除应用与自定义 pif.json</string>
     <string name="settings_ext_app_jump_title">应用跳转权限</string>
     <string name="settings_ext_app_jump_summary">管理应用如何打开其他应用，以及它们如何被其他应用打开</string>
     <string name="settings_ext_smart_suggestions_title">智能建议</string>
@@ -265,19 +265,26 @@
     <string name="app_jump_update_failed">无法更新应用跳转设置项</string>
 
     <string name="key_attestation_settings_title">伪装设置</string>
+    <string name="key_attestation_keybox_category">Keybox</string>
+    <string name="key_attestation_apps_category">应用排除</string>
+    <string name="key_attestation_pif_category">Play Integrity 属性</string>
     <string name="keybox_data_title">导入 Keybox XML</string>
-    <string name="keybox_data_summary">导入 keybox。点击删除可恢复默认。</string>
+    <string name="keybox_data_summary">选择 Keybox XML 文件以替换内置默认值</string>
     <string name="pif_data_title">导入 pif.json</string>
-    <string name="pif_data_summary">导入用于欺骗 GMS 和 Play 商店属性的 pif.json。点击删除可恢复为动态默认值。</string>
-    <string name="key_attestation_delete_button">删除导入数据</string>
+    <string name="pif_data_summary">选择用于 GMS 和 Play 商店的 pif.json</string>
+    <string name="key_attestation_clear_keybox_title">清除导入的 Keybox</string>
+    <string name="key_attestation_clear_keybox_summary">恢复使用内置 Keybox</string>
+    <string name="key_attestation_clear_pif_title">清除导入的 pif.json</string>
+    <string name="key_attestation_clear_pif_summary">恢复使用动态获取的属性</string>
+    <string name="key_attestation_excluded_apps_title">排除应用</string>
+    <string name="key_attestation_excluded_apps_empty">未排除任何应用</string>
+    <string name="key_attestation_excluded_apps_footer">被排除的应用将使用设备原始证明实现，而不使用内置 Keybox。这可以恢复不接受替换证明证书的应用兼容性。</string>
+    <string name="key_attestation_file_read_failed">读取所选文件失败</string>
     <string name="key_attestation_xml_cleared">已清除导入的 Keybox XML</string>
     <string name="key_attestation_json_cleared">已清除导入的 pif.json</string>
-    <string name="key_attestation_invalid_file">选择的文件无效</string>
     <string name="key_attestation_invalid_xml">XML 无效：缺少必需数据</string>
     <string name="key_attestation_xml_loaded">Keybox XML 已导入</string>
     <string name="key_attestation_json_loaded">pif.json 已导入</string>
-    <string name="key_attestation_xml_read_failed">读取 Keybox XML 失败</string>
-    <string name="key_attestation_json_read_failed">读取 pif.json 失败</string>
     <string name="key_attestation_status_imported">Status: Imported custom data</string>
     <string name="key_attestation_status_unparsed">Status: Some fields could not be parsed</string>
     <string name="key_attestation_unknown">Unknown</string>
@@ -299,5 +306,8 @@
 
     <plurals name="lyric_whitelist_summary_count">
         <item quantity="other">已选择 %d 个应用</item>
+    </plurals>
+    <plurals name="key_attestation_excluded_apps_count">
+        <item quantity="other">已排除 %d 个应用</item>
     </plurals>
 </resources>
