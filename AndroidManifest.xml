@@ -44,6 +44,11 @@
             android:label="@string/background_management_title" />
 
         <activity
+            android:name=".sensors.SensorPolicyActivity"
+            android:exported="false"
+            android:label="@string/sensor_policy_title" />
+
+        <activity
             android:name=".background.BackgroundManagementSettingsActivity"
             android:exported="false"
             android:label="@string/background_settings_title" />

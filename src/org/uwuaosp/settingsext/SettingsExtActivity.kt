@@ -64,6 +64,7 @@ import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
 import org.uwuaosp.settingsext.moment.MomentSecureSettings
 import org.uwuaosp.settingsext.moment.MomentSettingsActivity
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity
+import org.uwuaosp.settingsext.sensors.SensorPolicyActivity
 import org.uwuaosp.settingsext.util.FeatureUtils
 
 class SettingsExtActivity : ComponentActivity() {
@@ -167,6 +168,15 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             onClick = {
                 context.startActivity(Intent(context, BackgroundManagementActivity::class.java))
             },
+        )
+        PreferenceGroupSpacer()
+        PreferenceRow(
+            title = stringResource(R.string.sensor_policy_title),
+            summary = "",
+            showSummary = false,
+            position = PreferencePosition.Middle,
+            iconContent = { SettingsHomepageIcon(iconRes = R.drawable.ic_sensor_policy) },
+            onClick = { context.startActivity(Intent(context, SensorPolicyActivity::class.java)) },
         )
         PreferenceGroupSpacer()
         if (FeatureUtils.isMomentSettingsEnabled(context)) {
