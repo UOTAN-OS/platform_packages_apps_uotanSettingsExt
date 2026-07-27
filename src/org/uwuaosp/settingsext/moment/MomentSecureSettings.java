@@ -29,6 +29,9 @@ public final class MomentSecureSettings {
         setEnabled(context, false);
         setArcGestureEnabled(context, false);
         setNavHandleDoubleTapEnabled(context, false);
+        setNotificationClickEnabled(context, false);
+        setNotificationClickPortraitEnabled(context, false);
+        setNotificationClickLandscapeEnabled(context, false);
     }
 
     public static void setEnabled(Context context, boolean enabled) {
@@ -58,5 +61,37 @@ public final class MomentSecureSettings {
     public static boolean isNavHandleDoubleTapEnabled(Context context, boolean defaultValue) {
         return SettingsUtils.getSecureBoolean(
                 context, Settings.Secure.MOMENT_NAV_HANDLE_DOUBLE_TAP_ENABLED, defaultValue);
+    }
+
+    public static void setNotificationClickEnabled(Context context, boolean enabled) {
+        SettingsUtils.putSecureBoolean(
+                context, Settings.Secure.MOMENT_NOTIFICATION_CLICK_ENABLED, enabled);
+    }
+
+    public static boolean isNotificationClickEnabled(Context context, boolean defaultValue) {
+        return SettingsUtils.getSecureBoolean(
+                context, Settings.Secure.MOMENT_NOTIFICATION_CLICK_ENABLED, defaultValue);
+    }
+
+    public static void setNotificationClickPortraitEnabled(Context context, boolean enabled) {
+        SettingsUtils.putSecureBoolean(
+                context, Settings.Secure.MOMENT_NOTIFICATION_CLICK_PORTRAIT_ENABLED, enabled);
+    }
+
+    public static boolean isNotificationClickPortraitEnabled(
+            Context context, boolean defaultValue) {
+        return SettingsUtils.getSecureBoolean(context,
+                Settings.Secure.MOMENT_NOTIFICATION_CLICK_PORTRAIT_ENABLED, defaultValue);
+    }
+
+    public static void setNotificationClickLandscapeEnabled(Context context, boolean enabled) {
+        SettingsUtils.putSecureBoolean(
+                context, Settings.Secure.MOMENT_NOTIFICATION_CLICK_LANDSCAPE_ENABLED, enabled);
+    }
+
+    public static boolean isNotificationClickLandscapeEnabled(
+            Context context, boolean defaultValue) {
+        return SettingsUtils.getSecureBoolean(context,
+                Settings.Secure.MOMENT_NOTIFICATION_CLICK_LANDSCAPE_ENABLED, defaultValue);
     }
 }

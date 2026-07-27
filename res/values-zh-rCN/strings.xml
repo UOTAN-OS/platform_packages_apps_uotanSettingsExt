@@ -65,6 +65,7 @@
 
     <string name="app_picker_all_apps">全部应用</string>
     <string name="moment_section_experience">启动与体验</string>
+    <string name="moment_notification_section">通知打开</string>
     <string name="moment_settings_title">Moment</string>
     <string name="moment_tutorial_fullscreen_title">展开到全屏</string>
     <string name="moment_tutorial_fullscreen_description">双击 Moment 底部的小白条，将小窗展开到全屏</string>
@@ -79,8 +80,10 @@
     <string name="replay_animation">重播动画</string>
     <string name="moment_launch_title">以 Moment 启动应用</string>
     <string name="moment_launch_summary">选择要启动的应用</string>
-    <string name="moment_notification_button_title">通知 Moment 按钮</string>
-    <string name="moment_notification_button_summary">为不支持气泡的通知显示 Moment 按钮</string>
+    <string name="moment_notification_click_title">在 Moment 中打开通知</string>
+    <string name="moment_notification_click_summary">点按通知时使用 Moment，或通过通知按钮全屏打开</string>
+    <string name="moment_notification_click_portrait_title">在竖屏时使用</string>
+    <string name="moment_notification_click_landscape_title">在横屏时使用</string>
     <string name="moment_all_apps">全部应用</string>
     <string name="moment_cannot_launch_app">无法启动该应用</string>
     <string name="moment_gestures_section">手势</string>
