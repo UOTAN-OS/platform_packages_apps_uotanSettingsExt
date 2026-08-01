@@ -273,7 +273,7 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             position = if (aiEntryUnlocked) {
                 PreferencePosition.Top
             } else {
-                PreferencePosition.Single
+                PreferencePosition.Top
             },
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_smart_suggestions)
@@ -288,7 +288,7 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                 title = stringResource(R.string.settings_ext_ai_core_title),
                 summary = "",
                 showSummary = false,
-                position = PreferencePosition.Bottom,
+                position = PreferencePosition.Middle,
                 iconContent = {
                     SettingsHomepageIcon(iconRes = R.drawable.ic_ai)
                 },
@@ -299,13 +299,12 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                 },
             )
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
-        SettingsCategory(title = stringResource(R.string.settings_ext_category_uwu_ocr))
+        PreferenceGroupSpacer()
         PreferenceRow(
             title = stringResource(R.string.settings_ext_prism_title),
             summary = "",
             showSummary = false,
+            position = PreferencePosition.Bottom,
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_phone_camera)
             },

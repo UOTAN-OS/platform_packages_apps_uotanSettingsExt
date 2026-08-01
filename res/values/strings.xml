@@ -20,7 +20,6 @@
     <string name="settings_ext_category_system_interface">System &amp; interface</string>
     <string name="settings_ext_category_privacy_security">Privacy &amp; security</string>
     <string name="settings_ext_category_intelligence">Intelligence</string>
-    <string name="settings_ext_category_uwu_ocr">UwU-OCR</string>
     <string name="settings_ext_prism_title">uwuPrism-OCR</string>
     <string name="settings_ext_key_attestation_title">Spoofing Settings</string>
     <string name="settings_ext_app_jump_title">App Jump Permissions</string>
