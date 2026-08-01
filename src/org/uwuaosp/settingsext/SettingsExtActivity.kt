@@ -91,6 +91,8 @@ private const val AI_ENTRY_UNLOCK_TAPS = 7
 private const val SETTINGS_EXT_PREFS = "settings_ext_prefs"
 private const val PREF_AI_ENTRY_UNLOCKED = "ai_entry_unlocked"
 private const val LAUNCHER_PACKAGE = "com.android.launcher3"
+private const val PRISM_PACKAGE = "org.uwuaosp.prism"
+private const val PRISM_SETTINGS_ACTIVITY = "org.uwuaosp.prism.PrismSettingsActivity"
 
 @Composable
 internal fun SettingsExtTheme(content: @Composable () -> Unit) {
@@ -271,7 +273,7 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
             position = if (aiEntryUnlocked) {
                 PreferencePosition.Top
             } else {
-                PreferencePosition.Single
+                PreferencePosition.Top
             },
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_smart_suggestions)
@@ -286,7 +288,7 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                 title = stringResource(R.string.settings_ext_ai_core_title),
                 summary = "",
                 showSummary = false,
-                position = PreferencePosition.Bottom,
+                position = PreferencePosition.Middle,
                 iconContent = {
                     SettingsHomepageIcon(iconRes = R.drawable.ic_ai)
                 },
@@ -297,6 +299,23 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
                 },
             )
         }
+        PreferenceGroupSpacer()
+        PreferenceRow(
+            title = stringResource(R.string.settings_ext_prism_title),
+            summary = "",
+            showSummary = false,
+            position = PreferencePosition.Bottom,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_phone_camera)
+            },
+            onClick = {
+                context.startActivity(
+                    Intent().setComponent(
+                        ComponentName(PRISM_PACKAGE, PRISM_SETTINGS_ACTIVITY),
+                    ),
+                )
+            },
+        )
     }
 }
 
