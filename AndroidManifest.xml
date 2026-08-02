@@ -49,6 +49,11 @@
             android:label="@string/sensor_policy_title" />
 
         <activity
+            android:name=".qs.QuickSettingsActivity"
+            android:exported="false"
+            android:label="@string/quick_settings_title" />
+
+        <activity
             android:name=".background.BackgroundManagementSettingsActivity"
             android:exported="false"
             android:label="@string/background_settings_title" />
