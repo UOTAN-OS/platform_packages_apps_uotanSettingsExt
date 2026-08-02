@@ -31,7 +31,7 @@
     <string name="quick_settings_title">Quick settings</string>
     <string name="quick_settings_style_category">Quick Settings</string>
     <string name="quick_settings_style_selector">Choose QS style</string>
-    <string name="quick_settings_style_uwu">uwuQS</string>
+    <string name="quick_settings_style_uwu">uwu QS</string>
     <string name="quick_settings_style_default">Default QS</string>
     <string name="quick_settings_style_update_failed">Could not update Quick Settings style</string>
     <string name="quick_settings_setting_update_failed">Could not update Quick Settings setting</string>
