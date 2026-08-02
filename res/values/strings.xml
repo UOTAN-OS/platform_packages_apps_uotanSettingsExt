@@ -28,6 +28,14 @@
     <string name="settings_ext_lyric_fetch_title">Status Bar Lyric</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
 
+    <string name="quick_settings_title">Quick settings</string>
+    <string name="quick_settings_style_category">Quick Settings</string>
+    <string name="quick_settings_style_selector">Choose QS style</string>
+    <string name="quick_settings_style_uwu">uwuQS</string>
+    <string name="quick_settings_style_default">Default QS</string>
+    <string name="quick_settings_style_applying">Applying…</string>
+    <string name="quick_settings_style_update_failed">Could not update Quick Settings style</string>
+
     <string name="background_management_title">Background management</string>
     <string name="background_settings_title">Background management settings</string>
     <string name="background_apps_category">Apps</string>

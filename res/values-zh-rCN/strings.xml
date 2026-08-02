@@ -28,6 +28,14 @@
     <string name="settings_ext_lyric_fetch_title">状态栏歌词</string>
     <string name="settings_ext_ai_core_title">uwuAI Core</string>
 
+    <string name="quick_settings_title">快捷设置</string>
+    <string name="quick_settings_style_category">快捷设置</string>
+    <string name="quick_settings_style_selector">选择QS样式</string>
+    <string name="quick_settings_style_uwu">uwuQS</string>
+    <string name="quick_settings_style_default">默认QS</string>
+    <string name="quick_settings_style_applying">正在应用…</string>
+    <string name="quick_settings_style_update_failed">无法更新快捷设置样式</string>
+
     <string name="background_management_title">后台管理</string>
     <string name="background_settings_title">后台管理设置</string>
     <string name="background_apps_category">应用</string>

@@ -63,6 +63,7 @@ import org.uwuaosp.settingsext.lyric.LyricSecureSettings
 import org.uwuaosp.settingsext.lyric.LyricSettingsActivity
 import org.uwuaosp.settingsext.moment.MomentSecureSettings
 import org.uwuaosp.settingsext.moment.MomentSettingsActivity
+import org.uwuaosp.settingsext.qs.QuickSettingsActivity
 import org.uwuaosp.settingsext.smartsuggestions.SmartSuggestionsSettingsActivity
 import org.uwuaosp.settingsext.sensors.SensorPolicyActivity
 import org.uwuaosp.settingsext.util.FeatureUtils
@@ -160,10 +161,23 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
 
         SettingsCategory(title = stringResource(R.string.settings_ext_category_system_interface))
         PreferenceRow(
-            title = stringResource(R.string.background_management_title),
+            title = stringResource(R.string.quick_settings_title),
             summary = "",
             showSummary = false,
             position = PreferencePosition.Top,
+            iconContent = {
+                SettingsHomepageIcon(iconRes = R.drawable.ic_quick_settings)
+            },
+            onClick = {
+                context.startActivity(Intent(context, QuickSettingsActivity::class.java))
+            },
+        )
+        PreferenceGroupSpacer()
+        PreferenceRow(
+            title = stringResource(R.string.background_management_title),
+            summary = "",
+            showSummary = false,
+            position = PreferencePosition.Middle,
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_background_management)
             },
