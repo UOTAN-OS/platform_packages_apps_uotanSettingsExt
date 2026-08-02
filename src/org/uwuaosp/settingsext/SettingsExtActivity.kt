@@ -27,7 +27,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -41,12 +43,15 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.withTimeoutOrNull
 import org.uwuaosp.compose.settingslib.PreferenceGroupSpacer
 import org.uwuaosp.compose.settingslib.PreferencePosition
 import org.uwuaosp.compose.settingslib.PreferenceRow
@@ -89,6 +94,7 @@ class SettingsExtActivity : ComponentActivity() {
 private const val AI_CORE_PACKAGE = "org.uwuaosp.aicore"
 private const val AI_CORE_ACTIVITY = "org.uwuaosp.aicore.AiSettingsActivity"
 private const val AI_ENTRY_UNLOCK_TAPS = 7
+private const val QS_ENTRY_UNLOCK_HOLD_MILLIS = 10_000L
 private const val SETTINGS_EXT_PREFS = "settings_ext_prefs"
 private const val PREF_AI_ENTRY_UNLOCKED = "ai_entry_unlocked"
 private const val LAUNCHER_PACKAGE = "com.android.launcher3"
@@ -138,6 +144,7 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
         mutableStateOf(preferences.isAiEntryUnlocked())
     }
     var headerTapCount by remember { mutableIntStateOf(0) }
+    var qsEntryVisible by rememberSaveable { mutableStateOf(false) }
 
     SettingsScaffold(
         title = stringResource(R.string.app_name),
@@ -147,12 +154,25 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
         SettingsIllustrationHeader(
             imageRes = R.drawable.settings_ext_header_image,
             modifier = Modifier.pointerInput(Unit) {
-                detectTapGestures {
-                    if (aiEntryUnlocked) return@detectTapGestures
-                    headerTapCount += 1
-                    if (headerTapCount >= AI_ENTRY_UNLOCK_TAPS) {
-                        preferences.setAiEntryUnlocked(true)
-                        aiEntryUnlocked = true
+                awaitEachGesture {
+                    awaitFirstDown(requireUnconsumed = false)
+                    var completed = false
+                    var up: PointerInputChange? = null
+                    withTimeoutOrNull(QS_ENTRY_UNLOCK_HOLD_MILLIS) {
+                        up = waitForUpOrCancellation()
+                        completed = true
+                    }
+                    if (!completed) {
+                        qsEntryVisible = true
+                        waitForUpOrCancellation()
+                    } else if (up != null) {
+                        if (!aiEntryUnlocked) {
+                            headerTapCount += 1
+                            if (headerTapCount >= AI_ENTRY_UNLOCK_TAPS) {
+                                preferences.setAiEntryUnlocked(true)
+                                aiEntryUnlocked = true
+                            }
+                        }
                     }
                 }
             },
@@ -160,24 +180,26 @@ private fun SettingsExtHomeScreen(onNavigateUp: () -> Unit) {
         )
 
         SettingsCategory(title = stringResource(R.string.settings_ext_category_system_interface))
-        PreferenceRow(
-            title = stringResource(R.string.quick_settings_title),
-            summary = "",
-            showSummary = false,
-            position = PreferencePosition.Top,
-            iconContent = {
-                SettingsHomepageIcon(iconRes = R.drawable.ic_quick_settings)
-            },
-            onClick = {
-                context.startActivity(Intent(context, QuickSettingsActivity::class.java))
-            },
-        )
-        PreferenceGroupSpacer()
+        if (qsEntryVisible) {
+            PreferenceRow(
+                title = stringResource(R.string.quick_settings_title),
+                summary = "",
+                showSummary = false,
+                position = PreferencePosition.Top,
+                iconContent = {
+                    SettingsHomepageIcon(iconRes = R.drawable.ic_quick_settings)
+                },
+                onClick = {
+                    context.startActivity(Intent(context, QuickSettingsActivity::class.java))
+                },
+            )
+            PreferenceGroupSpacer()
+        }
         PreferenceRow(
             title = stringResource(R.string.background_management_title),
             summary = "",
             showSummary = false,
-            position = PreferencePosition.Middle,
+            position = if (qsEntryVisible) PreferencePosition.Middle else PreferencePosition.Top,
             iconContent = {
                 SettingsHomepageIcon(iconRes = R.drawable.ic_background_management)
             },

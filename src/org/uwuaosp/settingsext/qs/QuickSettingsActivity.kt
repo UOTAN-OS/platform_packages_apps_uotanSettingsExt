@@ -67,8 +67,8 @@ import org.uwuaosp.settingsext.R
 import org.uwuaosp.settingsext.SettingsExtTheme
 
 class QuickSettingsActivity : ComponentActivity() {
-    private val requestedStyle = mutableIntStateOf(STYLE_UWU)
-    private val appliedStyle = mutableIntStateOf(STYLE_UWU)
+    private val requestedStyle = mutableIntStateOf(STYLE_A16)
+    private val appliedStyle = mutableIntStateOf(STYLE_A16)
     private val observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
             refreshStyles()
@@ -114,12 +114,12 @@ class QuickSettingsActivity : ComponentActivity() {
         requestedStyle.intValue = Settings.Secure.getInt(
             contentResolver,
             Settings.Secure.QS_UI_STYLE,
-            STYLE_UWU,
+            STYLE_A16,
         ).coerceIn(STYLE_UWU, STYLE_A16)
         appliedStyle.intValue = Settings.Secure.getInt(
             contentResolver,
             Settings.Secure.QS_UI_STYLE_APPLIED,
-            STYLE_UWU,
+            STYLE_A16,
         ).coerceIn(STYLE_UWU, STYLE_A16)
     }
 
