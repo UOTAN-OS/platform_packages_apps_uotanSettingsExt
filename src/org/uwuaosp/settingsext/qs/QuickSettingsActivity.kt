@@ -54,7 +54,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -63,15 +62,17 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import org.uwuaosp.compose.settingslib.SettingsCategory
 import org.uwuaosp.compose.settingslib.SettingsScaffold
+import org.uwuaosp.compose.settingslib.SwitchPreferenceRow
 import org.uwuaosp.settingsext.R
 import org.uwuaosp.settingsext.SettingsExtTheme
 
 class QuickSettingsActivity : ComponentActivity() {
-    private val requestedStyle = mutableIntStateOf(STYLE_A16)
-    private val appliedStyle = mutableIntStateOf(STYLE_A16)
+    private val style = mutableIntStateOf(STYLE_DEFAULT_QS)
+    private val transparencyEnabled = mutableStateOf(false)
+    private val collapsedBrightnessEnabled = mutableStateOf(false)
     private val observer = object : ContentObserver(Handler(Looper.getMainLooper())) {
         override fun onChange(selfChange: Boolean) {
-            refreshStyles()
+            refreshSettings()
         }
     }
 
@@ -81,9 +82,12 @@ class QuickSettingsActivity : ComponentActivity() {
         setContent {
             SettingsExtTheme {
                 QuickSettingsScreen(
-                    requestedStyle = requestedStyle.intValue,
-                    appliedStyle = appliedStyle.intValue,
+                    style = style.intValue,
+                    transparencyEnabled = transparencyEnabled.value,
+                    collapsedBrightnessEnabled = collapsedBrightnessEnabled.value,
                     onStyleSelected = ::setStyle,
+                    onTransparencyChanged = ::setTransparencyEnabled,
+                    onCollapsedBrightnessChanged = ::setCollapsedBrightnessEnabled,
                     onNavigateUp = ::finish,
                 )
             }
@@ -98,11 +102,16 @@ class QuickSettingsActivity : ComponentActivity() {
             observer,
         )
         contentResolver.registerContentObserver(
-            Settings.Secure.getUriFor(Settings.Secure.QS_UI_STYLE_APPLIED),
+            Settings.Secure.getUriFor(Settings.Secure.UWU_QS_TRANSPARENCY_ENABLED),
             false,
             observer,
         )
-        refreshStyles()
+        contentResolver.registerContentObserver(
+            Settings.Secure.getUriFor(Settings.Secure.QS_SHOW_COLLAPSED_BRIGHTNESS),
+            false,
+            observer,
+        )
+        refreshSettings()
     }
 
     override fun onStop() {
@@ -110,25 +119,47 @@ class QuickSettingsActivity : ComponentActivity() {
         super.onStop()
     }
 
-    private fun refreshStyles() {
-        requestedStyle.intValue = Settings.Secure.getInt(
-            contentResolver,
-            Settings.Secure.QS_UI_STYLE,
-            STYLE_A16,
-        ).coerceIn(STYLE_UWU, STYLE_A16)
-        appliedStyle.intValue = Settings.Secure.getInt(
-            contentResolver,
-            Settings.Secure.QS_UI_STYLE_APPLIED,
-            STYLE_A16,
-        ).coerceIn(STYLE_UWU, STYLE_A16)
+    private fun refreshSettings() {
+        style.intValue =
+            Settings.Secure.getInt(
+                    contentResolver,
+                    Settings.Secure.QS_UI_STYLE,
+                    STYLE_DEFAULT_QS,
+                )
+                .coerceIn(STYLE_UWU_QS, STYLE_DEFAULT_QS)
+        transparencyEnabled.value =
+            Settings.Secure.getInt(
+                contentResolver,
+                Settings.Secure.UWU_QS_TRANSPARENCY_ENABLED,
+                0,
+            ) != 0
+        collapsedBrightnessEnabled.value =
+            Settings.Secure.getInt(
+                contentResolver,
+                Settings.Secure.QS_SHOW_COLLAPSED_BRIGHTNESS,
+                0,
+            ) != 0
     }
 
-    private fun setStyle(style: Int) {
-        if (style == appliedStyle.intValue || requestedStyle.intValue != appliedStyle.intValue) {
-            return
-        }
-        if (!Settings.Secure.putInt(contentResolver, Settings.Secure.QS_UI_STYLE, style)) {
+    private fun setStyle(value: Int) {
+        if (value == style.intValue) return
+        if (!Settings.Secure.putInt(contentResolver, Settings.Secure.QS_UI_STYLE, value)) {
             Toast.makeText(this, R.string.quick_settings_style_update_failed, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setTransparencyEnabled(enabled: Boolean) {
+        putBooleanSetting(Settings.Secure.UWU_QS_TRANSPARENCY_ENABLED, enabled)
+    }
+
+    private fun setCollapsedBrightnessEnabled(enabled: Boolean) {
+        putBooleanSetting(Settings.Secure.QS_SHOW_COLLAPSED_BRIGHTNESS, enabled)
+    }
+
+    private fun putBooleanSetting(name: String, enabled: Boolean) {
+        if (!Settings.Secure.putInt(contentResolver, name, if (enabled) 1 else 0)) {
+            Toast.makeText(this, R.string.quick_settings_setting_update_failed, Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -136,9 +167,12 @@ class QuickSettingsActivity : ComponentActivity() {
 
 @Composable
 private fun QuickSettingsScreen(
-    requestedStyle: Int,
-    appliedStyle: Int,
+    style: Int,
+    transparencyEnabled: Boolean,
+    collapsedBrightnessEnabled: Boolean,
     onStyleSelected: (Int) -> Unit,
+    onTransparencyChanged: (Boolean) -> Unit,
+    onCollapsedBrightnessChanged: (Boolean) -> Unit,
     onNavigateUp: () -> Unit,
 ) {
     SettingsScaffold(
@@ -147,36 +181,38 @@ private fun QuickSettingsScreen(
         onNavigateUp = onNavigateUp,
     ) {
         SettingsCategory(title = stringResource(R.string.quick_settings_style_category))
-        QuickSettingsStyleSelector(
-            requestedStyle = requestedStyle,
-            appliedStyle = appliedStyle,
-            onStyleSelected = onStyleSelected,
+        QuickSettingsStyleSelector(style = style, onStyleSelected = onStyleSelected)
+        SettingsCategory(title = stringResource(R.string.quick_settings_uwu_category))
+        SwitchPreferenceRow(
+            title = stringResource(R.string.quick_settings_uwu_transparency),
+            summary = stringResource(R.string.quick_settings_uwu_transparency_summary),
+            checked = transparencyEnabled,
+            enabled = style == STYLE_UWU_QS,
+            onCheckedChange = onTransparencyChanged,
+        )
+        SettingsCategory(title = stringResource(R.string.quick_settings_collapsed_category))
+        SwitchPreferenceRow(
+            title = stringResource(R.string.quick_settings_collapsed_brightness),
+            summary = stringResource(R.string.quick_settings_collapsed_brightness_summary),
+            checked = collapsedBrightnessEnabled,
+            onCheckedChange = onCollapsedBrightnessChanged,
         )
     }
 }
 
 @Composable
 private fun QuickSettingsStyleSelector(
-    requestedStyle: Int,
-    appliedStyle: Int,
+    style: Int,
     onStyleSelected: (Int) -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val pending = requestedStyle != appliedStyle
-    val label = if (pending) {
-        stringResource(R.string.quick_settings_style_applying)
-    } else {
-        quickSettingsStyleLabel(appliedStyle)
-    }
 
     Box {
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .alpha(if (pending) 0.55f else 1f)
                 .clip(RoundedCornerShape(24.dp))
                 .clickable(
-                    enabled = !pending,
                     role = Role.Button,
                     onClick = { expanded = true },
                 ),
@@ -199,7 +235,7 @@ private fun QuickSettingsStyleSelector(
                 Box {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = label,
+                            text = quickSettingsStyleLabel(style),
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.labelLarge,
                             maxLines = 1,
@@ -221,15 +257,15 @@ private fun QuickSettingsStyleSelector(
                         tonalElevation = 0.dp,
                         shadowElevation = 3.dp,
                     ) {
-                        listOf(STYLE_UWU, STYLE_A16).forEachIndexed { index, style ->
+                        listOf(STYLE_UWU_QS, STYLE_DEFAULT_QS).forEachIndexed { index, option ->
                             QuickSettingsStyleMenuItem(
-                                text = quickSettingsStyleLabel(style),
-                                selected = appliedStyle == style,
+                                text = quickSettingsStyleLabel(option),
+                                selected = style == option,
                                 position = index,
                                 itemCount = 2,
                                 onClick = {
                                     expanded = false
-                                    onStyleSelected(style)
+                                    onStyleSelected(option)
                                 },
                             )
                         }
@@ -291,8 +327,8 @@ private fun QuickSettingsStyleMenuItem(
 @Composable
 private fun quickSettingsStyleLabel(style: Int): String =
     stringResource(
-        if (style == STYLE_UWU) R.string.quick_settings_style_uwu else R.string.quick_settings_style_default,
+        if (style == STYLE_UWU_QS) R.string.quick_settings_style_uwu else R.string.quick_settings_style_default,
     )
 
-private const val STYLE_UWU = 0
-private const val STYLE_A16 = 1
+private const val STYLE_UWU_QS = 0
+private const val STYLE_DEFAULT_QS = 1

@@ -33,8 +33,14 @@
     <string name="quick_settings_style_selector">选择QS样式</string>
     <string name="quick_settings_style_uwu">uwuQS</string>
     <string name="quick_settings_style_default">默认QS</string>
-    <string name="quick_settings_style_applying">正在应用…</string>
     <string name="quick_settings_style_update_failed">无法更新快捷设置样式</string>
+    <string name="quick_settings_setting_update_failed">无法更新快捷设置项</string>
+    <string name="quick_settings_uwu_category">uwuQS</string>
+    <string name="quick_settings_uwu_transparency">使用透明与模糊效果</string>
+    <string name="quick_settings_uwu_transparency_summary">仅适用于uwuQS</string>
+    <string name="quick_settings_collapsed_category">折叠快捷设置</string>
+    <string name="quick_settings_collapsed_brightness">显示亮度条</string>
+    <string name="quick_settings_collapsed_brightness_summary">在快捷设置折叠时显示横向亮度条</string>
 
     <string name="background_management_title">后台管理</string>
     <string name="background_settings_title">后台管理设置</string>

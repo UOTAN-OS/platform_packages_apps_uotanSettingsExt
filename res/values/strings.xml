@@ -33,8 +33,14 @@
     <string name="quick_settings_style_selector">Choose QS style</string>
     <string name="quick_settings_style_uwu">uwuQS</string>
     <string name="quick_settings_style_default">Default QS</string>
-    <string name="quick_settings_style_applying">Applying…</string>
     <string name="quick_settings_style_update_failed">Could not update Quick Settings style</string>
+    <string name="quick_settings_setting_update_failed">Could not update Quick Settings setting</string>
+    <string name="quick_settings_uwu_category">uwuQS</string>
+    <string name="quick_settings_uwu_transparency">Use transparency and blur</string>
+    <string name="quick_settings_uwu_transparency_summary">Only applies to uwuQS</string>
+    <string name="quick_settings_collapsed_category">Collapsed Quick Settings</string>
+    <string name="quick_settings_collapsed_brightness">Show brightness slider</string>
+    <string name="quick_settings_collapsed_brightness_summary">Show the horizontal brightness slider when Quick Settings is collapsed</string>
 
     <string name="background_management_title">Background management</string>
     <string name="background_settings_title">Background management settings</string>
