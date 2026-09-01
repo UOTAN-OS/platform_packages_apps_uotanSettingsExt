@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2026 The uwuAOSP Project
+ * Copyright (C) 2026 The UotanOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -171,7 +172,7 @@ private object BackgroundLogExporter {
         check(exitCode == 0) { "logcat exited with $exitCode" }
 
         val report = buildString {
-            appendLine("uwuAOSP background management log")
+            appendLine("UotanOS background management log")
             appendLine("Generated: ${Date()}")
             appendLine("Build: ${Build.DISPLAY}")
             appendLine("Fingerprint: ${Build.FINGERPRINT}")

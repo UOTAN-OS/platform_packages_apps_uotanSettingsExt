@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2026 The uwuAOSP Project
+    Copyright (C) 2026 The UotanOS Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@
 
 -->
 <resources>
-    <string name="app_name">uwuAOSP 扩展功能</string>
+    <string name="app_name">UotanOS 扩展功能</string>
     <string name="settings_ext_category_system_interface">系统与界面</string>
     <string name="settings_ext_category_privacy_security">隐私与安全</string>
     <string name="settings_ext_category_intelligence">智能功能</string>
